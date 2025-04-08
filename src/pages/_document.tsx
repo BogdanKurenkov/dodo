@@ -43,6 +43,13 @@ export default class MyDocument extends Document {
     return (
       <Html lang="ru">
         <Head>
+          <link
+            rel="preload"
+            href="/fonts/NeueHaasUnica-Regular.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
         </Head>
         <body>
           <Main />
