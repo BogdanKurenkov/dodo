@@ -31,5 +31,8 @@ export const theme = {
         justify-content: space-between;
         align-items: center;
       `
+    },
+    font: {
+        family: "'Neue Haas Unica', -apple-system, sans-serif",
     }
 };

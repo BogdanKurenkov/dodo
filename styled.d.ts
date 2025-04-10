@@ -12,5 +12,8 @@ declare module "styled-components" {
       flexCenter: string;
       flexBetween: string;
     };
+    font: {
+      family: string;
+    };
   }
 }

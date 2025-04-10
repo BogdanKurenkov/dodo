@@ -17,6 +17,11 @@ const nextConfig: NextConfig = {
       use: ["@svgr/webpack"],
     });
 
+    config.module.rules.push({
+      test: /\.(woff|woff2)$/,
+      type: "asset/resource",
+    });
+
     return config;
   },
 };
