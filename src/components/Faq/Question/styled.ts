@@ -1,0 +1,31 @@
+import styled from "styled-components";
+
+export const QuestionWrapper = styled.div`
+  cursor: pointer;
+  padding: 28px 0;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid ${({ theme }) => theme.colors.black};
+  }
+`;
+
+export const StyledQuestion = styled.div`
+  ${({ theme }) => theme.mixins.flexBetween};
+  align-items: center;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 100%;
+  text-transform: lowercase;
+  gap: 28px;
+`;
+
+export const Answer = styled.p`
+  opacity: 80%;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 120%;
+  color: ${({ theme }) => theme.colors.black};
+  padding-top: 28px;
+  margin: 0;
+  text-transform: lowercase;
+`;

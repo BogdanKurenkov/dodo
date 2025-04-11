@@ -1,18 +1,20 @@
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { BurgerButton, BurgerLine } from './styled';
 
 interface IBurgerProps {
+    isOpen: boolean;
     onToggle?: (isOpen: boolean) => void;
     ariaLabel?: string;
 }
 
-export const Burger = ({ onToggle, ariaLabel = 'Menu' }: IBurgerProps) => {
-    const [isOpen, setIsOpen] = useState(false);
+export const Burger = ({
+    isOpen,
+    onToggle,
+    ariaLabel = 'Menu'
+}: IBurgerProps) => {
 
     const handleClick = useCallback(() => {
-        const newState = !isOpen;
-        setIsOpen(newState);
-        onToggle?.(newState);
+        onToggle?.(!isOpen);
     }, [isOpen, onToggle]);
 
     return (

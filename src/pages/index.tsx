@@ -1,10 +1,9 @@
 import Head from "next/head";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { LanguageSwitcher } from "@/components/LanguageSwitcher/LanguageSwitcher";
-import { GetStaticProps } from "next";
+import { GetServerSideProps, GetStaticProps } from "next";
 import { Header } from "@/components/Header/Header";
-import { LottieBase } from "@/components/LottieBase/LottieBase";
 import { Footer } from "@/components/Footer/Footer";
+import { Faq } from "@/widgets/Faq/Faq";
 
 export default function Home() {
   return (
@@ -16,14 +15,13 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      {/* <LottieBase path="/lottie/box_anima1/data.json" /> */}
+      <Faq />
       <Footer />
     </>
   );
 }
 
-
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {
     props: {
       ...(await serverSideTranslations(locale ?? 'ru', ['common'])),

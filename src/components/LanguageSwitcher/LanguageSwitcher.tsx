@@ -6,7 +6,11 @@ import { LANGUAGES } from '@/constants/languages';
 
 import { StyledLanguageSwitcher, SwitcherWrapper, Divider } from './styled';
 
-export const LanguageSwitcher: FC = () => {
+interface ILanguageSwitcher {
+    isActive: boolean;
+}
+
+export const LanguageSwitcher: FC<ILanguageSwitcher> = ({ isActive }) => {
     const { changeLanguage, currentLocale: locale } = useLanguageSwitcher();
 
     const handleLanguageChange = (newLocale: string) => {
@@ -16,7 +20,7 @@ export const LanguageSwitcher: FC = () => {
     };
 
     return (
-        <SwitcherWrapper role="group" aria-label="Language switcher">
+        <SwitcherWrapper $isActive={isActive} role="group" aria-label="Language switcher">
             <StyledLanguageSwitcher
                 $active={locale === LANGUAGES.RU}
                 onClick={() => handleLanguageChange(LANGUAGES.RU)}
