@@ -80,7 +80,7 @@ export const Faq: FC = () => {
     };
 
     return (
-        <SectionWrapper>
+        <SectionWrapper id="faq">
             <Container>
                 <SectionTitle isWhite={false}>
                     {t('faq.title').split('\n').map((line, i) => (

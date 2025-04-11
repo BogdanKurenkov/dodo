@@ -7,7 +7,12 @@ export const useLanguageSwitcher = () => {
 
   const changeLanguage = (newLocale: string) => {
     Cookies.set("NEXT_LOCALE", newLocale, { expires: 365 });
-    router.push(router.asPath, router.asPath, { locale: newLocale });
+
+    const pathWithoutHash = router.asPath.split("#")[0];
+    router.push(pathWithoutHash, pathWithoutHash, {
+      locale: newLocale,
+      scroll: false,
+    });
   };
 
   return { changeLanguage, currentLocale: locale };

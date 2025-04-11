@@ -7,6 +7,7 @@ export const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
     font-family: ${({ theme }) => theme.font.family};
     line-height: 100%;
+    scroll-behavior: smooth;
   }
 
   html {
