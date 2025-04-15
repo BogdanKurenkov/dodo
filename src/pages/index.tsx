@@ -4,6 +4,7 @@ import { GetServerSideProps, GetStaticProps } from "next";
 import { Header } from "@/components/Header/Header";
 import { Footer } from "@/components/Footer/Footer";
 import { Faq } from "@/widgets/Faq/Faq";
+import { Research } from "@/widgets/Research/Research";
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
+      <Research />
       <Faq />
       <Footer />
     </>

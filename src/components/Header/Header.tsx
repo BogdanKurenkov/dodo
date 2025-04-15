@@ -2,17 +2,15 @@ import { useTranslation } from "next-i18next";
 import { Burger } from "./Burger/Burger";
 import Dodo from '@/assets/svg/logo_desktop.svg'
 import DodoLab from '@/assets/svg/dodo-lab_desktop.svg'
-import { StyledHeader, StyledNav, HeaderIcons, Menu, MenuLink, LogoWrapper } from "./styled";
-import { Container } from "../Shared/Container/Container";
+import { Container } from "@/components/Shared/Container/Container";
 import { routes } from "@/constants/routes";
 import { useState } from "react";
-import { LanguageSwitcher } from "../LanguageSwitcher/LanguageSwitcher";
-
+import { LanguageSwitcher } from "@/components/LanguageSwitcher/LanguageSwitcher";
+import { StyledHeader, StyledNav, HeaderIcons, Menu, MenuLink, LogoWrapper } from "./styled";
 
 export const Header = () => {
     const { t } = useTranslation('common');
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-
     const handleBurgerToggle = (isOpen: boolean) => {
         setIsMenuOpen(isOpen);
     };
