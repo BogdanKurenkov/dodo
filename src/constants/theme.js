@@ -34,5 +34,6 @@ export const theme = {
     },
     font: {
         family: "'Neue Haas Unica', -apple-system, sans-serif",
+        rooftop: "Rooftop, sans-serif",
     }
 };

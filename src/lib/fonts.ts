@@ -30,3 +30,13 @@ export const neueHaasUnica = localFont({
   ],
   display: "swap",
 });
+export const Rooftop = localFont({
+  src: [
+    {
+      path: "../../public/fonts/Rooftop-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+  ],
+  display: "swap",
+});
