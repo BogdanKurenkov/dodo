@@ -1,15 +1,16 @@
-import {GetServerSideProps} from "next";
-import {Footer} from "@/components/Footer/Footer";
-import {Header} from "@/components/Header/Header";
-import {Container} from "@/components/Shared/Container/Container";
+import { GetServerSideProps } from "next";
+import { Footer } from "@/components/Footer/Footer";
+import { Header } from "@/components/Header/Header";
+import { Container } from "@/components/Shared/Container/Container";
 import SauceImage from "@/assets/images/sauce.png";
-import {serverSideTranslations} from "next-i18next/serverSideTranslations";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import {
   ResultDescription,
   ResultHeader,
   ContainerInner,
   ResultSubtitle,
   ResultTitle,
+  ResultContentWrapper,
   ResultBackground,
   Button,
   Sauce,
@@ -28,18 +29,15 @@ export default function VoteResult() {
                 ваш ответ влияет <br /> на будущие новинки додо пиццы
               </ResultDescription>
             </ResultHeader>
-            <ResultSubtitle>
-              <span>48%</span> участников
-            </ResultSubtitle>
-            <ResultDescription>
-              тоже проголосовали <br /> за образец № 2
-            </ResultDescription>
-            <Button
-              $variant="glass"
-              $width="610px"
-            >
-              смотреть результаты
-            </Button>
+            <ResultContentWrapper>
+              <ResultSubtitle>
+                <span>48%</span> участников
+              </ResultSubtitle>
+              <ResultDescription>
+                тоже проголосовали <br /> за образец № 2
+              </ResultDescription>
+              <Button $variant="glass">смотреть результаты</Button>
+            </ResultContentWrapper>
             <Sauce alt="sauce" src={SauceImage} />
           </ContainerInner>
         </Container>
@@ -49,7 +47,7 @@ export default function VoteResult() {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({locale}) => {
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {
     props: {
       ...(await serverSideTranslations(locale ?? "ru", ["common"])),

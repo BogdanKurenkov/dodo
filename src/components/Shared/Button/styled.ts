@@ -1,5 +1,5 @@
-import styled, {css} from "styled-components";
-import {ButtonProps} from "./types";
+import styled, { css } from "styled-components";
+import { ButtonProps } from "./types";
 
 export const StyledButton = styled.button<ButtonProps>`
   border-radius: 4px;
@@ -13,12 +13,12 @@ export const StyledButton = styled.button<ButtonProps>`
   cursor: pointer;
   outline: none;
   border: none;
-  color: ${({theme}) => theme.colors.white};
-  width: ${({$width}) => ($width ? $width : "max-content")};
+  color: ${({ theme }) => theme.colors.white};
+  width: ${({ $width }) => ($width ? $width : "max-content")};
   border-radius: 100px;
   padding: 25px 32px;
 
-  background-color: ${({theme, $variant, $backgroundColor}) => {
+  background-color: ${({ theme, $variant, $backgroundColor }) => {
     if ($backgroundColor) return $backgroundColor;
     switch ($variant) {
       case "glass":
@@ -30,7 +30,11 @@ export const StyledButton = styled.button<ButtonProps>`
     }
   }};
 
-  ${({$variant}) =>
+  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+    font-size: 32px;
+  }
+
+  ${({ $variant }) =>
     $variant === "glass" &&
     css`
       background: linear-gradient(
@@ -38,7 +42,7 @@ export const StyledButton = styled.button<ButtonProps>`
         rgba(73, 73, 78, 0.5) 15.13%,
         rgba(73, 73, 78, 0.3) 80.56%
       );
-      color: ${({theme}) => theme.colors.white};
+      color: ${({ theme }) => theme.colors.white};
       box-shadow: 0px 5px 25px 0px #00000026;
       backdrop-filter: blur(24px);
       &::before {
@@ -65,16 +69,16 @@ export const StyledButton = styled.button<ButtonProps>`
       }
     `};
 
-  ${({$fullWidth}) =>
+  ${({ $fullWidth }) =>
     $fullWidth &&
     css`
       width: 100%;
     `};
 
-  ${({disabled}) =>
+  ${({ disabled }) =>
     disabled &&
     css`
-      opacity: 0.4;
+      color: rgba(244, 244, 241, 0.4);
       cursor: default;
       pointer-events: none;
     `};

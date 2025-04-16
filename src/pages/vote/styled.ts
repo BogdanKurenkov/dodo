@@ -1,14 +1,56 @@
 import styled from "styled-components";
-import {StyledButton} from "@/components/Shared/Button/styled";
+import { StyledButton } from "@/components/Shared/Button/styled";
 
 export const VoteBackground = styled.section`
-  background-image: url("/images/vote-background.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: top center;
   position: relative;
-  z-index: 0;
+  z-index: 1;
   padding: 90px 0;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-image: url("/images/vote-background.png");
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: 40% 60%;
+    z-index: -1;
+    @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+      background-image: url("/images/vote-background-mob.png");
+      background-size: auto;
+      background-position: 38% 0%;
+    }
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+    padding: 40px 0;
+  }
+`;
+
+export const SaucesList = styled.div`
+  ${({ theme }) => theme.mixins.flexCenter}
+  gap: 146px;
+  position: relative;
+  z-index: 1;
+  padding: 88px 0 0;
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    gap: 0;
+    justify-content: space-between;
+  }
+  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+    gap: 0;
+    justify-content: space-between;
+    flex-direction: column;
+    width: min-content;
+    margin: 0 auto;
+    padding: 56px 0 0;
+  }
+  @media (max-width: 375px) {
+    width: 100%;
+  }
 `;
 
 export const SauceContainer = styled.div`
@@ -16,18 +58,45 @@ export const SauceContainer = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
-`;
+  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+    &:nth-child(odd) {
+      margin-top: -50px;
+      align-self: flex-start;
+      margin-left: 28px;
+    }
 
-export const SaucesList = styled.div`
-  ${({theme}) => theme.mixins.flexCenter}
-  gap: 146px;
-  position: relative;
-  z-index: 1;
-  padding: 88px 0;
+    &:nth-child(even) {
+      margin-top: -100px;
+      align-self: flex-end;
+      margin-left: 165px;
+    }
+    &:nth-child(1) {
+      margin-top: 0px;
+      margin-left: 0px;
+    }
+  }
+
+  @media (max-width: 375px) {
+    &:nth-child(odd) {
+      margin-top: -50px;
+      align-self: flex-start;
+      margin-left: 28px;
+    }
+
+    &:nth-child(even) {
+      margin-top: -100px;
+      align-self: flex-end;
+      margin-left: 0;
+    }
+    &:nth-child(1) {
+      margin-top: 0px;
+      margin-left: 0px;
+    }
+  }
 `;
 
 export const SauceCard = styled.div`
-  ${({theme}) => theme.mixins.flexCenter}
+  ${({ theme }) => theme.mixins.flexCenter}
   flex-direction: column;
   background: linear-gradient(160.9deg, #908f8f 29%, #c2c2c2 87.15%);
   border-radius: 41.15px 41.15px 41.15px 11.76px;
@@ -39,6 +108,13 @@ export const SauceCard = styled.div`
   cursor: pointer;
   transition: all 0.4s ease;
 
+  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+    min-width: initial;
+    width: 120px;
+    height: 150px;
+    border-radius: 28px 28px 28px 8px;
+  }
+
   &::after {
     content: "";
     position: absolute;
@@ -48,7 +124,7 @@ export const SauceCard = styled.div`
     top: 0;
     width: 100%;
     height: 100%;
-    background: ${({theme}) => theme.colors.white};
+    background: ${({ theme }) => theme.colors.white};
     clip-path: polygon(0 100%, 0 100%, 0 100%, 0 100%);
     z-index: 1;
     transition: all 0.4s ease;
@@ -67,10 +143,14 @@ export const SauceCard = styled.div`
     clip-path: polygon(0 100%, 0 100%, 0 100%, 0 100%);
     z-index: 2;
     transition: all 0.4s ease;
+    @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+      width: calc(100% - 15px);
+      height: calc(100% - 10px);
+    }
   }
 
   &:hover {
-    box-shadow: 6.63px -6.63px 66.32px 0px ${({theme}) => theme.colors.orange};
+    box-shadow: 6.63px -6.63px 66.32px 0px ${({ theme }) => theme.colors.orange};
     &::after {
       clip-path: polygon(0 45%, 100% 81%, 100% 100%, 0% 100%);
     }
@@ -80,7 +160,7 @@ export const SauceCard = styled.div`
   }
 
   &.active {
-    box-shadow: 6.63px -6.63px 66.32px 0px ${({theme}) => theme.colors.orange};
+    box-shadow: 6.63px -6.63px 66.32px 0px ${({ theme }) => theme.colors.orange};
     &::after {
       clip-path: polygon(0 45%, 100% 81%, 100% 100%, 0% 100%);
     }
@@ -91,7 +171,7 @@ export const SauceCard = styled.div`
 `;
 
 export const SauceNumber = styled.div`
-  font-family: ${({theme}) => theme.font.rooftop};
+  font-family: ${({ theme }) => theme.font.rooftop};
   font-size: 252px;
   line-height: 100%;
   text-align: right;
@@ -101,41 +181,66 @@ export const SauceNumber = styled.div`
   transform: translateY(-50%);
   z-index: 0;
   pointer-events: none;
+  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+    font-size: 171px;
+    right: -18px;
+  }
 `;
 
 export const SauceType = styled.h3`
+  font-family: ${({ theme }) => theme.font.rooftop};
   font-size: 24px;
   line-height: 100%;
   text-align: center;
-  color: ${({theme}) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.black};
   position: absolute;
   bottom: 71px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
+  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+    font-size: 16px;
+    bottom: 50px;
+  }
 `;
 
 export const SauceSample = styled.p`
   margin-top: 32px;
+  font-weight: 500;
   font-size: 22.75px;
   line-height: 100%;
-  color: ${({theme}) => theme.colors.orange};
+  color: ${({ theme }) => theme.colors.orange};
   text-align: center;
+  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+    font-size: 18px;
+    margin-top: 22px;
+  }
 `;
 
 export const SauceTitle = styled.p`
   font-size: 32px;
+  font-weight: 500;
   line-height: 100%;
   text-align: center;
   text-transform: lowercase;
-  color: ${({theme}) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.white};
   margin-top: 11px;
   text-align: center;
+  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+    font-size: 20px;
+    margin-top: 8px;
+  }
 `;
 
 export const Button = styled(StyledButton)`
-  padding: 41px;
+  padding: 41px 40px 48px;
   margin: 86px auto 0;
+  width: 610px;
+  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+    width: 100%;
+    padding: 31px 30px 38px;
+    margin: 47px auto 0;
+  }
 `;
 
 export const VotePrompt = styled.span`
@@ -145,7 +250,12 @@ export const VotePrompt = styled.span`
   line-height: 120%;
   text-align: center;
   text-transform: lowercase;
-  color: ${({theme}) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.white};
   opacity: 0.4;
   margin: 28px auto 0;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+    margin: 22px auto 0;
+    font-size: 18px;
+  }
 `;

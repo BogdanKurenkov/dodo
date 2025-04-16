@@ -1,10 +1,10 @@
-import {useState} from "react";
-import {GetServerSideProps} from "next";
-import {Footer} from "@/components/Footer/Footer";
-import {Header} from "@/components/Header/Header";
-import {Container} from "@/components/Shared/Container/Container";
-import {SectionTitle} from "@/components/Shared/SectionTitle/SectionTitle";
-import {serverSideTranslations} from "next-i18next/serverSideTranslations";
+import { useState } from "react";
+import { GetServerSideProps } from "next";
+import { Footer } from "@/components/Footer/Footer";
+import { Header } from "@/components/Header/Header";
+import { Container } from "@/components/Shared/Container/Container";
+import { SectionTitle } from "@/components/Shared/SectionTitle/SectionTitle";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import {
   SauceCard,
   SauceContainer,
@@ -18,7 +18,7 @@ import {
   Button,
 } from "./styled";
 
-const sauces = [{type: "томленый"}, {type: "жаркий"}, {type: "копченый"}];
+const sauces = [{ type: "томленый" }, { type: "жаркий" }, { type: "копченый" }];
 
 export default function Vote() {
   const [activeCard, setActiveCard] = useState<number | null>(null);
@@ -56,12 +56,7 @@ export default function Vote() {
               </SauceContainer>
             ))}
           </SaucesList>
-          <Button
-            $variant="glass"
-            disabled={!isButtonActive}
-            type="button"
-            $width="610px"
-          >
+          <Button $variant="glass" disabled={!isButtonActive} type="button">
             голос за него
           </Button>
           <VotePrompt>нажмите на образцы</VotePrompt>
@@ -72,7 +67,7 @@ export default function Vote() {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({locale}) => {
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {
     props: {
       ...(await serverSideTranslations(locale ?? "ru", ["common"])),
