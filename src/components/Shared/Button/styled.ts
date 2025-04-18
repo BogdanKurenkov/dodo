@@ -45,6 +45,7 @@ export const StyledButton = styled.button<ButtonProps>`
       color: ${({ theme }) => theme.colors.white};
       box-shadow: 0px 5px 25px 0px #00000026;
       backdrop-filter: blur(24px);
+      position: relative;
       &::before {
         content: "";
         position: absolute;

@@ -1,17 +1,20 @@
 import { GetServerSideProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+
 import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
 import { Container } from "@/components/Shared/Container/Container";
+
 import SauceImage from "@/assets/images/sauce.png";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+
 import {
-  ResultDescription,
-  ResultHeader,
-  ContainerInner,
-  ResultSubtitle,
-  ResultTitle,
-  ResultContentWrapper,
   ResultBackground,
+  ContainerInner,
+  ResultHeader,
+  ResultTitle,
+  ResultDescription,
+  ResultContentWrapper,
+  ResultSubtitle,
   Button,
   Sauce,
 } from "./styled";

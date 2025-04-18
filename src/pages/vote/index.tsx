@@ -1,21 +1,23 @@
 import { useState } from "react";
 import { GetServerSideProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+
 import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
 import { Container } from "@/components/Shared/Container/Container";
 import { SectionTitle } from "@/components/Shared/SectionTitle/SectionTitle";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+
 import {
-  SauceCard,
-  SauceContainer,
-  SauceTitle,
-  SauceNumber,
-  SauceSample,
-  SaucesList,
-  SauceType,
-  VotePrompt,
   VoteBackground,
+  SaucesList,
+  SauceContainer,
+  SauceCard,
+  SauceNumber,
+  SauceType,
+  SauceSample,
+  SauceTitle,
   Button,
+  VotePrompt,
 } from "./styled";
 
 const sauces = [{ type: "томленый" }, { type: "жаркий" }, { type: "копченый" }];
@@ -33,6 +35,7 @@ export default function Vote() {
       setIsButtonActive(true);
     }
   };
+
   return (
     <>
       <Header />

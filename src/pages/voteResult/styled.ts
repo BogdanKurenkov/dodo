@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import { Text } from "@/components/Shared/SectionDescription/styled";
 import { StyledButton } from "@/components/Shared/Button/styled";
 import { Sauce as SauceStyled } from "@/components/VotesBlock/styled";
@@ -130,6 +131,7 @@ export const ResultDescription = styled(Text)<{ $color?: string }>`
   color: ${({ theme }) => theme.colors.white};
   text-transform: lowercase;
 `;
+
 export const ResultContentWrapper = styled.div`
   padding-top: 62px;
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
@@ -156,13 +158,15 @@ export const ResultSubtitle = styled.h3`
 `;
 
 export const Button = styled(StyledButton)`
-  padding: 41px;
-  margin: 120px 0 0;
-  width: 610px;
-  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-    padding: 18px 60px 25px;
-    margin: 66px auto 0;
-    width: 100%;
+  && {
+    padding: 41px;
+    margin: 120px 0 0;
+    width: 610px;
+    @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+      padding: 18px 60px 25px;
+      margin: 66px auto 0;
+      width: 100%;
+    }
   }
 `;
 

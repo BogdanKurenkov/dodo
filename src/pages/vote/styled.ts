@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import { StyledButton } from "@/components/Shared/Button/styled";
 
 export const VoteBackground = styled.section`
@@ -170,7 +171,7 @@ export const SauceCard = styled.div`
   }
 `;
 
-export const SauceNumber = styled.div`
+export const SauceNumber = styled.span`
   font-family: ${({ theme }) => theme.font.rooftop};
   font-size: 252px;
   line-height: 100%;
@@ -187,7 +188,7 @@ export const SauceNumber = styled.div`
   }
 `;
 
-export const SauceType = styled.h3`
+export const SauceType = styled.span`
   font-family: ${({ theme }) => theme.font.rooftop};
   font-size: 24px;
   line-height: 100%;
@@ -204,7 +205,7 @@ export const SauceType = styled.h3`
   }
 `;
 
-export const SauceSample = styled.p`
+export const SauceSample = styled.span`
   margin-top: 32px;
   font-weight: 500;
   font-size: 22.75px;
@@ -217,7 +218,7 @@ export const SauceSample = styled.p`
   }
 `;
 
-export const SauceTitle = styled.p`
+export const SauceTitle = styled.span`
   font-size: 32px;
   font-weight: 500;
   line-height: 100%;
@@ -225,7 +226,6 @@ export const SauceTitle = styled.p`
   text-transform: lowercase;
   color: ${({ theme }) => theme.colors.white};
   margin-top: 11px;
-  text-align: center;
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     font-size: 20px;
     margin-top: 8px;
@@ -233,13 +233,15 @@ export const SauceTitle = styled.p`
 `;
 
 export const Button = styled(StyledButton)`
-  padding: 41px 40px 48px;
-  margin: 86px auto 0;
-  width: 610px;
-  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-    width: 100%;
-    padding: 31px 30px 38px;
-    margin: 47px auto 0;
+  && {
+    padding: 41px 40px 48px;
+    margin: 86px auto 0;
+    width: 610px;
+    @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+      width: 100%;
+      padding: 31px 30px 38px;
+      margin: 47px auto 0;
+    }
   }
 `;
 
