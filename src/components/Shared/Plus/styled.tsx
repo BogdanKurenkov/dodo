@@ -8,7 +8,7 @@ export const IconContainer = styled.div`
   flex-shrink: 0;
 `;
 
-const Line = styled.div<{ $isCross: boolean }>`
+export const Line = styled.div<{ $isCross: boolean }>`
   position: absolute;
   background-color: ${({ theme }) => theme.colors.black};
   transition: transform 0.3s ease;
