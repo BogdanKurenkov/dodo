@@ -6,6 +6,7 @@ import { Footer } from "@/components/Footer/Footer";
 import { Faq } from "@/widgets/Faq/Faq";
 import { Research } from "@/widgets/Research/Research";
 import { Slider } from "@/widgets/Slider/Slider";
+import { Steps } from "@/widgets/Steps/Steps";
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
       <Header />
       <Research />
       <Slider />
+      <Steps />
       <Faq />
       <Footer />
     </>

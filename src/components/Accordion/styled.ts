@@ -1,0 +1,15 @@
+import styled from "styled-components";
+
+export const AccordionWrapper = styled.div`
+
+`;
+
+export const AccordionHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+`;
+
+export const AccordionContent = styled.div`
+`;

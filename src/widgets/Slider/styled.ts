@@ -8,6 +8,7 @@ import {
 import { Plus as PlusStyled } from "@/components/Shared/Plus/Plus";
 import { Line as LineStyled } from "@/components/Shared/Plus/styled";
 import { Sauce as SauceStyled } from "@/components/VotesBlock/styled";
+import { Accordion as AccordionStyled } from "@/components/Accordion/Accordion";
 
 export const SliderWrapper = styled.section`
   position: relative;
@@ -279,8 +280,7 @@ export const Sauce = styled(SauceStyled)`
   }
 `;
 
-export const CardSauce = styled.div`
-
+export const Accordion = styled(AccordionStyled)`
   margin-left: auto;
   padding: 42px 32px;
   max-width: 433px;
@@ -302,6 +302,7 @@ export const CardSauce = styled.div`
   will-change: opacity, backdrop-filter;
   isolation: isolate;
   contain: paint;
+  cursor: auto;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     margin-left: 0;
@@ -314,6 +315,7 @@ export const CardSauce = styled.div`
     border-radius: 0;
     border-top: 1px solid #555555;
     padding: 18px 22px 32px;
+    cursor: pointer;
   }
 
   &::before {
@@ -341,12 +343,7 @@ export const CardSauce = styled.div`
       display: none;
     }
   }
-`;
 
-export const SauceHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 `;
 
 export const SauceSummary = styled.div``;

@@ -134,6 +134,7 @@ export const ResultDescription = styled(Text)<{ $color?: string }>`
 
 export const ResultContentWrapper = styled.div`
   padding-top: 62px;
+  
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     padding: 28px 25px 0;
   }
@@ -143,8 +144,8 @@ export const ResultSubtitle = styled.h3`
   font-size: 42px;
   font-weight: 500;
   line-height: 120%;
-
   margin-bottom: 18px;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     font-size: 32px;
   }
