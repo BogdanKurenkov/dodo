@@ -7,4 +7,7 @@ export const StyledTitle = styled.h2<{ $isWhite: boolean }>`
   font-weight: 600;
   line-height: 100%;
   letter-spacing: -0.01em;
+  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+    font-size: 42px;
+  }
 `;

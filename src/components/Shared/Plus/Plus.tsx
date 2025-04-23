@@ -1,14 +1,15 @@
-import { HorizontalLine, IconContainer, VerticalLine } from './styled';
+import { HorizontalLine, IconContainer, VerticalLine } from "./styled";
 
 interface PlusProps {
-    isCross: boolean;
+  isCross: boolean;
+  className?: string;
 }
 
-export const Plus = ({ isCross }: PlusProps) => {
-    return (
-        <IconContainer>
-            <HorizontalLine $isCross={isCross} />
-            <VerticalLine $isCross={isCross} />
-        </IconContainer>
-    );
+export const Plus = ({ isCross, className }: PlusProps) => {
+  return (
+    <IconContainer className={className}>
+      <HorizontalLine $isCross={isCross} />
+      <VerticalLine $isCross={isCross} />
+    </IconContainer>
+  );
 };
