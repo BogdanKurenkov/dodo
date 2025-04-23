@@ -30,24 +30,11 @@ export const BarsContainer = styled.div`
   height: 300px;
   position: relative;
 `;
-
-export const BarWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 1;
-  height: 100%;
-  position: relative;
-  z-index: 1;
-  width: calc(33% - 12px);
-`;
-
 export const AnimatedBar = styled.div<{ $isHighest: boolean }>`
   width: 100%;
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  background-blend-mode: overlay;
   animation: ${growUp} 1s ease-out forwards;
   position: absolute;
   bottom: 40px;
@@ -121,6 +108,33 @@ export const AnimatedBar = styled.div<{ $isHighest: boolean }>`
 
     &::after {
       font-size: 32px;
+    }
+  }
+`;
+
+export const BarWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+  width: calc(33% - 12px);
+
+  &:nth-of-type(2) {
+    & ${AnimatedBar} {
+      background: linear-gradient(169.11deg, #612800 10.47%, #2f1300 80.6%);
+      color: rgba(255, 105, 0, 1);
+
+      & span {
+        opacity: 1;
+      }
+
+      &::after {
+        opacity: 1;
+        color: rgba(255, 105, 0, 1);
+      }
     }
   }
 `;

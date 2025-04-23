@@ -40,30 +40,24 @@ import {
   StepsQrWrapper,
   QrTitle,
   QrCodeImage,
-  Button
+  Button,
 } from "./styled";
 
 export const Steps: FC = () => {
   const [openAccordionId, setOpenAccordionId] = useState<string | null>(null);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const savedOpenAccordionId = sessionStorage.getItem(
-        "stepsOpenAccordionId",
-      );
-      if (savedOpenAccordionId) {
-        setOpenAccordionId(savedOpenAccordionId);
-      }
+    const savedOpenAccordionId = sessionStorage.getItem("stepsOpenAccordionId");
+    if (savedOpenAccordionId) {
+      setOpenAccordionId(savedOpenAccordionId);
     }
   }, []);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      if (openAccordionId === null) {
-        sessionStorage.removeItem("stepsOpenAccordionId");
-      } else {
-        sessionStorage.setItem("stepsOpenAccordionId", openAccordionId);
-      }
+    if (openAccordionId === null) {
+      sessionStorage.removeItem("stepsOpenAccordionId");
+    } else {
+      sessionStorage.setItem("stepsOpenAccordionId", openAccordionId);
     }
   }, [openAccordionId]);
 

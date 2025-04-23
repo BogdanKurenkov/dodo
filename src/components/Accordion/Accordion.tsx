@@ -9,6 +9,7 @@ interface IAccordion {
   className?: string;
   onClick: () => void;
   forceOpen?: boolean;
+  skipInitialAnimation?: boolean;
 }
 
 export const Accordion: FC<IAccordion> = ({
@@ -18,6 +19,7 @@ export const Accordion: FC<IAccordion> = ({
   className,
   onClick,
   forceOpen = false,
+  skipInitialAnimation = false,
 }) => {
   const shouldRenderContent = forceOpen || isOpen;
 
@@ -28,7 +30,11 @@ export const Accordion: FC<IAccordion> = ({
       <AnimatePresence>
         {shouldRenderContent && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
+            initial={
+              skipInitialAnimation
+                ? { opacity: 1, height: "auto" }
+                : { opacity: 0, height: 0 }
+            }
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
