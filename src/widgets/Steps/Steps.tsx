@@ -78,7 +78,7 @@ export const Steps: FC = () => {
   };
 
   return (
-    <StepsWrapper>
+    <StepsWrapper id="participate">
       <Container>
         <StepsHeader>
           <SectionTitle isWhite={false}>
