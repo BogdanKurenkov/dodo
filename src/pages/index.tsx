@@ -1,12 +1,23 @@
+import { GetServerSideProps } from "next";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { GetServerSideProps, GetStaticProps } from "next";
-import { Header } from "@/components/Header/Header";
-import { Footer } from "@/components/Footer/Footer";
+import { useTheme } from "styled-components";
+
 import { Faq } from "@/widgets/Faq/Faq";
 import { Research } from "@/widgets/Research/Research";
+import { Banner } from "@/widgets/Banner/Banner";
+
+import { Header } from "@/components/Header/Header";
+import { Footer } from "@/components/Footer/Footer";
+import { BgWrapper } from "@/components/BgWrapper/BgWrapper";
 
 export default function Home() {
+  const router = useRouter();
+  const { source } = router.query;
+
+  const theme = useTheme();
+
   return (
     <>
       <Head>
@@ -16,9 +27,15 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <Research />
-      <Faq />
-      <Footer />
+      <Banner />
+      <BgWrapper isQr={source === 'qr'}>
+        {source !== 'qr' && <Research />}
+        <Faq isQr={source === 'qr'} />
+      </BgWrapper>
+      <Footer
+        background={theme.colors.white}
+        color={theme.colors.black}
+      />
     </>
   );
 }

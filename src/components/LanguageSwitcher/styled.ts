@@ -19,12 +19,23 @@ export const SwitcherWrapper = styled.div<{ $isActive: boolean }>`
   gap: 22px;
   font-size: 42px;
   font-weight: 500;
-  transition: 1 ease;
+  transition: ${({ $isActive }) => ($isActive ? "1.5s ease" : "0s ease")};
   visibility: ${({ $isActive }) => ($isActive ? "visible" : "hidden")};
   opacity: ${({ $isActive }) => ($isActive ? "1" : "0")};
   height: ${({ $isActive }) => ($isActive ? "max-content" : "0")};
-  margin: auto auto 0;
-  margin-bottom: ${({ $isActive }) => ($isActive ? "50px" : "0")};
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-left: 18px;
+
+  @media (max-width: 1280px) {
+    margin-left: 0;
+  }
+
+  @media (max-width: 500px) {
+    transition: ${({ $isActive }) => ($isActive ? "1.2s ease" : "0s ease")};
+  }
 `;
 
 export const Divider = styled.div``;

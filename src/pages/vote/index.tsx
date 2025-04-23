@@ -1,6 +1,6 @@
 import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { FC } from "react";
+
 
 export default function Vote() {
     return <></>

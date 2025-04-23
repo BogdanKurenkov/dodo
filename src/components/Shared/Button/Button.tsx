@@ -11,9 +11,11 @@ export const Button: FC<ButtonProps> = ({
     $fullWidth = false,
     disabled = false,
     type = 'button',
+    as,
     ...props
 }) => (
     <StyledButton
+        as={as}
         type={type}
         disabled={disabled}
         $variant={$variant}

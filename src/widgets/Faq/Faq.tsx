@@ -2,18 +2,27 @@ import React, { FC, useState, useEffect } from "react";
 import { useTranslation } from "next-i18next";
 
 import { Question } from "@/components/Faq/Question/Question";
-import { Container } from "@/components/Shared/Container/Container";
-
-import { FaqWrapper, QuestionsCol, QuestionsWrapper, SectionWrapper } from "./styled";
 import { Subtitle } from "@/components/Shared/Subtitle/Subtitle";
 import { SectionTitle } from "@/components/Shared/SectionTitle/SectionTitle";
+
+import {
+    FaqWrapper,
+    QuestionsCol,
+    QuestionsWrapper,
+    SectionWrapper,
+    FaqContainer
+} from "./styled";
 
 interface FaqItem {
     question: string;
     answer: string;
 }
 
-export const Faq: FC = () => {
+interface IFaqProps {
+    isQr: boolean;
+}
+
+export const Faq: FC<IFaqProps> = ({ isQr }) => {
     const { t } = useTranslation('common');
     const [openQuestionId, setOpenQuestionId] = useState<string | null>(null);
 
@@ -80,8 +89,8 @@ export const Faq: FC = () => {
     };
 
     return (
-        <SectionWrapper id="faq">
-            <Container>
+        <SectionWrapper id="faq" $isQr={isQr}>
+            <FaqContainer>
                 <SectionTitle isWhite={false}>
                     {t('faq.title').split('\n').map((line, i) => (
                         <React.Fragment key={i}>
@@ -122,7 +131,7 @@ export const Faq: FC = () => {
                         </QuestionsWrapper>
                     </QuestionsCol>
                 </FaqWrapper>
-            </Container>
+            </FaqContainer>
         </SectionWrapper>
     );
 };

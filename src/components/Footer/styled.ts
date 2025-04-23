@@ -7,17 +7,25 @@ export const StyledFooter = styled.footer<{
   ${({ theme }) => theme.mixins.flexCenter}
   gap: 2px;
   color: ${({ $color }) => $color};
-  padding: 70px 0;
+  padding: 65px 0;
   background: ${({ $background }) => $background};
+  font-size: 26px;
+  font-weight: 500;
+
+  & span {
+    margin-left: 10px;
+  }
+
+  @media (max-width: 500px) {
+    padding: 40px 0;
+    font-size: 17px;
+  }
 `;
 
 export const FooterText = styled.p<{ $bg: string }>`
-  font-size: 26px;
-  font-weight: 500;
   display: flex;
   gap: 8px;
   align-items: flex-end;
-  margin-bottom: 6px;
 
   &::before {
     content: "";

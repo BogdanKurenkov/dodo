@@ -15,5 +15,11 @@ declare module "styled-components" {
     font: {
       family: string;
     };
+    breakpoints: {
+      sm: string;
+      m: string;
+      lg: string;
+      xl: string;
+    };
   }
 }

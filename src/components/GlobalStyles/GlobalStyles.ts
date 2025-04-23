@@ -15,6 +15,7 @@ export const GlobalStyles = createGlobalStyle`
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
 
   body {
@@ -22,7 +23,7 @@ export const GlobalStyles = createGlobalStyle`
     color: ${({ theme }) => theme.colors.white};
     overflow-x: hidden;
   }
-
+  
   a {
     text-decoration: none;
     color: inherit;
