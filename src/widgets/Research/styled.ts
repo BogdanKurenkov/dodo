@@ -137,7 +137,7 @@ export const SecondBar = styled(BarBase)`
   border: 0.99px solid rgba(144, 144, 144, 0.25);
   border-radius: 18.35px;
   box-shadow: 0px 4.59px 22.93px 0px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(202.016094207763672px);
+  backdrop-filter: blur(24px);
 
   @media (max-width: 500px) {
     height: 294px;
