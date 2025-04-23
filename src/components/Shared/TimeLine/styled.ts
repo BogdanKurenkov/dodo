@@ -7,6 +7,9 @@ export const Date = styled.p<{ $isWhite: boolean }>`
   font-weight: 500;
   font-size: 32px;
   flex-shrink: 0;
+  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+    font-size: 22px;
+  }
 `;
 
 export const Line = styled.p<{ $isWhite: boolean }>`

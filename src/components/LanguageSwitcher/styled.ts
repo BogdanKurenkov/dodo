@@ -27,7 +27,7 @@ export const SwitcherWrapper = styled.div<{ $isActive: boolean }>`
   bottom: 50px;
   left: 50%;
   transform: translateX(-50%);
-  margin-left: 18px;
+  margin-left: 50px;
 
   @media (max-width: 1280px) {
     margin-left: 0;

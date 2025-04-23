@@ -1,0 +1,43 @@
+import { FC } from "react";
+import { AccordionContent, AccordionWrapper, AccordionHeader } from "./styled";
+import { motion, AnimatePresence } from "framer-motion";
+
+interface IAccordion {
+  title: React.ReactNode;
+  content: React.ReactNode;
+  isOpen: boolean;
+  className?: string;
+  onClick: () => void;
+  forceOpen?: boolean;
+}
+
+export const Accordion: FC<IAccordion> = ({
+  title,
+  content,
+  isOpen,
+  className,
+  onClick,
+  forceOpen = false,
+}) => {
+  const shouldRenderContent = forceOpen || isOpen;
+
+  return (
+    <AccordionWrapper onClick={onClick} className={className}>
+      <AccordionHeader>{title}</AccordionHeader>
+
+      <AnimatePresence>
+        {shouldRenderContent && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            style={{ overflow: "hidden" }}
+          >
+            <AccordionContent>{content}</AccordionContent>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </AccordionWrapper>
+  );
+};

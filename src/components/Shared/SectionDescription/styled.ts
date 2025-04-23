@@ -6,7 +6,7 @@ export const Text = styled.p<{ $color: string }>`
   line-height: 120%;
   color: ${({ $color }) => $color};
 
-  @media (max-width: 768px) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     font-size: 22px;
   }
 `;

@@ -7,6 +7,8 @@ import { useTheme } from "styled-components";
 import { Faq } from "@/widgets/Faq/Faq";
 import { Research } from "@/widgets/Research/Research";
 import { Banner } from "@/widgets/Banner/Banner";
+import { Slider } from "@/widgets/Slider/Slider";
+import { Steps } from "@/widgets/Steps/Steps";
 
 import { Header } from "@/components/Header/Header";
 import { Footer } from "@/components/Footer/Footer";
@@ -28,6 +30,8 @@ export default function Home() {
       </Head>
       <Header />
       <Banner />
+      <Slider />
+      <Steps />
       <BgWrapper isQr={source === 'qr'}>
         {source !== 'qr' && <Research />}
         <Faq isQr={source === 'qr'} />

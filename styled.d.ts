@@ -8,11 +8,19 @@ declare module "styled-components" {
       glass_button: string;
       orange: string;
     };
+    breakpoints: {
+      sm: string;
+      m: string;
+      md: string;
+      lg: string;
+      xl: string;
+    };
     mixins: {
       flexCenter: string;
       flexBetween: string;
     };
     font: {
+      rooftop: string;
       family: string;
     };
     breakpoints: {

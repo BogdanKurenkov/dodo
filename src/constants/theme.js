@@ -17,6 +17,7 @@ export const theme = {
     breakpoints: {
         sm: '480px',
         m: '768px',
+        md: '992px',
         lg: '1440px',
         xl: '1920px',
     },
@@ -33,6 +34,7 @@ export const theme = {
       `
     },
     font: {
-        family: "Neue Haas Unica, -apple-system, sans-serif",
+        family: "'Neue Haas Unica', -apple-system, sans-serif",
+        rooftop: "Rooftop, sans-serif",
     }
 };
