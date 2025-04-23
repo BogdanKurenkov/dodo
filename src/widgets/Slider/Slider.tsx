@@ -101,25 +101,21 @@ export const Slider: FC = () => {
   const { t } = useTranslation('common');
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const savedOpenAccordionId = sessionStorage.getItem(
-        "sliderOpenAccordionId",
-      );
-      if (savedOpenAccordionId) {
-        setOpenAccordionId(savedOpenAccordionId);
-      }
+    const savedOpenAccordionId = sessionStorage.getItem(
+      "sliderOpenAccordionId",
+    );
+    if (savedOpenAccordionId) {
+      setOpenAccordionId(savedOpenAccordionId);
     }
-  }, []);
+  }, [isMobile]);
 
   useEffect(() => {
-    if (isMobile && typeof window !== "undefined") {
-      if (openAccordionId === null) {
-        sessionStorage.removeItem("sliderOpenAccordionId");
-      } else {
-        sessionStorage.setItem("sliderOpenAccordionId", openAccordionId);
-      }
+    if (openAccordionId === null) {
+      sessionStorage.removeItem("sliderOpenAccordionId");
+    } else {
+      sessionStorage.setItem("sliderOpenAccordionId", openAccordionId);
     }
-  }, [openAccordionId, isMobile]);
+  }, [openAccordionId]);
 
   const handleAccordionClick = (accordionKey: string) => {
     setOpenAccordionId((prevId) =>
@@ -152,8 +148,8 @@ export const Slider: FC = () => {
           spaceBetween={isMobile ? 18 : 0}
           slidesPerView={isMobile ? 1.2 : 1}
           centeredSlides={isMobile}
-          effect={!isMobile ? "fade" : undefined}
-          fadeEffect={!isMobile ? { crossFade: true } : undefined}
+          effect={isMobile ? undefined : "fade"}
+          fadeEffect={isMobile ? undefined : { crossFade: true }}
           pagination={{
             clickable: true,
             renderBullet,
@@ -182,7 +178,11 @@ export const Slider: FC = () => {
                       <SauceSample>{t('results.sample')} №{index + 1}</SauceSample>
                       <SauceTitle>{t(sauce.type)}</SauceTitle>
                     </SauceSummary>
-                    <Plus isCross={openAccordionId === `sauce-${index}`} />
+                    <Plus
+                      isCross={
+                        isMobile ? openAccordionId === `sauce-${index}` : false
+                      }
+                    />
                   </>
                 }
                 content={
@@ -204,9 +204,13 @@ export const Slider: FC = () => {
                     </SauceList>
                   </>
                 }
-                isOpen={openAccordionId === `sauce-${index}`}
-                onClick={() => handleAccordionClick(`sauce-${index}`)}
-                forceOpen={!isMobile}
+                isOpen={isMobile ? openAccordionId === `sauce-${index}` : true}
+                onClick={
+                  isMobile
+                    ? () => handleAccordionClick(`sauce-${index}`)
+                    : () => {}
+                }
+                skipInitialAnimation={!isMobile}
               />
             </SwiperSlide>
           ))}
