@@ -108,7 +108,6 @@ export const SauceCard = styled.div`
   background: linear-gradient(160.9deg, #908f8f 29%, #c2c2c2 87.15%);
   border-radius: 41.15px 41.15px 41.15px 11.76px;
   min-width: 178px;
-  width: 100%;
   height: 219px;
   position: relative;
   overflow: hidden;

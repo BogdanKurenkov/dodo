@@ -133,6 +133,10 @@ export const ResultTitle = styled.h2`
 
 export const ResultDescription = styled(Text)<{ $color?: string }>`
   color: ${({ theme }) => theme.colors.white};
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    max-width: 515px;
+    width: 100%;
+  }
 `;
 
 export const ResultContentWrapper = styled.div`
