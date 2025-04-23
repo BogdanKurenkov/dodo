@@ -116,7 +116,7 @@ export const NotAll: FC = () => {
 
                     {isMobile && (
                         <PaginationWrapper>
-                            {Object.entries(cardsData).map(([_, card], index) => (
+                            {Object.entries(cardsData).map((_, index) => (
                                 <PaginationItem
                                     key={index}
                                     className={`${activeIndex === index ? 'splide-pagination-bullet-active' : ''}`}

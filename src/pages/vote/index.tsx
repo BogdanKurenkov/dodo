@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { GetServerSideProps } from "next";
+import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
 import { Container } from "@/components/Shared/Container/Container";
 import { SectionTitle } from "@/components/Shared/SectionTitle/SectionTitle";
+import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
 
 import {
   VoteBackground,
@@ -20,9 +22,15 @@ import {
   VotePrompt,
 } from "./styled";
 
-const sauces = [{ type: "томленый" }, { type: "жаркий" }, { type: "копченый" }];
+const sauces = [
+  "sauces.sauce1.name",
+  "sauces.sauce2.name",
+  "sauces.sauce3.name"
+];
 
 export default function Vote() {
+  const { t } = useTranslation('common');
+
   const [activeCard, setActiveCard] = useState<number | null>(null);
   const [isButtonActive, setIsButtonActive] = useState(false);
 
@@ -42,7 +50,7 @@ export default function Vote() {
       <VoteBackground>
         <Container>
           <SectionTitle isWhite={true}>
-            какой соус <br /> выбираете вы?
+            <TextWithLineBreaks text={t('vote.title')} />
           </SectionTitle>
           <SaucesList>
             {sauces.map((sauce, index) => (
@@ -52,17 +60,17 @@ export default function Vote() {
                   className={activeCard === index ? "active" : ""}
                 >
                   <SauceNumber>{index + 1}</SauceNumber>
-                  <SauceType>{sauce.type}</SauceType>
+                  <SauceType>{t(sauce)}</SauceType>
                 </SauceCard>
-                <SauceSample>образец № {index + 1}</SauceSample>
-                <SauceTitle>{sauce.type}</SauceTitle>
+                <SauceSample>{t('results.sample')} № {index + 1}</SauceSample>
+                <SauceTitle>{t(sauce)}</SauceTitle>
               </SauceContainer>
             ))}
           </SaucesList>
           <Button $variant="glass" disabled={!isButtonActive} type="button">
-            голос за него
+            {t('buttons.vote_select')}
           </Button>
-          <VotePrompt>нажмите на образцы</VotePrompt>
+          <VotePrompt>{t('vote.click')}</VotePrompt>
         </Container>
       </VoteBackground>
       <Footer />

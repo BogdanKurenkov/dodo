@@ -8,6 +8,7 @@ export const ResultBackground = styled.section`
   position: relative;
   z-index: 0;
   padding: 90px 0;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     padding: 40px 0;
   }
@@ -32,6 +33,7 @@ export const ResultBackground = styled.section`
 export const ContainerInner = styled.div`
   position: relative;
   z-index: 1;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     background: linear-gradient(
       169.11deg,
@@ -81,6 +83,7 @@ export const ResultHeader = styled.div`
     width: 100%;
     height: 1px;
     background: rgba(244, 244, 241, 0.4);
+
     @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
       max-width: 400px;
     }
@@ -102,6 +105,7 @@ export const ResultHeader = styled.div`
     background-repeat: no-repeat;
     background-position: top;
     display: none;
+
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       display: block;
     }
@@ -118,8 +122,8 @@ export const ResultTitle = styled.h2`
   font-size: 96px;
   font-weight: 500;
   line-height: 95%;
-  text-transform: lowercase;
   margin-bottom: 48px;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     font-size: 42px;
     line-height: 100%;
@@ -129,12 +133,11 @@ export const ResultTitle = styled.h2`
 
 export const ResultDescription = styled(Text)<{ $color?: string }>`
   color: ${({ theme }) => theme.colors.white};
-  text-transform: lowercase;
 `;
 
 export const ResultContentWrapper = styled.div`
   padding-top: 62px;
-  
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     padding: 28px 25px 0;
   }
@@ -152,6 +155,7 @@ export const ResultSubtitle = styled.h3`
 
   span {
     font-size: 62px;
+
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       font-size: 42px;
     }
@@ -163,6 +167,7 @@ export const Button = styled(StyledButton)`
     padding: 41px;
     margin: 120px 0 0;
     width: 610px;
+
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       padding: 18px 60px 25px;
       margin: 66px auto 0;
@@ -180,9 +185,11 @@ export const Sauce = styled(SauceStyled)`
   width: 338px;
   height: 300px;
   object-fit: cover;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     right: 0;
   }
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     top: 23%;
     width: 270px;

@@ -62,7 +62,7 @@ export const VotesBlock = ({ percentages }: IVotesBlock) => {
         const elapsed = Date.now() - startTime;
         const progress = Math.min(elapsed / duration, 1);
 
-        const newDisplayPercentages = percentages.map((p, i) => {
+        const newDisplayPercentages = percentages.map((p) => {
           return Math.floor(progress * p);
         });
 
