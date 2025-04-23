@@ -5,7 +5,7 @@ export const QuestionWrapper = styled.div`
   padding: 28px 0;
 
   &:not(:last-child) {
-    border-bottom: 1px solid ${({ theme }) => theme.colors.black};
+    border-bottom: 1px solid rgba(17, 17, 16, 0.4);
   }
 `;
 
@@ -17,6 +17,11 @@ export const StyledQuestion = styled.div`
   line-height: 100%;
   text-transform: lowercase;
   gap: 28px;
+
+  @media (max-width: 1024px) {
+    font-size: 20px;
+    gap: 14px;
+  }
 `;
 
 export const Answer = styled.p`

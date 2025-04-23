@@ -23,5 +23,11 @@ declare module "styled-components" {
       rooftop: string;
       family: string;
     };
+    breakpoints: {
+      sm: string;
+      m: string;
+      lg: string;
+      xl: string;
+    };
   }
 }

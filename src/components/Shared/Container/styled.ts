@@ -4,12 +4,9 @@ export const StyledContainer = styled.div`
   max-width: 1260px;
   width: 100%;
   margin: 0 auto;
-  padding: 0 30px;
+  background: transparent;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    max-width: 100%;
-  }
-  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-    padding: 0 26px;
+  @media (max-width: 1280px) {
+    width: calc(100vw - 60px);
   }
 `;

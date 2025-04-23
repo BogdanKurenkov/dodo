@@ -11,8 +11,9 @@ interface IFooterProps {
 export const Footer: FC<IFooterProps> = ({ color = '#F4F4F1', background }) => {
     const { t } = useTranslation('common');
 
-    return <StyledFooter $color={color} $background={background}>
+    return <StyledFooter id="contacts" $color={color} $background={background}>
         <FooterLogo fill={color} />
+        <span>додо лаб</span>
         <FooterText $bg={color}>
             {t('footer.project')}
         </FooterText>

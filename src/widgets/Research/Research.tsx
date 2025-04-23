@@ -1,16 +1,37 @@
 import { FC } from "react";
-import { ColsWrapper, LeftCol, ResearchWrapper, RightCol } from "./styled";
+import { useTranslation } from "next-i18next";
+import { useRouter } from "next/navigation";
+
 import { Container } from "@/components/Shared/Container/Container";
 import { SectionTitle } from "@/components/Shared/SectionTitle/SectionTitle";
-import { useTranslation } from "next-i18next";
 import { SectionDescription } from "@/components/Shared/SectionDescription/SectionDescription";
 import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
-import { Button } from "@/components/Shared/Button/Button";
+
+import {
+    BtnDesktop,
+    BtnMobile,
+    ColsWrapper,
+    FirstBar,
+    Graphics,
+    LeftCol,
+    ResearchWrapper,
+    RightCol,
+    SecondBar,
+    ThirdBar
+} from "./styled";
+import { useTheme } from "styled-components";
 
 export const Research: FC = () => {
     const { t } = useTranslation('common');
+    const router = useRouter();
 
-    return <ResearchWrapper>
+    const theme = useTheme();
+
+    const handleNavigate = () => {
+        router.push('results')
+    }
+
+    return <ResearchWrapper id="results">
         <Container>
             <ColsWrapper>
                 <LeftCol>
@@ -19,9 +40,16 @@ export const Research: FC = () => {
                     <SectionDescription>
                         <TextWithLineBreaks text={t('research.description')} />
                     </SectionDescription>
-                    <Button style={{ marginTop: '40px' }} $width='610px' $backgroundColor="#111110">{t('buttons.results')}</Button>
+                    <BtnDesktop onClick={handleNavigate} $width='610px' $backgroundColor={theme.colors.black}>{t('buttons.results')}</BtnDesktop>
                 </LeftCol>
-                <RightCol></RightCol>
+                <RightCol>
+                    <Graphics>
+                        <FirstBar />
+                        <SecondBar />
+                        <ThirdBar />
+                    </Graphics>
+                    <BtnMobile onClick={handleNavigate} $backgroundColor={theme.colors.black}>{t('buttons.results')}</BtnMobile>
+                </RightCol>
             </ColsWrapper>
         </Container>
     </ResearchWrapper>

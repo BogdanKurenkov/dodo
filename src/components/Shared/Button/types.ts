@@ -7,4 +7,5 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   $backgroundColor?: string;
   $fullWidth?: boolean;
   $width?: string;
+  as?: string;
 }
