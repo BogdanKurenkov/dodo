@@ -1,8 +1,18 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
+
 import { useDeviceDetect } from '@/hooks/useDeviceDetect';
+
 import SauceImage from '@/assets/images/sauce.png';
-import { AnimatedBar, BarBottomBlock, BarsContainer, BarWrapper, Container, Sauce } from './styled';
+
+import {
+  AnimatedBar,
+  BarBottomBlock,
+  BarsContainer,
+  BarWrapper,
+  Container,
+  Sauce
+} from './styled';
 
 interface IVotesBlock {
   percentages: number[];
@@ -16,6 +26,7 @@ interface CustomCSS extends React.CSSProperties {
 export const VotesBlock = ({ percentages }: IVotesBlock) => {
   const [heights, setHeights] = useState([0, 0, 0]);
   const [displayPercentages, setDisplayPercentages] = useState([0, 0, 0]);
+
   const { t } = useTranslation('common');
   const device = useDeviceDetect();
 
@@ -92,14 +103,13 @@ export const VotesBlock = ({ percentages }: IVotesBlock) => {
           const sauceBottom = barHeight - 40 - sauceHeight / 2 + (device === 'mobile' ? 8 : 11);
 
           return (
-            <BarWrapper key={index}>
+            <BarWrapper key={index} $isHighest={index === maxIndex}>
               <AnimatedBar
                 style={{
                   '--height': `${barHeight}px`,
                   '--min-height': `${minHeightPx}px`,
                 } as CustomCSS}
                 aria-label={`${height}%`}
-                $isHighest={index === maxIndex}
               >
                 <span>{displayPercentages[index]}</span>
               </AnimatedBar>

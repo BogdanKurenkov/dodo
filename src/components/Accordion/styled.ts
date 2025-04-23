@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
-export const AccordionWrapper = styled.div`
-
-`;
+export const AccordionWrapper = styled.div``;
 
 export const AccordionHeader = styled.div`
   display: flex;
@@ -11,5 +9,4 @@ export const AccordionHeader = styled.div`
   cursor: pointer;
 `;
 
-export const AccordionContent = styled.div`
-`;
+export const AccordionContent = styled.div``;

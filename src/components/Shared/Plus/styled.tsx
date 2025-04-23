@@ -20,6 +20,7 @@ export const Line = styled.div<{ $isCross: boolean }>`
 export const HorizontalLine = styled(Line)`
   width: 50px;
   height: 1.5px;
+  
   ${({ $isCross }) => $isCross && css`
     transform: translate(-50%, -50%) rotate(45deg);
   `}
@@ -28,6 +29,7 @@ export const HorizontalLine = styled(Line)`
 export const VerticalLine = styled(Line)`
   width: 2px;
   height: 50px;
+
   ${({ $isCross }) => $isCross && css`
     transform: translate(-50%, -50%) rotate(45deg);
   `}

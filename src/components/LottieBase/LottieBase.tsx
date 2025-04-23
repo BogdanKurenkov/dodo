@@ -17,6 +17,7 @@ export const LottieBase: FC<ILottieBase> = ({
     loop = true
 }) => {
     const animationData = usePublicJson(path);
+
     const lottieRef = useRef<LottieRefCurrentProps>(null);
 
     const handleSetSpeed = () => {

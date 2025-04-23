@@ -57,6 +57,13 @@ export const MenuLink = styled(Link)`
   text-transform: lowercase;
   border-bottom: 1px solid rgba(244, 244, 241, 0.4);
   padding-bottom: 32px;
+  transition: 0.5s ease;
+
+  @media (hover: hover) {
+    &:hover {
+      opacity: 0.7;
+    }
+  }
 
   @media (max-width: 500px) {
     font-size: 30px;

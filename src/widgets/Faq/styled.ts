@@ -4,7 +4,6 @@ export const SectionWrapper = styled.section<{ $isQr: boolean }>`
   padding: 100px 0;
   position: relative;
   z-index: 1;
-  min-height: 100vh;
 
   ${({ $isQr }) =>
     $isQr &&

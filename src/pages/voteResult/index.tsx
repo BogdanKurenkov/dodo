@@ -32,28 +32,30 @@ export default function VoteResult() {
   return (
     <>
       <Header />
-      <ResultBackground>
-        <Container>
-          <ContainerInner>
-            <ResultHeader>
-              <ResultTitle>{t('vote_result.title')}</ResultTitle>
-              <ResultDescription>
-                <TextWithLineBreaks text={t('vote_result.description')} />
-              </ResultDescription>
-            </ResultHeader>
-            <ResultContentWrapper>
-              <ResultSubtitle>
-                <span>48%</span> {t('vote_result.participants')}
-              </ResultSubtitle>
-              <ResultDescription>
-                <TextWithLineBreaks text={t('vote_result.vote')} /> {locale === 'kz' ? "" : "№2"}
-              </ResultDescription>
-              <Button $variant="glass">{t('buttons.look')}</Button>
-            </ResultContentWrapper>
-            <Sauce alt="sauce" src={SauceImage} />
-          </ContainerInner>
-        </Container>
-      </ResultBackground>
+      <main>
+        <ResultBackground>
+          <Container>
+            <ContainerInner>
+              <ResultHeader>
+                <ResultTitle>{t('vote_result.title')}</ResultTitle>
+                <ResultDescription>
+                  <TextWithLineBreaks text={t('vote_result.description')} />
+                </ResultDescription>
+              </ResultHeader>
+              <ResultContentWrapper>
+                <ResultSubtitle>
+                  <span>48%</span> {t('vote_result.participants')}
+                </ResultSubtitle>
+                <ResultDescription>
+                  <TextWithLineBreaks text={t('vote_result.vote')} /> {locale === 'kz' ? "" : "№2"}
+                </ResultDescription>
+                <Button $variant="glass">{t('buttons.look')}</Button>
+              </ResultContentWrapper>
+              <Sauce alt="sauce" src={SauceImage} />
+            </ContainerInner>
+          </Container>
+        </ResultBackground>
+      </main>
       <Footer />
     </>
   );

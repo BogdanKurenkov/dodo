@@ -29,13 +29,15 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <Banner />
-      <Slider />
-      <Steps />
-      <BgWrapper isQr={source === 'qr'}>
-        {source !== 'qr' && <Research />}
-        <Faq isQr={source === 'qr'} />
-      </BgWrapper>
+      <main className="main">
+        <Banner />
+        <Slider />
+        <Steps />
+        <BgWrapper isQr={source === 'qr'}>
+          {source !== 'qr' && <Research />}
+          <Faq isQr={source === 'qr'} />
+        </BgWrapper>
+      </main>
       <Footer
         background={theme.colors.white}
         color={theme.colors.black}

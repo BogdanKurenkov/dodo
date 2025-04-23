@@ -1,8 +1,9 @@
 import { FC } from "react";
 
+import { useDeviceDetect } from "@/hooks/useDeviceDetect";
+
 import FLogo from "@/assets/svg/dodo-lab_icon.svg"
 import FLogoMobile from "@/assets/svg/dodo-lab_icon-mobile.svg"
-import { useDeviceDetect } from "@/hooks/useDeviceDetect";
 
 interface IFooterLogo {
     fill?: string

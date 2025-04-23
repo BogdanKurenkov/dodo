@@ -156,15 +156,17 @@ export const SauceCard = styled.div`
     }
   }
 
-  &:hover {
-    box-shadow: 6.63px -6.63px 66.32px 0px ${({ theme }) => theme.colors.orange};
+  @media (hover: hover) {
+    &:hover {
+      box-shadow: 6.63px -6.63px 66.32px 0px ${({ theme }) => theme.colors.orange};
 
-    &::after {
-      clip-path: polygon(0 45%, 100% 81%, 100% 100%, 0% 100%);
-    }
+      &::after {
+        clip-path: polygon(0 45%, 100% 81%, 100% 100%, 0% 100%);
+      }
 
-    &::before {
-      clip-path: polygon(0 47%, 100% 81%, 100% 100%, 0% 100%);
+      &::before {
+        clip-path: polygon(0 47%, 100% 81%, 100% 100%, 0% 100%);
+      }
     }
   }
 

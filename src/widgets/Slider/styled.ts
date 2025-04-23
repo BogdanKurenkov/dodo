@@ -18,6 +18,7 @@ export const SliderWrapper = styled.section`
   overflow: hidden;
   transform: translate3d(0, 0, 0);
   -webkit-transform: translate3d(0, 0, 0);
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     padding: 60px 0 80px;
   }
@@ -32,6 +33,7 @@ export const SwiperWrapper = styled.div`
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     max-width: 100%;
   }
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     padding: 0;
     margin: 0;
@@ -57,9 +59,11 @@ export const SauceBackground = styled.img<{
   @media (min-width: ${({ theme }) => theme.breakpoints.xl}) {
     object-position: 20%;
   }
+
   @media (min-width: 2560px) {
     object-position: 40%;
   }
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     bottom: initial;
     top: 50%;
@@ -90,6 +94,7 @@ export const SauceBackground = styled.img<{
         object-position: 50%;
       }
     `}
+
   ${({ $index }) =>
     $index === 2 &&
     css`
@@ -104,6 +109,7 @@ export const Swiper = styled(SwiperComponent)`
   width: 100%;
   height: 100%;
   margin: 85px 0 97px;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     margin: 68px auto 0;
     padding-bottom: 68px;
@@ -120,6 +126,7 @@ export const Swiper = styled(SwiperComponent)`
     transform: translateY(-50%);
     height: calc(100% - 60px);
     width: 50px;
+
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       flex-direction: row;
       justify-content: center;
@@ -149,6 +156,7 @@ export const Swiper = styled(SwiperComponent)`
     transition: all 0.3s ease-in-out;
     gap: 0px;
     margin: 0 !important;
+
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       flex-direction: row;
       font-size: 22px;
@@ -162,6 +170,7 @@ export const Swiper = styled(SwiperComponent)`
         display: none;
       }
     }
+
     &:last-child {
       justify-content: flex-end;
       .pagination-line.bottom {
@@ -177,6 +186,7 @@ export const Swiper = styled(SwiperComponent)`
     background: ${({ theme }) => theme.colors.white};
     opacity: 0.4;
     transition: all 0.3s ease-in-out;
+
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       width: 0;
       height: 2px;
@@ -189,12 +199,14 @@ export const Swiper = styled(SwiperComponent)`
     position: relative;
     flex: 1;
     gap: 40px;
+
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       gap: 20px;
     }
 
     .pagination-line {
       flex-grow: 1;
+
       @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
         width: 100%;
       }
@@ -267,11 +279,13 @@ export const Sauce = styled(SauceStyled)`
   height: 300px;
   transform: translateY(-50%) translateX(-100%);
   object-fit: cover;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     width: 270px;
     height: 240px;
     transform: translateY(-50%) translateX(-130%);
   }
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     width: 100%;
     height: 100%;
@@ -339,11 +353,11 @@ export const Accordion = styled(AccordionStyled)`
     -webkit-mask-composite: destination-out;
     mask-composite: exclude;
     pointer-events: none;
+
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       display: none;
     }
   }
-
 `;
 
 export const SauceSummary = styled.div``;
@@ -355,6 +369,7 @@ export const SauceSample = styled.span`
   line-height: 100%;
   margin-bottom: 12px;
   color: ${({ theme }) => theme.colors.orange};
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     font-size: 18px;
     margin-bottom: 8px;
@@ -367,6 +382,7 @@ export const SauceTitle = styled.h3`
   line-height: 100%;
   text-transform: lowercase;
   color: ${({ theme }) => theme.colors.white};
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     font-size: 32px;
   }
@@ -403,6 +419,7 @@ export const SauceList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 36px;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     gap: 32px;
   }
@@ -421,6 +438,7 @@ export const SauceHighlight = styled.span`
   color: ${({ theme }) => theme.colors.white};
   padding-bottom: 12px;
   position: relative;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     font-size: 20px;
   }
@@ -445,6 +463,7 @@ export const SauceDetail = styled.span`
   color: ${({ theme }) => theme.colors.white};
   opacity: 0.4;
   padding-top: 12px;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     font-size: 20px;
   }

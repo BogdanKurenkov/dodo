@@ -1,14 +1,16 @@
+import { useTranslation } from "next-i18next";
 import { FC, useState, useEffect } from "react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 import { Pagination, EffectFade } from "swiper/modules";
-import { useTranslation } from "next-i18next";
+import type { Swiper as SwiperCore } from 'swiper/types';
 
 import { useDeviceDetect } from "@/hooks/useDeviceDetect";
 
 import { Container } from "@/components/Shared/Container/Container";
 import { SectionTitle } from "@/components/Shared/SectionTitle/SectionTitle";
+import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
 
 import SauceImage from "@/assets/images/sauce.png";
 import SauceImageBackground1 from "../../../public/images/slide-background-1.png";
@@ -34,7 +36,6 @@ import {
   SauceHighlight,
   SauceDetail,
 } from "./styled";
-import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
 
 interface Sauce {
   image: { src: string };
@@ -101,9 +102,7 @@ export const Slider: FC = () => {
   const { t } = useTranslation('common');
 
   useEffect(() => {
-    const savedOpenAccordionId = sessionStorage.getItem(
-      "sliderOpenAccordionId",
-    );
+    const savedOpenAccordionId = sessionStorage.getItem("sliderOpenAccordionId");
     if (savedOpenAccordionId) {
       setOpenAccordionId(savedOpenAccordionId);
     }
@@ -119,8 +118,16 @@ export const Slider: FC = () => {
 
   const handleAccordionClick = (accordionKey: string) => {
     setOpenAccordionId((prevId) =>
-      prevId === accordionKey ? null : accordionKey,
+      prevId === accordionKey ? null : accordionKey
     );
+  };
+
+  const handleSlideChange = (swiper: SwiperCore) => {
+    setActiveIndex(swiper.activeIndex);
+
+    if (isMobile) {
+      setOpenAccordionId(null);
+    }
   };
 
   return (
@@ -155,7 +162,7 @@ export const Slider: FC = () => {
             renderBullet,
           }}
           allowTouchMove={isMobile}
-          onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+          onSlideChange={handleSlideChange}
         >
           {sauces.map((sauce, index) => (
             <SwiperSlide key={index}>
@@ -208,7 +215,7 @@ export const Slider: FC = () => {
                 onClick={
                   isMobile
                     ? () => handleAccordionClick(`sauce-${index}`)
-                    : () => {}
+                    : () => { }
                 }
                 skipInitialAnimation={!isMobile}
               />

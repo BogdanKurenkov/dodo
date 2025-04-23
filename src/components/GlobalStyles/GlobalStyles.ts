@@ -32,4 +32,12 @@ export const GlobalStyles = createGlobalStyle`
   li {
     list-style: none;
   }
+
+  .main{
+    margin-top: 100px;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+      margin-top: 82px;
+    }
+  }
 `;

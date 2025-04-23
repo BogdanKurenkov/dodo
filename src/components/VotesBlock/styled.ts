@@ -30,7 +30,8 @@ export const BarsContainer = styled.div`
   height: 300px;
   position: relative;
 `;
-export const AnimatedBar = styled.div<{ $isHighest: boolean }>`
+
+export const AnimatedBar = styled.div`
   width: 100%;
   display: flex;
   align-items: flex-end;
@@ -112,7 +113,7 @@ export const AnimatedBar = styled.div<{ $isHighest: boolean }>`
   }
 `;
 
-export const BarWrapper = styled.div`
+export const BarWrapper = styled.div<{ $isHighest: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -122,7 +123,9 @@ export const BarWrapper = styled.div`
   z-index: 1;
   width: calc(33% - 12px);
 
-  &:nth-of-type(2) {
+  ${({ $isHighest }) =>
+    $isHighest &&
+    `
     & ${AnimatedBar} {
       background: linear-gradient(169.11deg, #612800 10.47%, #2f1300 80.6%);
       color: rgba(255, 105, 0, 1);
@@ -136,7 +139,7 @@ export const BarWrapper = styled.div`
         color: rgba(255, 105, 0, 1);
       }
     }
-  }
+  `}
 `;
 
 export const Sauce = styled(Image)`

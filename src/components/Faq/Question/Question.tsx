@@ -1,7 +1,10 @@
 import { FC } from "react";
-import { Answer, QuestionWrapper, StyledQuestion } from "./styled";
-import { Plus } from "@/components/Shared/Plus/Plus";
 import { motion, AnimatePresence } from "framer-motion";
+
+import { Plus } from "@/components/Shared/Plus/Plus";
+
+import { Answer, QuestionWrapper, StyledQuestion } from "./styled";
+
 
 interface IQuestion {
     question: string;

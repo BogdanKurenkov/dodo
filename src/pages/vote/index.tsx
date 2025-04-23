@@ -47,32 +47,34 @@ export default function Vote() {
   return (
     <>
       <Header />
-      <VoteBackground>
-        <Container>
-          <SectionTitle isWhite={true}>
-            <TextWithLineBreaks text={t('vote.title')} />
-          </SectionTitle>
-          <SaucesList>
-            {sauces.map((sauce, index) => (
-              <SauceContainer key={index}>
-                <SauceCard
-                  onClick={() => handleCardClick(index)}
-                  className={activeCard === index ? "active" : ""}
-                >
-                  <SauceNumber>{index + 1}</SauceNumber>
-                  <SauceType>{t(sauce)}</SauceType>
-                </SauceCard>
-                <SauceSample>{t('results.sample')} № {index + 1}</SauceSample>
-                <SauceTitle>{t(sauce)}</SauceTitle>
-              </SauceContainer>
-            ))}
-          </SaucesList>
-          <Button $variant="glass" disabled={!isButtonActive} type="button">
-            {t('buttons.vote_select')}
-          </Button>
-          <VotePrompt>{t('vote.click')}</VotePrompt>
-        </Container>
-      </VoteBackground>
+      <main className="main">
+        <VoteBackground>
+          <Container>
+            <SectionTitle isWhite={true}>
+              <TextWithLineBreaks text={t('vote.title')} />
+            </SectionTitle>
+            <SaucesList>
+              {sauces.map((sauce, index) => (
+                <SauceContainer key={index}>
+                  <SauceCard
+                    onClick={() => handleCardClick(index)}
+                    className={activeCard === index ? "active" : ""}
+                  >
+                    <SauceNumber>{index + 1}</SauceNumber>
+                    <SauceType>{t(sauce)}</SauceType>
+                  </SauceCard>
+                  <SauceSample>{t('results.sample')} № {index + 1}</SauceSample>
+                  <SauceTitle>{t(sauce)}</SauceTitle>
+                </SauceContainer>
+              ))}
+            </SaucesList>
+            <Button $variant="glass" disabled={!isButtonActive} type="button">
+              {t('buttons.vote_select')}
+            </Button>
+            <VotePrompt>{t('vote.click')}</VotePrompt>
+          </Container>
+        </VoteBackground>
+      </main>
       <Footer />
     </>
   );

@@ -40,7 +40,7 @@ export const Research: FC = () => {
                     <SectionDescription>
                         <TextWithLineBreaks text={t('research.description')} />
                     </SectionDescription>
-                    <BtnDesktop onClick={handleNavigate} $width='610px' $backgroundColor={theme.colors.black}>{t('buttons.results')}</BtnDesktop>
+                    <BtnDesktop $variant="secondary" onClick={handleNavigate} $width='610px' $backgroundColor={theme.colors.black}>{t('buttons.results')}</BtnDesktop>
                 </LeftCol>
                 <RightCol>
                     <Graphics>

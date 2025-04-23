@@ -24,6 +24,7 @@ export const ResultBackground = styled.section`
     background-size: 65%;
     background-repeat: no-repeat;
     background-position: 120% 60%;
+
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       display: none;
     }
@@ -133,6 +134,7 @@ export const ResultTitle = styled.h2`
 
 export const ResultDescription = styled(Text)<{ $color?: string }>`
   color: ${({ theme }) => theme.colors.white};
+  
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     max-width: 515px;
     width: 100%;

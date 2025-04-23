@@ -1,5 +1,6 @@
-import { Button } from "@/components/Shared/Button/Button";
 import styled, { keyframes } from "styled-components";
+
+import { Button } from "@/components/Shared/Button/Button";
 
 const growAnimation = keyframes`
   from {
@@ -107,7 +108,7 @@ export const FirstBar = styled(BarBase)`
   background: linear-gradient(
     169.11deg,
     rgba(70, 70, 80, 0.5) 10.47%,
-    rgba(70, 70, 80, 0.3) 80.6%
+    rgba(70, 70, 80, 0.4) 80.6%
   );
   gap: 34.86px;
 
@@ -157,6 +158,7 @@ export const ThirdBar = styled(FirstBar)`
 export const BtnDesktop = styled(Button)`
   width: ${({ $width }) => ($width ? $width : "max-content")};
   margin-top: 40px;
+  padding: 41px;
 
   background-color: ${({ $backgroundColor }) => {
     if ($backgroundColor) return $backgroundColor;
@@ -178,6 +180,7 @@ export const BtnMobile = styled(Button)`
     display: flex;
     width: 100%;
     margin-top: 48px;
+    padding: 17px 32px;
 
     background-color: ${({ $backgroundColor }) => {
       if ($backgroundColor) return $backgroundColor;

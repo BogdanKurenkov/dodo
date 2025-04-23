@@ -1,9 +1,11 @@
+import { GetServerSideProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+
+import { TgAuth } from "@/widgets/TgAuth/TgAuth";
+
 import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
 import { PageWrapper } from "@/components/Shared/PageWrapper/PageWrapper";
-import { TgAuth } from "@/widgets/TgAuth/TgAuth";
-import { GetServerSideProps } from "next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 
 export default function Auth() {

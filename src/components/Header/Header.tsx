@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
+import { useTheme } from "styled-components";
 
 import { useDeviceDetect } from "@/hooks/useDeviceDetect";
 
-import { Burger } from "./Burger/Burger";
 import { Container } from "@/components/Shared/Container/Container";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher/LanguageSwitcher";
+import { Burger } from "./Burger/Burger";
 
 const Dodo = dynamic<{ fill?: string }>(
     () => import('@/assets/svg/logo_desktop.svg'),
@@ -28,13 +29,17 @@ const DodoLab = dynamic<{ fill?: string }>(
 );
 import { routes } from "@/constants/routes";
 
-import { StyledHeader, StyledNav, HeaderIcons, Menu, MenuLink, LogoWrapper } from "./styled";
-import { useTheme } from "styled-components";
+import {
+    StyledHeader,
+    StyledNav,
+    HeaderIcons,
+    Menu,
+    MenuLink,
+    LogoWrapper
+} from "./styled";
 
 export const Header = () => {
     const { t } = useTranslation('common');
-
-    const router = useRouter();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
@@ -44,7 +49,9 @@ export const Header = () => {
         transition: 'transform 0.3s ease',
     });
 
+    const router = useRouter();
     const theme = useTheme();
+    const device = useDeviceDetect();
 
     const handleBurgerToggle = (isOpen: boolean) => {
         setIsMenuOpen(isOpen);
@@ -69,8 +76,6 @@ export const Header = () => {
         }
         setIsMenuOpen(false);
     };
-
-    const device = useDeviceDetect();
 
     useEffect(() => {
         const controlHeader = () => {

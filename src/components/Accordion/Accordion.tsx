@@ -1,6 +1,7 @@
 import { FC } from "react";
-import { AccordionContent, AccordionWrapper, AccordionHeader } from "./styled";
 import { motion, AnimatePresence } from "framer-motion";
+
+import { AccordionContent, AccordionWrapper, AccordionHeader } from "./styled";
 
 interface IAccordion {
   title: React.ReactNode;
