@@ -4,7 +4,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 import { Pagination, EffectFade } from "swiper/modules";
-import type { Swiper as SwiperCore } from 'swiper/types';
+import type { Swiper as SwiperCore } from "swiper/types";
 
 import { useDeviceDetect } from "@/hooks/useDeviceDetect";
 
