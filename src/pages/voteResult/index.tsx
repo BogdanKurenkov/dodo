@@ -32,7 +32,7 @@ export default function VoteResult() {
   return (
     <>
       <Header />
-      <main>
+      <main className="main">
         <ResultBackground>
           <Container>
             <ContainerInner>

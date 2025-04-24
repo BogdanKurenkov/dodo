@@ -3,6 +3,8 @@ import { useTranslation } from 'next-i18next';
 
 import { useDeviceDetect } from '@/hooks/useDeviceDetect';
 
+import { Button } from '@/components/Shared/Button/Button';
+
 import SauceImage from '@/assets/images/sauce.png';
 
 import {
@@ -130,6 +132,7 @@ export const VotesBlock = ({ percentages }: IVotesBlock) => {
           );
         })}
       </BarsContainer>
+      <Button $variant='glass' $fullWidth>{t('buttons.event')}</Button>
     </Container>
   );
 };

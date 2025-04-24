@@ -1,5 +1,5 @@
+import Image from "next/image";
 import styled, { css } from "styled-components";
-
 import {
   Swiper as SwiperComponent,
   SwiperSlide as SwiperSlideComponent,
@@ -7,7 +7,6 @@ import {
 
 import { Plus as PlusStyled } from "@/components/Shared/Plus/Plus";
 import { Line as LineStyled } from "@/components/Shared/Plus/styled";
-import { Sauce as SauceStyled } from "@/components/VotesBlock/styled";
 import { Accordion as AccordionStyled } from "@/components/Accordion/Accordion";
 
 export const SliderWrapper = styled.section`
@@ -37,6 +36,30 @@ export const SwiperWrapper = styled.div`
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     padding: 0;
     margin: 0;
+  }
+`;
+
+export const Sauce = styled(Image)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 340px;
+  height: 300px;
+  transform: translateY(-50%) translateX(-100%);
+  object-fit: cover;
+  z-index: 5;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    width: 270px;
+    height: 240px;
+    transform: translateY(-50%) translateX(-130%);
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transform: translateY(-50%) translateX(-50%);
   }
 `;
 
@@ -271,28 +294,6 @@ export const BackgroundImages = styled.div`
     width: 100%;
     position: relative;
     overflow: hidden;
-  }
-`;
-
-export const Sauce = styled(SauceStyled)`
-  top: 50%;
-  left: 50%;
-  width: 340px;
-  height: 300px;
-  transform: translateY(-50%) translateX(-100%);
-  object-fit: cover;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    width: 270px;
-    height: 240px;
-    transform: translateY(-50%) translateX(-130%);
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    transform: translateY(-50%) translateX(-50%);
   }
 `;
 

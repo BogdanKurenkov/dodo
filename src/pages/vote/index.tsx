@@ -77,20 +77,41 @@ export default function Vote() {
         </VoteBackground>
       </main>
 
-      <LottieBase path="/lottie/vote/dip_1_1_opening_lottie/animation.json" width={200} height={200} />
+      <LottieBase path="/lottie/vote/dip_1_3_opening_lottie/animation.json" width={200} height={200} />
       <LottieBase path="/lottie/vote/dip_2_2_opening_lottie/animation.json" width={200} height={200} />
       <LottieBase path="/lottie/vote/dip_3_2_opening_lottie/animation.json" width={200} height={200} />
-
 
       <Footer />
     </>
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { req, query } = context;
+  const { source } = query;
+
+  const cookies = req.headers.cookie?.split(';').reduce((acc, cookie) => {
+    const [key, value] = cookie.trim().split('=');
+    acc[key] = value;
+    return acc;
+  }, {} as Record<string, string>) || {};
+
+  // TODO потом убрать заглушку и привязатсья к реальной куке
+
+  const accessToken = cookies.accessToken || true;
+
+  if (!accessToken && source === 'qr') {
+    return {
+      redirect: {
+        destination: '/auth?source=qr',
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: {
-      ...(await serverSideTranslations(locale ?? "ru", ["common"])),
+      ...(await serverSideTranslations(context.locale ?? "ru", ["common"])),
     },
   };
 };

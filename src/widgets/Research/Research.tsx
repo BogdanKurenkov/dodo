@@ -19,13 +19,10 @@ import {
   SecondBar,
   ThirdBar,
 } from "./styled";
-// import { useTheme } from "styled-components";
 
 export const Research: FC = () => {
   const { t } = useTranslation("common");
   const router = useRouter();
-
-  //   const theme = useTheme();
 
   const handleNavigate = () => {
     router.push("results");

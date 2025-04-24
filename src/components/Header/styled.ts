@@ -61,7 +61,7 @@ export const MenuLink = styled(Link)`
 
   @media (hover: hover) {
     &:hover {
-      opacity: 0.7;
+      color: rgba(244, 244, 241, 0.6);
     }
   }
 

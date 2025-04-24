@@ -16,11 +16,15 @@ export const ResultsWrapper = styled.section`
 `;
 
 export const ResultsLeft = styled.div`
+  width: 40%;
+
   & h2 {
     margin-bottom: 48px;
   }
 
-  width: 40%;
+  & p:last-of-type {
+    margin-bottom: 60px;
+  }
 
   @media (max-width: 1024px) {
     width: 100%;
@@ -29,6 +33,16 @@ export const ResultsLeft = styled.div`
   @media (max-width: 768px) {
     & h2 {
       margin-bottom: 36px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    & p:last-of-type {
+      margin-bottom: 0;
+    }
+
+    & button {
+      display: none;
     }
   }
 `;
