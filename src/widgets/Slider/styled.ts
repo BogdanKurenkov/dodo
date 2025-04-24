@@ -260,6 +260,8 @@ export const SwiperSlide = styled(SwiperSlideComponent)`
     justify-content: center;
     flex-direction: column;
     overflow: hidden;
+    height: 100%;
+    min-height: 100%;
 
     &::before {
       content: "";

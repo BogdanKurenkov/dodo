@@ -160,10 +160,6 @@ export const BtnDesktop = styled(Button)`
   margin-top: 40px;
   padding: 41px;
 
-  background-color: ${({ $backgroundColor }) => {
-    if ($backgroundColor) return $backgroundColor;
-  }};
-
   @media (max-width: 1024px) {
     max-width: 100%;
   }
@@ -182,8 +178,5 @@ export const BtnMobile = styled(Button)`
     margin-top: 48px;
     padding: 17px 32px;
 
-    background-color: ${({ $backgroundColor }) => {
-      if ($backgroundColor) return $backgroundColor;
-    }};
   }
 `;

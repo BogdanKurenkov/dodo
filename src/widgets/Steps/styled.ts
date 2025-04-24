@@ -89,7 +89,7 @@ export const StepsTitle = styled.h3`
   line-height: 100%;
   color: ${({ theme }) => theme.colors.black};
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-    font-size: 32px;
+    font-size: 26px;
   }
 `;
 
@@ -448,12 +448,11 @@ export const QrCodeImage = styled.img`
   object-fit: cover;
 `;
 
-export const Button = styled(StyledButton)<{ $backgroundColor?: string }>`
+export const Button = styled(StyledButton)`
   && {
     padding: 41px;
     margin: 88px 0 0;
     width: 610px;
-    background: ${({ theme }) => theme.colors.black};
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       padding: 31px 45px 38px;
       margin: 26px auto 0;
