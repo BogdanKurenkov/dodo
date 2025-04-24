@@ -199,7 +199,7 @@ export const Steps: FC = () => {
             onClick={() => handleAccordionClick("2")}
           />
         </AccordionList>
-        <Button $variant="secondary">{t('buttons.buy')}</Button>
+        <Button $variant="primary">{t('buttons.buy')}</Button>
       </Container>
     </StepsWrapper>
   );
