@@ -32,7 +32,7 @@ export default function Home() {
       <main className="main">
         <Banner />
         <Slider />
-        <Steps />
+        {source !== 'qr' && <Steps />}
         <BgWrapper isQr={source === 'qr'}>
           {source !== 'qr' && <Research />}
           <Faq isQr={source === 'qr'} />
@@ -46,10 +46,32 @@ export default function Home() {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { req, query } = context;
+  const { source } = query;
+
+  const cookies = req.headers.cookie?.split(';').reduce((acc, cookie) => {
+    const [key, value] = cookie.trim().split('=');
+    acc[key] = value;
+    return acc;
+  }, {} as Record<string, string>) || {};
+
+  // TODO потом убрать заглушку и привязатсья к реальной куке
+
+  const accessToken = cookies.accessToken || true;
+
+  if (!accessToken && source === 'qr') {
+    return {
+      redirect: {
+        destination: '/auth?source=qr',
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: {
-      ...(await serverSideTranslations(locale ?? 'ru', ['common'])),
+      ...(await serverSideTranslations(context.locale ?? "ru", ["common"])),
     },
   };
 };
