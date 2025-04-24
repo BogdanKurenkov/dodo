@@ -8,6 +8,7 @@ import { Header } from "@/components/Header/Header";
 import { Container } from "@/components/Shared/Container/Container";
 import { SectionTitle } from "@/components/Shared/SectionTitle/SectionTitle";
 import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
+import { LottieBase } from "@/components/LottieBase/LottieBase";
 
 import {
   VoteBackground,
@@ -75,6 +76,12 @@ export default function Vote() {
           </Container>
         </VoteBackground>
       </main>
+
+      <LottieBase path="/lottie/vote/dip_1_1_opening_lottie/animation.json" width={200} height={200} />
+      <LottieBase path="/lottie/vote/dip_2_2_opening_lottie/animation.json" width={200} height={200} />
+      <LottieBase path="/lottie/vote/dip_3_2_opening_lottie/animation.json" width={200} height={200} />
+
+
       <Footer />
     </>
   );
