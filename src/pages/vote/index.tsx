@@ -77,10 +77,9 @@ export default function Vote() {
         </VoteBackground>
       </main>
 
-      <LottieBase path="/lottie/vote/dip_1_1_opening_lottie/animation.json" width={200} height={200} />
+      <LottieBase path="/lottie/vote/dip_1_3_opening_lottie/animation.json" width={200} height={200} />
       <LottieBase path="/lottie/vote/dip_2_2_opening_lottie/animation.json" width={200} height={200} />
       <LottieBase path="/lottie/vote/dip_3_2_opening_lottie/animation.json" width={200} height={200} />
-
 
       <Footer />
     </>

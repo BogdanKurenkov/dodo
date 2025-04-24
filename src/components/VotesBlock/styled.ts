@@ -21,6 +21,16 @@ const fadeIn = keyframes`
 
 export const Container = styled.div`
   margin: 0 auto;
+
+  & button {
+    display: none;
+  }
+
+  @media (max-width: 500px) {
+    & button {
+      display: flex;
+    }
+  }
 `;
 
 export const BarsContainer = styled.div`

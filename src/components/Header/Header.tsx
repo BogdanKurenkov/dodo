@@ -27,7 +27,7 @@ const DodoLab = dynamic<{ fill?: string }>(
     () => import('@/assets/svg/dodo-lab_desktop.svg'),
     { ssr: false }
 );
-import { routes } from "@/constants/routes";
+import { routesLink, routesQr } from "@/constants/routes";
 
 import {
     StyledHeader,
@@ -37,6 +37,7 @@ import {
     MenuLink,
     LogoWrapper
 } from "./styled";
+import { useClient } from "@/hooks/useClient";
 
 export const Header = () => {
     const { t } = useTranslation('common');
@@ -52,6 +53,10 @@ export const Header = () => {
     const router = useRouter();
     const theme = useTheme();
     const device = useDeviceDetect();
+    const client = useClient();
+
+    const { source } = router.query;
+    const isAuth = false;
 
     const handleBurgerToggle = (isOpen: boolean) => {
         setIsMenuOpen(isOpen);
@@ -123,14 +128,24 @@ export const Header = () => {
                 </HeaderIcons>
                 <Menu $isOpen={isMenuOpen}>
                     <StyledNav $isOpen={isMenuOpen}>
-                        {Object.entries(routes).map(([key, translationKey]) => (
+                        {client && Object.entries(source === "qr" ? routesQr : routesLink).map(([key, translationKey], index) => (
                             <MenuLink
                                 key={key}
                                 href={`#${key}`}
+                                aria-disabled={!isAuth && source === 'qr' && index !== 0}
                                 onClick={(e) => {
+                                    if (!isAuth && source === 'qr' && index !== 0) {
+                                        e.preventDefault();
+                                        return;
+                                    }
                                     e.preventDefault();
                                     handleAnchorClick(key);
                                 }}
+                                style={!isAuth && source === 'qr' && index !== 0 ? {
+                                    pointerEvents: 'none',
+                                    opacity: 0.5,
+                                    cursor: 'not-allowed'
+                                } : {}}
                             >
                                 {t(translationKey)}
                             </MenuLink>

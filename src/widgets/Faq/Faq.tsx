@@ -12,6 +12,7 @@ import {
     SectionWrapper,
     FaqContainer
 } from "./styled";
+import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
 
 interface FaqItem {
     question: string;
@@ -92,12 +93,7 @@ export const Faq: FC<IFaqProps> = ({ isQr }) => {
         <SectionWrapper id="faq" $isQr={isQr}>
             <FaqContainer>
                 <SectionTitle isWhite={false}>
-                    {t('faq.title').split('\n').map((line, i) => (
-                        <React.Fragment key={i}>
-                            {line}
-                            {i < t('faq.title').split('\n').length - 1 && <br />}
-                        </React.Fragment>
-                    ))}
+                    <TextWithLineBreaks text={t('faq.title')} />
                 </SectionTitle>
 
                 <FaqWrapper>

@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/navigation";
+import { useTheme } from "styled-components";
 
 import { Container } from "@/components/Shared/Container/Container";
 import { SectionTitle } from "@/components/Shared/SectionTitle/SectionTitle";
@@ -19,7 +20,6 @@ import {
     SecondBar,
     ThirdBar
 } from "./styled";
-import { useTheme } from "styled-components";
 
 export const Research: FC = () => {
     const { t } = useTranslation('common');
@@ -40,7 +40,13 @@ export const Research: FC = () => {
                     <SectionDescription>
                         <TextWithLineBreaks text={t('research.description')} />
                     </SectionDescription>
-                    <BtnDesktop $variant="secondary" onClick={handleNavigate} $width='610px' $backgroundColor={theme.colors.black}>{t('buttons.results')}</BtnDesktop>
+                    <BtnDesktop
+                        $variant="secondary"
+                        onClick={handleNavigate}
+                        $width='610px'
+                        $backgroundColor={theme.colors.black}>
+                        {t('buttons.results')}
+                    </BtnDesktop>
                 </LeftCol>
                 <RightCol>
                     <Graphics>
@@ -48,7 +54,11 @@ export const Research: FC = () => {
                         <SecondBar />
                         <ThirdBar />
                     </Graphics>
-                    <BtnMobile onClick={handleNavigate} $backgroundColor={theme.colors.black}>{t('buttons.results')}</BtnMobile>
+                    <BtnMobile
+                        onClick={handleNavigate}
+                        $backgroundColor={theme.colors.black}>
+                        {t('buttons.results')}
+                    </BtnMobile>
                 </RightCol>
             </ColsWrapper>
         </Container>
