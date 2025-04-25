@@ -18,7 +18,8 @@ export const SectionWrapper = styled.section<{ $isQr: boolean }>`
 
     @media (max-width: 768px) {
       background-image: none;
-          border-top: none;
+          border-width: 30px;
+          margin-top: 0px;
     }
   `}
 
