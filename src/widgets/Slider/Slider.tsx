@@ -20,6 +20,7 @@ import SauceImageBackground3 from "../../../public/images/slide-background-3.png
 import {
   SliderWrapper,
   SauceBackground,
+  AccordionBackground,
   SwiperWrapper,
   Swiper,
   SwiperSlide,
@@ -149,6 +150,7 @@ export const Slider: FC = () => {
           />
         ))}
       <SwiperWrapper>
+        <AccordionBackground></AccordionBackground>
         <Swiper
           key={isMobile ? "mobile" : "desktop"}
           modules={[Pagination, ...(isMobile ? [] : [EffectFade])]}

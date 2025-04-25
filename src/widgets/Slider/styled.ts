@@ -28,6 +28,7 @@ export const SwiperWrapper = styled.div`
   width: 100%;
   margin: 0 auto;
   padding: 0 30px;
+  position: relative;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     max-width: 100%;
@@ -36,6 +37,56 @@ export const SwiperWrapper = styled.div`
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     padding: 0;
     margin: 0;
+  }
+`;
+
+export const AccordionBackground = styled.section`
+  max-width: 433px;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    169.11deg,
+    rgba(70, 70, 80, 0.4) 10.47%,
+    rgba(70, 70, 80, 0.2) 80.6%
+  );
+  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px);
+  box-shadow: 0px 5px 25px 0px #00000026;
+  border-radius: 30px;
+  position: absolute;
+  top: 0;
+  right: 30px;
+  z-index: 1;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+    display: none;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 30px;
+    padding: 1px;
+    background: linear-gradient(
+      166.29deg,
+      rgba(144, 144, 144, 0.5) 6.91%,
+      rgba(144, 144, 144, 0) 51%,
+      rgba(64, 64, 64, 0) 72.6%,
+      rgba(64, 64, 64, 0.5) 95.08%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    pointer-events: none;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+      display: none;
+    }
   }
 `;
 
@@ -304,62 +355,19 @@ export const Accordion = styled(AccordionStyled)`
   width: 100%;
   height: auto;
   object-fit: cover;
-  background: linear-gradient(
-    169.11deg,
-    rgba(70, 70, 80, 0.4) 10.47%,
-    rgba(70, 70, 80, 0.2) 80.6%
-  );
   position: relative;
   z-index: 2;
-  box-shadow: 0px 5px 25px 0px #00000026;
-  -webkit-backdrop-filter: blur(24px);
-  backdrop-filter: blur(24px);
   border-radius: 30px;
-  transform: translateZ(0);
-  will-change: opacity, backdrop-filter;
-  isolation: isolate;
-  contain: paint;
   cursor: auto;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     margin-left: 0;
     max-width: 100%;
     height: 100%;
-    background: transparent;
-    box-shadow: none;
-    -webkit-backdrop-filter: blur(0);
-    backdrop-filter: blur(0);
     border-radius: 0;
     border-top: 1px solid #555555;
     padding: 18px 22px 32px;
     cursor: pointer;
-  }
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 30px;
-    padding: 1px;
-    background: linear-gradient(
-      166.29deg,
-      rgba(144, 144, 144, 0.5) 6.91%,
-      rgba(144, 144, 144, 0) 51%,
-      rgba(64, 64, 64, 0) 72.6%,
-      rgba(64, 64, 64, 0.5) 95.08%
-    );
-    -webkit-mask: linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: destination-out;
-    mask-composite: exclude;
-    pointer-events: none;
-
-    @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-      display: none;
-    }
   }
 `;
 

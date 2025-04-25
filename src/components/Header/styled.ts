@@ -17,6 +17,8 @@ export const StyledHeader = styled.header<{
     $isOpen || $isClosing ? theme.colors.black : "#1111101A"};
   backdrop-filter: ${({ $isOpen, $isClosing }) =>
     $isOpen || $isClosing ? "none" : "blur(44px)"};
+  -webkit-backdrop-filter: ${({ $isOpen, $isClosing }) =>
+    $isOpen || $isClosing ? "none" : "blur(44px)"};
   transition: min-height 0.5s ease, transform 0.3s ease;
   padding: 15.5px 0;
 `;

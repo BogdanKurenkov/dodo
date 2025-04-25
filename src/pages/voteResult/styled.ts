@@ -43,6 +43,7 @@ export const ContainerInner = styled.div`
     );
     box-shadow: 0px 5px 25px 0px #00000026;
     backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     border-radius: 30px;
     padding-bottom: 38px;
 
@@ -134,7 +135,7 @@ export const ResultTitle = styled.h2`
 
 export const ResultDescription = styled(Text)<{ $color?: string }>`
   color: ${({ theme }) => theme.colors.white};
-  
+
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     max-width: 515px;
     width: 100%;

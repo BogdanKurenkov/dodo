@@ -81,12 +81,14 @@ export const QuestionsWrapper = styled.div`
   height: max-content;
   box-shadow: 0px 5px 15px -1px #0000001a;
   backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   position: relative;
   z-index: 2;
 
   @media (max-width: 1024px) {
     padding: 10px 22px;
     backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 `;
 

@@ -80,6 +80,7 @@ export const StyledButton = styled.button<ButtonProps>`
   padding: 25px 32px;
   box-shadow: 0px 5px 25px 0px #00000026;
   backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   position: relative;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {

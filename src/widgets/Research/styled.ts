@@ -76,6 +76,7 @@ export const BarBase = styled.div`
   position: relative;
   box-shadow: 0px 4.59px 22.93px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
   display: flex;
   flex-direction: column;
   animation: ${growAnimation} 1.5s ease-out forwards;
@@ -139,6 +140,7 @@ export const SecondBar = styled(BarBase)`
   border-radius: 18.35px;
   box-shadow: 0px 4.59px 22.93px 0px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
 
   @media (max-width: 500px) {
     height: 294px;

@@ -65,7 +65,6 @@ export const AnimatedBar = styled.div`
   );
 
   box-shadow: 0px 6.37px 31.83px 0px #00000026;
-  backdrop-filter: blur(30.55645179748535px);
 
   height: var(--min-height);
   max-height: 450px;
@@ -75,6 +74,7 @@ export const AnimatedBar = styled.div`
   line-height: 100%;
   z-index: 1;
   backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
 
   & span {
     opacity: 40%;
