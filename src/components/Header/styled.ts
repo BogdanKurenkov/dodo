@@ -17,8 +17,6 @@ export const StyledHeader = styled.header<{
     $isOpen || $isClosing ? theme.colors.black : "#1111101A"};
   backdrop-filter: ${({ $isOpen, $isClosing }) =>
     $isOpen || $isClosing ? "none" : "blur(44px)"};
-  -webkit-backdrop-filter: ${({ $isOpen, $isClosing }) =>
-    $isOpen || $isClosing ? "none" : "blur(44px)"};
   transition: min-height 0.5s ease, transform 0.3s ease;
   padding: 15.5px 0;
 `;
@@ -49,8 +47,15 @@ export const Menu = styled.div<{ $isOpen: boolean }>`
   visibility: ${({ $isOpen }) => ($isOpen ? "visible" : "hidden")};
 `;
 
-export const LogoWrapper = styled(Link)`
+export const LogoWrapper = styled(Link)<{ $isOpen: boolean }>`
   cursor: pointer;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+    transition: all 0.2s ease;
+    width: ${({ $isOpen }) => ($isOpen ? "0px" : "46px")};
+    opacity: ${({ $isOpen }) => ($isOpen ? "0" : "1")};
+    visibility: ${({ $isOpen }) => ($isOpen ? "hidden" : "visible")};
+  }
 `;
 
 export const MenuLink = styled(Link)`
@@ -69,5 +74,26 @@ export const MenuLink = styled(Link)`
 
   @media (max-width: 500px) {
     font-size: 30px;
+  }
+`;
+
+export const DodoLabWrapper = styled.div<{ $isOpen: boolean }>`
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  position: relative;
+  transition: all 0.4s ease-in-out;
+  width: auto;
+  transform: ${({ $isOpen }) =>
+    $isOpen ? "translateX(-100%)" : "translateX(0%)"};
+
+  .dodLab-text {
+    transition: all 0.4s ease-in-out;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+      visibility: ${({ $isOpen }) => ($isOpen ? "visible" : "hidden")};
+      /* opacity: ${({ $isOpen }) => ($isOpen ? "1" : "0")}; */
+      width: ${({ $isOpen }) => ($isOpen ? "140px" : "0px")};
+    }
   }
 `;
