@@ -9,20 +9,18 @@ import { Container } from "@/components/Shared/Container/Container";
 import { SectionTitle } from "@/components/Shared/SectionTitle/SectionTitle";
 import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
 import { LottieBase } from "@/components/LottieBase/LottieBase";
+import { LottieRotate } from "@/components/LottieRotate/LottieRotate";
 
 import {
   VoteBackground,
   SaucesList,
   SauceContainer,
-  SauceCard,
-  SauceNumber,
-  SauceType,
   SauceSample,
   SauceTitle,
   Button,
   VotePrompt,
 } from "./styled";
-import { LottieRotate } from "@/components/LottieRotate/LottieRotate";
+import { useRouter } from "next/navigation";
 
 const sauces = [
   "sauces.sauce1.name",
@@ -30,7 +28,7 @@ const sauces = [
   "sauces.sauce3.name"
 ];
 
-const animations = [
+const animations_open = [
   <LottieBase path="/lottie/vote/dip_1_3_opening_lottie/animation.json" width={200} height={200} />,
   <LottieBase path="/lottie/vote/dip_2_2_opening_lottie/animation.json" width={200} height={200} />,
   <LottieBase path="/lottie/vote/dip_3_2_opening_lottie/animation.json" width={200} height={200} />
@@ -39,8 +37,18 @@ const animations = [
 export default function Vote() {
   const { t } = useTranslation('common');
 
+  const router = useRouter();
+
   const [activeCard, setActiveCard] = useState<number | null>(null);
   const [isButtonActive, setIsButtonActive] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [step, setStep] = useState(1);
+
+  const animations_rotate = [
+    <LottieRotate isPlaying={isPlaying} path="/lottie/vote/dip_1_3_rotation_lottie/animation.json" width={200} height={200} />,
+    <LottieRotate isPlaying={isPlaying} path="/lottie/vote/dip_3_3_rotation_lottie/animation.json" width={200} height={200} />,
+    <LottieRotate isPlaying={isPlaying} path="/lottie/vote/dip_3_2_rotation_lottie/animation.json" width={200} height={200} />
+  ];
 
   const handleCardClick = (number: number) => {
     if (activeCard === number) {
@@ -51,6 +59,27 @@ export default function Vote() {
       setIsButtonActive(true);
     }
   };
+
+  const handleNextStep = () => {
+    if (step === 1) {
+      setIsPlaying(true);
+      setTimeout(() => {
+        setStep(2);
+      }, 1000);
+    }
+  };
+
+  const handleVoteClick = () => {
+    if (step === 1) {
+      setIsPlaying(true);
+      setTimeout(() => {
+        setStep(2);
+      }, 1000);
+    } else {
+      router.push('/voteResult')
+    }
+
+  }
 
   return (
     <>
@@ -64,25 +93,50 @@ export default function Vote() {
             <SaucesList>
               {sauces.map((sauce, index) => (
                 <SauceContainer key={index}>
-                  {/* <SauceCard
-                    onClick={() => handleCardClick(index)}
-                    className={activeCard === index ? "active" : ""}
-                  >
-                    <SauceNumber>{index + 1}</SauceNumber>
-                    <SauceType>{t(sauce)}</SauceType>
-                  </SauceCard> */}
-                  <div onClick={() => handleCardClick(index)} >
-                    {animations[index]}
+                  <div style={{ position: 'relative', width: '200px', height: '200px' }}>
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        opacity: step === 1 ? 1 : 0,
+                        pointerEvents: step === 1 ? 'auto' : 'none',
+                        transition: 'opacity 0.3s ease'
+                      }}
+                      onClick={handleNextStep}
+                    >
+                      {animations_rotate[index]}
+                    </div>
+
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        opacity: step === 2 ? 1 : 0,
+                        pointerEvents: step === 2 ? 'auto' : 'none',
+                        transition: 'opacity 0.3s ease'
+                      }}
+                      onClick={() => handleCardClick(index)}
+                    >
+                      {animations_open[index]}
+                    </div>
                   </div>
+
                   <SauceSample>{t('results.sample')} № {index + 1}</SauceSample>
                   <SauceTitle>{t(sauce)}</SauceTitle>
                 </SauceContainer>
               ))}
             </SaucesList>
-            <Button $variant="glass" disabled={!isButtonActive} type="button">
-              {t('buttons.vote_select')}
+            <Button
+              $variant="glass"
+              disabled={step === 2 && !isButtonActive}
+              type="button"
+              onClick={handleVoteClick}
+            >
+              {step === 2 ? t('buttons.vote_select') : t('buttons.start')}
             </Button>
-            <VotePrompt>{t('vote.click')}</VotePrompt>
+            <VotePrompt style={{ opacity: step === 1 ? '0' : '1' }}>{t('vote.click')}</VotePrompt>
           </Container>
         </VoteBackground>
       </main>
