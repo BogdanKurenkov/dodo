@@ -19,11 +19,11 @@ const DodoMobile = dynamic<{ fill?: string }>(
   () => import("@/assets/svg/logo_mobile.svg"),
   { ssr: false },
 );
-const DodoLabMobile = dynamic<{ fill?: string }>(
+const DodoLabMobile = dynamic<{ fill?: string, className?: string }>(
   () => import("@/assets/svg/dodo-lab_icon.svg"),
   { ssr: false },
 );
-const DodoLabTextMobile = dynamic<{ fill?: string }>(
+const DodoLabTextMobile = dynamic<{ fill?: string, className?: string }>(
   () => import("@/assets/svg/dodo-lab_text.svg"),
   { ssr: false },
 );
@@ -62,7 +62,7 @@ export const Header = () => {
   const client = useClient();
 
   const { source } = router.query;
-  const isAuth = false;
+  const isAuth = true;
 
   const handleBurgerToggle = (isOpen: boolean) => {
     setIsMenuOpen(isOpen);
@@ -73,6 +73,11 @@ export const Header = () => {
 
   const handleAnchorClick = (anchorId: string) => {
     if (router.pathname !== "/") {
+      if (router.pathname === '/auth' && !isAuth) {
+        return
+      } else {
+        router.push('/?source=qr')
+      }
       router.push(`/#${anchorId}`).then(() => {
         const element = document.getElementById(anchorId);
         if (element) {
@@ -131,8 +136,8 @@ export const Header = () => {
           </LogoWrapper>
           {device === "mobile" ? (
             <DodoLabWrapper $isOpen={isMenuOpen}>
-              <DodoLabMobile fill={theme.colors.white} className="dodLab-icon"/>
-              <DodoLabTextMobile fill={theme.colors.white} className="dodLab-text"/>
+              <DodoLabMobile fill={theme.colors.white} className="dodLab-icon" />
+              <DodoLabTextMobile fill={theme.colors.white} className="dodLab-text" />
             </DodoLabWrapper>
           ) : (
             <DodoLab fill={theme.colors.white} />
@@ -159,10 +164,10 @@ export const Header = () => {
                     style={
                       !isAuth && source === "qr" && index !== 0
                         ? {
-                            pointerEvents: "none",
-                            opacity: 0.5,
-                            cursor: "not-allowed",
-                          }
+                          pointerEvents: "none",
+                          opacity: 0.5,
+                          cursor: "not-allowed",
+                        }
                         : {}
                     }
                   >

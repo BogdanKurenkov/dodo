@@ -22,12 +22,19 @@ import {
   Button,
   VotePrompt,
 } from "./styled";
+import { LottieRotate } from "@/components/LottieRotate/LottieRotate";
 
 const sauces = [
   "sauces.sauce1.name",
   "sauces.sauce2.name",
   "sauces.sauce3.name"
 ];
+
+const animations = [
+  <LottieBase path="/lottie/vote/dip_1_3_opening_lottie/animation.json" width={200} height={200} />,
+  <LottieBase path="/lottie/vote/dip_2_2_opening_lottie/animation.json" width={200} height={200} />,
+  <LottieBase path="/lottie/vote/dip_3_2_opening_lottie/animation.json" width={200} height={200} />
+]
 
 export default function Vote() {
   const { t } = useTranslation('common');
@@ -57,13 +64,16 @@ export default function Vote() {
             <SaucesList>
               {sauces.map((sauce, index) => (
                 <SauceContainer key={index}>
-                  <SauceCard
+                  {/* <SauceCard
                     onClick={() => handleCardClick(index)}
                     className={activeCard === index ? "active" : ""}
                   >
                     <SauceNumber>{index + 1}</SauceNumber>
                     <SauceType>{t(sauce)}</SauceType>
-                  </SauceCard>
+                  </SauceCard> */}
+                  <div onClick={() => handleCardClick(index)} >
+                    {animations[index]}
+                  </div>
                   <SauceSample>{t('results.sample')} № {index + 1}</SauceSample>
                   <SauceTitle>{t(sauce)}</SauceTitle>
                 </SauceContainer>
@@ -76,10 +86,6 @@ export default function Vote() {
           </Container>
         </VoteBackground>
       </main>
-
-      <LottieBase path="/lottie/vote/dip_1_3_opening_lottie/animation.json" width={200} height={200} />
-      <LottieBase path="/lottie/vote/dip_2_2_opening_lottie/animation.json" width={200} height={200} />
-      <LottieBase path="/lottie/vote/dip_3_2_opening_lottie/animation.json" width={200} height={200} />
 
       <Footer />
     </>

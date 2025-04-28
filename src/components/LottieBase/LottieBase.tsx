@@ -1,9 +1,12 @@
 import { FC, useRef, useState, useEffect } from "react";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
-
 import { usePublicJson } from "@/hooks/usePublicJson";
-
 import { LottieWrapper } from "./styled";
+
+const allAnimations = new Set<{
+    ref: LottieRefCurrentProps;
+    reset: () => void;
+}>();
 
 interface ILottieBase {
     path: string;
@@ -24,14 +27,20 @@ export const LottieBase: FC<ILottieBase> = ({
     onClickPlay = true,
     hoverPlay = false,
     width,
-    height
+    height,
 }) => {
     const [isPlayingForward, setIsPlayingForward] = useState(false);
-
     const lottieRef = useRef<LottieRefCurrentProps>(null);
-    const containerRef = useRef<HTMLDivElement>(null);
 
     const animationData = usePublicJson(path);
+
+    const resetAnimation = () => {
+        if (lottieRef.current) {
+            playBackward();
+
+            setIsPlayingForward(false);
+        }
+    };
 
     const handleSetSpeed = () => {
         if (lottieRef.current) {
@@ -41,6 +50,12 @@ export const LottieBase: FC<ILottieBase> = ({
 
     const playForward = () => {
         if (lottieRef.current) {
+            allAnimations.forEach((anim) => {
+                if (anim.ref !== lottieRef.current) {
+                    anim.reset();
+                }
+            });
+
             lottieRef.current.setDirection(1);
             lottieRef.current.play();
             setIsPlayingForward(true);
@@ -63,16 +78,6 @@ export const LottieBase: FC<ILottieBase> = ({
         }
     };
 
-    const handleClickOutside = (event: MouseEvent) => {
-        if (
-            containerRef.current &&
-            !containerRef.current.contains(event.target as Node) &&
-            isPlayingForward
-        ) {
-            playBackward();
-        }
-    };
-
     const handleMouseEnter = () => {
         if (hoverPlay && lottieRef.current) {
             playForward();
@@ -86,17 +91,22 @@ export const LottieBase: FC<ILottieBase> = ({
     };
 
     useEffect(() => {
-        if (onClickPlay) {
-            document.addEventListener('mousedown', handleClickOutside);
-        }
+        if (!lottieRef.current) return;
+
+        const animation = {
+            ref: lottieRef.current,
+            reset: resetAnimation,
+        };
+
+        allAnimations.add(animation);
 
         return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
+            allAnimations.delete(animation);
         };
-    }, [isPlayingForward, onClickPlay]);
+    }, []);
 
     return (
-        <LottieWrapper ref={containerRef}>
+        <LottieWrapper>
             <Lottie
                 animationData={animationData}
                 loop={loop}
@@ -107,12 +117,12 @@ export const LottieBase: FC<ILottieBase> = ({
                 onMouseEnter={hoverPlay ? handleMouseEnter : undefined}
                 onMouseLeave={hoverPlay ? handleMouseLeave : undefined}
                 rendererSettings={{
-                    preserveAspectRatio: 'xMidYMid slice',
+                    preserveAspectRatio: "xMidYMid slice",
                 }}
                 style={{
                     width: width,
                     height: height,
-                    cursor: onClickPlay ? 'pointer' : 'default',
+                    cursor: onClickPlay ? "pointer" : "default",
                 }}
             />
         </LottieWrapper>
