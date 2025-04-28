@@ -22,6 +22,7 @@ export const StyledHeader = styled.header<{
 `;
 
 export const HeaderIcons = styled.div`
+  position: relative;
   ${({ theme }) => theme.mixins.flexBetween};
 `;
 
@@ -52,6 +53,7 @@ export const LogoWrapper = styled(Link)<{ $isOpen: boolean }>`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     transition: all 0.2s ease;
+    transition-delay: ${({ $isOpen }) => ($isOpen ? "0s" : "0.2s")};
     width: ${({ $isOpen }) => ($isOpen ? "0px" : "46px")};
     opacity: ${({ $isOpen }) => ($isOpen ? "0" : "1")};
     visibility: ${({ $isOpen }) => ($isOpen ? "hidden" : "visible")};
@@ -81,18 +83,16 @@ export const DodoLabWrapper = styled.div<{ $isOpen: boolean }>`
   display: flex;
   align-items: center;
   gap: 13px;
-  position: relative;
+  position: absolute;
   transition: all 0.4s ease-in-out;
   width: auto;
-  transform: ${({ $isOpen }) =>
-    $isOpen ? "translateX(-100%)" : "translateX(0%)"};
+  left: ${({ $isOpen }) => ($isOpen ? "0" : "50%")};
+  transform: ${({ $isOpen }) => ($isOpen ? "none" : "translateX(-50%)")};
 
   .dodLab-text {
     transition: all 0.4s ease-in-out;
-
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       visibility: ${({ $isOpen }) => ($isOpen ? "visible" : "hidden")};
-      /* opacity: ${({ $isOpen }) => ($isOpen ? "1" : "0")}; */
       width: ${({ $isOpen }) => ($isOpen ? "140px" : "0px")};
     }
   }
