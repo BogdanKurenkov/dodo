@@ -29,9 +29,9 @@ const sauces = [
 ];
 
 const animations_open = [
-  <LottieBase path="/lottie/vote/dip_1_3_opening_lottie/animation.json" width={200} height={200} />,
-  <LottieBase path="/lottie/vote/dip_2_2_opening_lottie/animation.json" width={200} height={200} />,
-  <LottieBase path="/lottie/vote/dip_3_2_opening_lottie/animation.json" width={200} height={200} />
+  <LottieBase key={1} path="/lottie/vote/dip_1_3_opening_lottie/animation.json" width={200} height={200} />,
+  <LottieBase key={2} path="/lottie/vote/dip_2_2_opening_lottie/animation.json" width={200} height={200} />,
+  <LottieBase key={3} path="/lottie/vote/dip_3_2_opening_lottie/animation.json" width={200} height={200} />
 ]
 
 export default function Vote() {
@@ -45,9 +45,9 @@ export default function Vote() {
   const [step, setStep] = useState(1);
 
   const animations_rotate = [
-    <LottieRotate isPlaying={isPlaying} path="/lottie/vote/dip_1_3_rotation_lottie/animation.json" width={200} height={200} />,
-    <LottieRotate isPlaying={isPlaying} path="/lottie/vote/dip_3_3_rotation_lottie/animation.json" width={200} height={200} />,
-    <LottieRotate isPlaying={isPlaying} path="/lottie/vote/dip_3_2_rotation_lottie/animation.json" width={200} height={200} />
+    <LottieRotate key={4} isAnimate={!isPlaying} isPlaying={isPlaying} path="/lottie/vote/dip_1_3_rotation_lottie/animation.json" width={200} height={200} />,
+    <LottieRotate key={5} direction="down" isAnimate={!isPlaying} isPlaying={isPlaying} path="/lottie/vote/dip_3_3_rotation_lottie/animation.json" width={200} height={200} />,
+    <LottieRotate key={6} isAnimate={!isPlaying} isPlaying={isPlaying} path="/lottie/vote/dip_3_2_rotation_lottie/animation.json" width={200} height={200} />
   ];
 
   const handleCardClick = (number: number) => {

@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 
 import { Button } from "@/components/Shared/Button/Button";
 
@@ -71,7 +71,7 @@ export const Graphics = styled.div`
   }
 `;
 
-export const BarBase = styled.div`
+export const BarBase = styled.div<{ $shouldAnimate?: boolean }>`
   border-radius: 18.35px;
   position: relative;
   box-shadow: 0px 4.59px 22.93px rgba(0, 0, 0, 0.15);
@@ -79,8 +79,15 @@ export const BarBase = styled.div`
   -webkit-backdrop-filter: blur(22px);
   display: flex;
   flex-direction: column;
-  animation: ${growAnimation} 1.5s ease-out forwards;
   transform-origin: bottom;
+  ${({ $shouldAnimate }) =>
+    $shouldAnimate
+      ? css`
+          animation: ${growAnimation} 1.5s ease-out forwards;
+        `
+      : css`
+          opacity: 0;
+        `};
 
   &::before {
     content: "";
@@ -179,6 +186,5 @@ export const BtnMobile = styled(Button)`
     width: 100%;
     margin-top: 48px;
     padding: 17px 32px;
-
   }
 `;

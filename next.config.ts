@@ -4,6 +4,15 @@ const { i18n } = require("./next-i18next.config");
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   i18n,
+  pageExtensions: [
+    "index.tsx",
+    "index.ts",
+    "index.jsx",
+    "index.js",
+    "tsx",
+    "jsx",
+    "js",
+  ],
   compiler: {
     styledComponents: {
       ssr: true,

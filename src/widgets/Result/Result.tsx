@@ -47,7 +47,7 @@ export const Result: FC = () => {
                 }
             </ResultsLeft>
             <ResultsRight>
-                <VotesBlock percentages={[30, 50, 20]} />
+                <VotesBlock percentages={[30, 45, 25]} />
             </ResultsRight>
         </ResultsWrapper>
     </Container>
