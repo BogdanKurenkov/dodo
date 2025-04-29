@@ -79,13 +79,13 @@ export const Header = () => {
         router.push('/?source=qr')
       }
       router.push(`/#${anchorId}`).then(() => {
-        const element = document.getElementById(anchorId);
+        const element = document?.getElementById(anchorId);
         if (element) {
           element.scrollIntoView({ behavior: "smooth" });
         }
       });
     } else {
-      const element = document.getElementById(anchorId);
+      const element = document?.getElementById(anchorId);
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
