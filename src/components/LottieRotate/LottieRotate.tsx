@@ -1,7 +1,9 @@
 import { FC, useEffect, useRef } from "react";
-import { LottieWrapper } from "../LottieBase/styled";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
+
 import { usePublicJson } from "@/hooks/usePublicJson";
+
+import { LottieWrapper } from "../LottieBase/styled";
 
 interface ILottieRotate {
     path: string;
@@ -39,6 +41,11 @@ export const LottieRotate: FC<ILottieRotate> = ({
                 animationData={animationData}
                 autoplay={false}
                 loop={false}
+                rendererSettings={{
+                    preserveAspectRatio: "xMidYMid slice",
+                    progressiveLoad: true,
+                    hideOnTransparent: true,
+                }}
                 initialSegment={isPlaying ? undefined : [0, 0]}
                 style={{
                     width: width,
