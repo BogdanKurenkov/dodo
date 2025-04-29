@@ -9,13 +9,17 @@ interface ILottieRotate {
     width?: string | number;
     height?: string | number;
     isPlaying?: boolean;
+    isAnimate?: boolean;
+    direction?: "up" | "down";
 }
 
 export const LottieRotate: FC<ILottieRotate> = ({
     path,
     height,
     width,
-    isPlaying = false
+    isPlaying = false,
+    isAnimate = false,
+    direction
 }) => {
     const animationData = usePublicJson(path);
     const lottieRef = useRef<LottieRefCurrentProps>(null);
@@ -29,7 +33,7 @@ export const LottieRotate: FC<ILottieRotate> = ({
     }, [isPlaying]);
 
     return (
-        <LottieWrapper>
+        <LottieWrapper $direction={direction} $isAnimate={isAnimate}>
             <Lottie
                 lottieRef={lottieRef}
                 animationData={animationData}

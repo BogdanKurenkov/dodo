@@ -32,7 +32,11 @@ export const VotesBlock = ({ percentages }: IVotesBlock) => {
   const { t } = useTranslation('common');
   const device = useDeviceDetect();
 
-  const maxIndex = percentages.indexOf(Math.max(...percentages));
+  const maxValue = Math.max(...percentages);
+  const maxIndices = percentages.reduce((acc, curr, index) => {
+    if (curr === maxValue) acc.push(index);
+    return acc;
+  }, [] as number[]);
 
   const getDeviceParams = () => {
     if (device === 'mobile') {
@@ -105,7 +109,7 @@ export const VotesBlock = ({ percentages }: IVotesBlock) => {
           const sauceBottom = barHeight - 40 - sauceHeight / 2 + (device === 'mobile' ? 8 : 11);
 
           return (
-            <BarWrapper key={index} $isHighest={index === maxIndex}>
+            <BarWrapper key={index} $isHighest={maxIndices.includes(index)}>
               <AnimatedBar
                 style={{
                   '--height': `${barHeight}px`,
