@@ -1,26 +1,26 @@
-// import { useState } from "react";
+import { useState } from "react";
 import { GetServerSideProps } from "next";
-// import { useTranslation } from "next-i18next";
+import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useRouter } from "next/navigation";
 
 import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
-// import { Container } from "@/components/Shared/Container/Container";
-// import { SectionTitle } from "@/components/Shared/SectionTitle/SectionTitle";
-// import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
+import { Container } from "@/components/Shared/Container/Container";
+import { SectionTitle } from "@/components/Shared/SectionTitle/SectionTitle";
+import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
 // import { LottieBase } from "@/components/LottieBase/LottieBase";
 // import { LottieRotate } from "@/components/LottieRotate/LottieRotate";
 
-// import {
-//     VoteBackground,
-//     SaucesList,
-//     SauceContainer,
-//     SauceSample,
-//     SauceTitle,
-//     Button,
-//     VotePrompt,
-// } from "./styled";
-// import { useRouter } from "next/navigation";
+import {
+    VoteBackground,
+    SaucesList,
+    // SauceContainer,
+    // SauceSample,
+    // SauceTitle,
+    Button,
+    VotePrompt,
+} from "./styled";
 
 // const sauces = [
 //     "sauces.sauce1.name",
@@ -35,14 +35,14 @@ import { Header } from "@/components/Header/Header";
 // ]
 
 export default function Vote() {
-    // const { t } = useTranslation('common');
+    const { t } = useTranslation('common');
 
-    // const router = useRouter();
+    const router = useRouter();
 
     // const [activeCard, setActiveCard] = useState<number | null>(null);
-    // const [isButtonActive, setIsButtonActive] = useState(false);
+    const [isButtonActive, /*setIsButtonActive*/] = useState(false);
     // const [isPlaying, setIsPlaying] = useState(false);
-    // const [step, setStep] = useState(1);
+    const [step, setStep] = useState(1);
 
     // const animations_rotate = [
     //     <LottieRotate key={4} isAnimate={!isPlaying} isPlaying={isPlaying} path="/lottie/vote/dip_1_3_rotation_lottie/animation.json" width={200} height={200} />,
@@ -69,29 +69,28 @@ export default function Vote() {
     //     }
     // };
 
-    // const handleVoteClick = () => {
-    //     if (step === 1) {
-    //         setIsPlaying(true);
-    //         setTimeout(() => {
-    //             setStep(2);
-    //         }, 1000);
-    //     } else {
-    //         router.push('/voteResult')
-    //     }
-
-    // }
+    const handleVoteClick = () => {
+        if (step === 1) {
+            // setIsPlaying(true);
+            setTimeout(() => {
+                setStep(2);
+            }, 1000);
+        } else {
+            router.push('/voteResult')
+        }
+    }
 
     return (
         <>
             <Header />
-            {/* <main className="main">
+            <main className="main">
                 <VoteBackground>
                     <Container>
                         <SectionTitle isWhite={true}>
                             <TextWithLineBreaks text={t('vote.title')} />
                         </SectionTitle>
                         <SaucesList>
-                            {sauces.map((sauce, index) => (
+                            {/* {sauces.map((sauce, index) => (
                                 <SauceContainer key={index}>
                                     <div style={{ position: 'relative', width: '200px', height: '200px' }}>
                                         <div
@@ -126,7 +125,7 @@ export default function Vote() {
                                     <SauceSample>{t('results.sample')} № {index + 1}</SauceSample>
                                     <SauceTitle>{t(sauce)}</SauceTitle>
                                 </SauceContainer>
-                            ))}
+                            ))} */}
                         </SaucesList>
                         <Button
                             $variant="glass"
@@ -139,7 +138,7 @@ export default function Vote() {
                         <VotePrompt style={{ opacity: step === 1 ? '0' : '1' }}>{t('vote.click')}</VotePrompt>
                     </Container>
                 </VoteBackground>
-            </main> */}
+            </main>
 
             <Footer />
         </>
