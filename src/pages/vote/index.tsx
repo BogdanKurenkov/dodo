@@ -17,9 +17,7 @@ const LottieBase = dynamic(
 );
 const LottieRotate = dynamic(
     () => import('@/components/LottieRotate/LottieRotate').then((mod) => mod.LottieRotate),
-    {
-        ssr: false,
-    },
+    { ssr: false },
 );
 
 import {

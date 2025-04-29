@@ -1,4 +1,4 @@
-import { FC, useRef, useState, useEffect } from "react";
+import { FC, useRef, useState, useEffect, useCallback } from "react";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 
 import { usePublicJson } from "@/hooks/usePublicJson";
@@ -36,13 +36,12 @@ export const LottieBase: FC<ILottieBase> = ({
 
     const animationData = usePublicJson(path);
 
-    const resetAnimation = () => {
+    const resetAnimation = useCallback(() => {
         if (lottieRef.current) {
             playBackward();
-
             setIsPlayingForward(false);
         }
-    };
+    }, []);
 
     const handleSetSpeed = () => {
         if (lottieRef.current) {
