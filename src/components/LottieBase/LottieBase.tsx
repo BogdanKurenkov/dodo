@@ -1,6 +1,8 @@
 import { FC, useRef, useState, useEffect } from "react";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
+
 import { usePublicJson } from "@/hooks/usePublicJson";
+
 import { LottieWrapper } from "./styled";
 
 const allAnimations = new Set<{
@@ -118,6 +120,8 @@ export const LottieBase: FC<ILottieBase> = ({
                 onMouseLeave={hoverPlay ? handleMouseLeave : undefined}
                 rendererSettings={{
                     preserveAspectRatio: "xMidYMid slice",
+                    progressiveLoad: true,
+                    hideOnTransparent: true,
                 }}
                 style={{
                     width: width,

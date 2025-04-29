@@ -52,7 +52,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const cookies =
     req.headers.cookie?.split(";").reduce((acc, cookie) => {
-      const [key, value] = cookie.trim().split("=");
+      const [key, value] = cookie.trim()?.split("=");
       acc[key] = value;
       return acc;
     }, {} as Record<string, string>) || {};
