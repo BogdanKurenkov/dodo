@@ -49,7 +49,7 @@ export default function VoteResult() {
                 <ResultDescription>
                   <TextWithLineBreaks text={t('vote_result.vote')} /> {locale === 'kz' ? "" : "№2"}
                 </ResultDescription>
-                <Button $variant="glass">{t('buttons.look')}</Button>
+                <Button onClick={() => router.push('/results')} $variant="glass">{t('buttons.look')}</Button>
               </ResultContentWrapper>
               <Sauce alt="sauce" src={SauceImage} />
             </ContainerInner>

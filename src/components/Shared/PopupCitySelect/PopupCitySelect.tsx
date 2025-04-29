@@ -17,6 +17,7 @@ import {
   LanguageButton,
   Button,
 } from "./styled";
+import { useTranslation } from "next-i18next";
 
 interface LanguageOption {
   code: "ru" | "kz" | "by";
@@ -24,8 +25,11 @@ interface LanguageOption {
 
 export const PopupCitySelect: FC = () => {
   const [selectedLanguage, setSelectedLanguage] = useState<LanguageOption["code"] | null>(null);
-  const { changeLanguage } = useLanguageSwitcher();
   const [isOpen, setIsOpen] = useState(false);
+
+  const { changeLanguage } = useLanguageSwitcher();
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     const localeCookie = Cookies.get("NEXT_LOCALE");
@@ -90,7 +94,7 @@ export const PopupCitySelect: FC = () => {
             disabled={!selectedLanguage}
             onClick={handleConfirm}
           >
-            выбрать
+            {t('buttons.select')}
           </Button>
         </PopupContent>
       </Container>
