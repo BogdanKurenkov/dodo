@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { useTranslation } from "next-i18next";
+import { useTheme } from "styled-components";
 
 import { useDeviceDetect } from "@/hooks/useDeviceDetect";
 import { useClient } from "@/hooks/useClient";
@@ -11,7 +12,6 @@ import { SectionDescription } from "@/components/Shared/SectionDescription/Secti
 import { Button } from "@/components/Shared/Button/Button";
 
 import { AuthWrapper } from "./styled";
-import { useTheme } from "styled-components";
 
 export const TgAuth: FC = () => {
     const { t } = useTranslation('common');

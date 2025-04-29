@@ -4,7 +4,6 @@ export const SectionWrapper = styled.section<{ $isQr: boolean }>`
   padding: 100px 0;
   position: relative;
   z-index: 1;
-  min-height: 100vh;
 
   ${({ $isQr }) =>
     $isQr &&
@@ -15,9 +14,12 @@ export const SectionWrapper = styled.section<{ $isQr: boolean }>`
     background-position: top;
     padding-top: 50px;
     margin-top: 50px;
+    border-top: 50px solid transparent;
 
     @media (max-width: 768px) {
       background-image: none;
+          border-width: 30px;
+          margin-top: 0px;
     }
   `}
 
@@ -80,12 +82,14 @@ export const QuestionsWrapper = styled.div`
   height: max-content;
   box-shadow: 0px 5px 15px -1px #0000001a;
   backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   position: relative;
   z-index: 2;
 
   @media (max-width: 1024px) {
     padding: 10px 22px;
     backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 `;
 

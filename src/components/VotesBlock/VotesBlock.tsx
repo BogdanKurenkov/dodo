@@ -1,8 +1,20 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
+
 import { useDeviceDetect } from '@/hooks/useDeviceDetect';
+
+import { Button } from '@/components/Shared/Button/Button';
+
 import SauceImage from '@/assets/images/sauce.png';
-import { AnimatedBar, BarBottomBlock, BarsContainer, BarWrapper, Container, Sauce } from './styled';
+
+import {
+  AnimatedBar,
+  BarBottomBlock,
+  BarsContainer,
+  BarWrapper,
+  Container,
+  Sauce
+} from './styled';
 
 interface IVotesBlock {
   percentages: number[];
@@ -16,10 +28,15 @@ interface CustomCSS extends React.CSSProperties {
 export const VotesBlock = ({ percentages }: IVotesBlock) => {
   const [heights, setHeights] = useState([0, 0, 0]);
   const [displayPercentages, setDisplayPercentages] = useState([0, 0, 0]);
+
   const { t } = useTranslation('common');
   const device = useDeviceDetect();
 
-  const maxIndex = percentages.indexOf(Math.max(...percentages));
+  const maxValue = Math.max(...percentages);
+  const maxIndices = percentages.reduce((acc, curr, index) => {
+    if (curr === maxValue) acc.push(index);
+    return acc;
+  }, [] as number[]);
 
   const getDeviceParams = () => {
     if (device === 'mobile') {
@@ -62,7 +79,7 @@ export const VotesBlock = ({ percentages }: IVotesBlock) => {
         const elapsed = Date.now() - startTime;
         const progress = Math.min(elapsed / duration, 1);
 
-        const newDisplayPercentages = percentages.map((p, i) => {
+        const newDisplayPercentages = percentages.map((p) => {
           return Math.floor(progress * p);
         });
 
@@ -92,14 +109,13 @@ export const VotesBlock = ({ percentages }: IVotesBlock) => {
           const sauceBottom = barHeight - 40 - sauceHeight / 2 + (device === 'mobile' ? 8 : 11);
 
           return (
-            <BarWrapper key={index}>
+            <BarWrapper key={index} $isHighest={maxIndices.includes(index)}>
               <AnimatedBar
                 style={{
                   '--height': `${barHeight}px`,
                   '--min-height': `${minHeightPx}px`,
                 } as CustomCSS}
                 aria-label={`${height}%`}
-                $isHighest={index === maxIndex}
               >
                 <span>{displayPercentages[index]}</span>
               </AnimatedBar>
@@ -120,6 +136,7 @@ export const VotesBlock = ({ percentages }: IVotesBlock) => {
           );
         })}
       </BarsContainer>
+      <Button $variant='glass' $fullWidth>{t('buttons.event')}</Button>
     </Container>
   );
 };

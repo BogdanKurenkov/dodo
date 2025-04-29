@@ -27,7 +27,7 @@ export const Info = styled.div`
 export const CardsWrapper = styled.div`
     margin-top: 90px;
     .splide {
-        
+
         &__slide {
             height: auto;
             display: flex;
@@ -52,7 +52,8 @@ export const StyledCard = styled.div`
     display: flex;
     flex-direction: column;
     box-shadow: 0px 4px 12px -1px rgba(0, 0, 0, 0.08);
-    backdrop-filter: blur(10.33480453491211px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     height: 100%;
 
     @media(max-width:768px){
@@ -178,7 +179,7 @@ export const PaginationLine = styled.span`
     background: ${({ theme }) => theme.colors.black};
     opacity: 0.4;
     transition: all 0.3s ease-in-out;
-    
+
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
         width: 0;
         height: 2px;

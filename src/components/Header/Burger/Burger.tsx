@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+
 import { BurgerButton, BurgerLine } from './styled';
 
 interface IBurgerProps {

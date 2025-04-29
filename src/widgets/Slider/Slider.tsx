@@ -1,14 +1,16 @@
+import { useTranslation } from "next-i18next";
+import { FC, useState, useEffect } from "react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
-
-import { FC, useState, useEffect } from "react";
 import { Pagination, EffectFade } from "swiper/modules";
+import type { Swiper as SwiperCore } from "swiper/types";
+
+import { useDeviceDetect } from "@/hooks/useDeviceDetect";
 
 import { Container } from "@/components/Shared/Container/Container";
 import { SectionTitle } from "@/components/Shared/SectionTitle/SectionTitle";
-
-import { useDeviceDetect } from "@/hooks/useDeviceDetect";
+import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
 
 import SauceImage from "@/assets/images/sauce.png";
 import SauceImageBackground1 from "../../../public/images/slide-background-1.png";
@@ -18,6 +20,7 @@ import SauceImageBackground3 from "../../../public/images/slide-background-3.png
 import {
   SliderWrapper,
   SauceBackground,
+  AccordionBackground,
   SwiperWrapper,
   Swiper,
   SwiperSlide,
@@ -47,30 +50,27 @@ interface Sauce {
 const sauces: Sauce[] = [
   {
     image: SauceImageBackground1,
-    type: "томленый",
-    description:
-      "Нежный и насыщенный. Медленно томился под крышкой, вобрал в себя аромат мяса, специй и получился особенно домашним",
-    taste: "Насыщенный, с оттенками спелых томатов",
-    aroma: "Тёплый, домашний",
-    texture: "Гладкая, мягкая, обволакивающая",
+    type: "sauces.sauce1.name",
+    description: "sauces.sauce1.description",
+    taste: "sauces.sauce1.taste_description",
+    aroma: "sauces.sauce1.aroma_description",
+    texture: "sauces.sauce1.texture_description",
   },
   {
     image: SauceImageBackground2,
-    type: "жаркий",
-    description:
-      "Собрал в себе жар солнца и остроту специй. Бодрящий вкус с легким огненным характером для любителей ярких акцентов",
-    taste: "Насыщенный, с перчинкой",
-    aroma: "Пряный, пикантный",
-    texture: "Плотная, тягучая",
+    type: "sauces.sauce2.name",
+    description: "sauces.sauce2.description",
+    taste: "sauces.sauce2.taste_description",
+    aroma: "sauces.sauce2.aroma_description",
+    texture: "sauces.sauce2.texture_description",
   },
   {
     image: SauceImageBackground3,
-    type: "копченый",
-    description:
-      "Лёгкий дымный аромат, густая текстура и пряный вкус. Для тех, кто ценит глубокие вкусы с лёгким огоньком",
-    taste: "дымный, пряный",
-    aroma: "копченый, со специями",
-    texture: "густая, бархатистая",
+    type: "sauces.sauce3.name",
+    description: "sauces.sauce1.description",
+    taste: "sauces.sauce3.taste_description",
+    aroma: "sauces.sauce3.aroma_description",
+    texture: "sauces.sauce3.texture_description",
   },
 ];
 
@@ -96,41 +96,46 @@ const getMobileImage = (index: number, deviceType: string): string => {
 export const Slider: FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [openAccordionId, setOpenAccordionId] = useState<string | null>(null);
+
   const deviceType = useDeviceDetect();
   const isMobile = deviceType === "mobile";
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const savedOpenAccordionId = sessionStorage.getItem(
-        "sliderOpenAccordionId",
-      );
-      if (savedOpenAccordionId) {
-        setOpenAccordionId(savedOpenAccordionId);
-      }
-    }
-  }, []);
+  const { t } = useTranslation('common');
 
   useEffect(() => {
-    if (isMobile && typeof window !== "undefined") {
-      if (openAccordionId === null) {
-        sessionStorage.removeItem("sliderOpenAccordionId");
-      } else {
-        sessionStorage.setItem("sliderOpenAccordionId", openAccordionId);
-      }
+    const savedOpenAccordionId = sessionStorage.getItem("sliderOpenAccordionId");
+    if (savedOpenAccordionId) {
+      setOpenAccordionId(savedOpenAccordionId);
     }
-  }, [openAccordionId, isMobile]);
+  }, [isMobile]);
+
+  useEffect(() => {
+    if (openAccordionId === null) {
+      sessionStorage.removeItem("sliderOpenAccordionId");
+    } else {
+      sessionStorage.setItem("sliderOpenAccordionId", openAccordionId);
+    }
+  }, [openAccordionId]);
 
   const handleAccordionClick = (accordionKey: string) => {
     setOpenAccordionId((prevId) =>
-      prevId === accordionKey ? null : accordionKey,
+      prevId === accordionKey ? null : accordionKey
     );
+  };
+
+  const handleSlideChange = (swiper: SwiperCore) => {
+    setActiveIndex(swiper.activeIndex);
+
+    if (isMobile) {
+      setOpenAccordionId(null);
+    }
   };
 
   return (
     <SliderWrapper>
       <Container>
         <SectionTitle isWhite={true}>
-          Три соуса — <br /> один в меню
+          <TextWithLineBreaks text={t("slider_title")} />
         </SectionTitle>
       </Container>
       {!isMobile &&
@@ -145,20 +150,21 @@ export const Slider: FC = () => {
           />
         ))}
       <SwiperWrapper>
+        <AccordionBackground></AccordionBackground>
         <Swiper
           key={isMobile ? "mobile" : "desktop"}
           modules={[Pagination, ...(isMobile ? [] : [EffectFade])]}
           spaceBetween={isMobile ? 18 : 0}
           slidesPerView={isMobile ? 1.2 : 1}
           centeredSlides={isMobile}
-          effect={!isMobile ? "fade" : undefined}
-          fadeEffect={!isMobile ? { crossFade: true } : undefined}
+          effect={isMobile ? undefined : "fade"}
+          fadeEffect={isMobile ? undefined : { crossFade: true }}
           pagination={{
             clickable: true,
             renderBullet,
           }}
           allowTouchMove={isMobile}
-          onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+          onSlideChange={handleSlideChange}
         >
           {sauces.map((sauce, index) => (
             <SwiperSlide key={index}>
@@ -178,34 +184,42 @@ export const Slider: FC = () => {
                 title={
                   <>
                     <SauceSummary>
-                      <SauceSample>образец №{index + 1}</SauceSample>
-                      <SauceTitle>{sauce.type}</SauceTitle>
+                      <SauceSample>{t('results.sample')} №{index + 1}</SauceSample>
+                      <SauceTitle>{t(sauce.type)}</SauceTitle>
                     </SauceSummary>
-                    <Plus isCross={openAccordionId === `sauce-${index}`} />
+                    <Plus
+                      isCross={
+                        isMobile ? openAccordionId === `sauce-${index}` : false
+                      }
+                    />
                   </>
                 }
                 content={
                   <>
-                    <SauceDescription>{sauce.description}</SauceDescription>
+                    <SauceDescription>{t(sauce.description)}</SauceDescription>
                     <SauceList>
                       <SauceItem>
-                        <SauceHighlight>основной вкус</SauceHighlight>
-                        <SauceDetail>{sauce.taste}</SauceDetail>
+                        <SauceHighlight>{t('sauces.taste')}</SauceHighlight>
+                        <SauceDetail>{t(sauce.taste)}</SauceDetail>
                       </SauceItem>
                       <SauceItem>
-                        <SauceHighlight>аромат</SauceHighlight>
-                        <SauceDetail>{sauce.aroma}</SauceDetail>
+                        <SauceHighlight>{t('sauces.aroma')}</SauceHighlight>
+                        <SauceDetail>{t(sauce.aroma)}</SauceDetail>
                       </SauceItem>
                       <SauceItem>
-                        <SauceHighlight>текстура</SauceHighlight>
-                        <SauceDetail>{sauce.texture}</SauceDetail>
+                        <SauceHighlight>{t('sauces.texture')}</SauceHighlight>
+                        <SauceDetail>{t(sauce.texture)}</SauceDetail>
                       </SauceItem>
                     </SauceList>
                   </>
                 }
-                isOpen={openAccordionId === `sauce-${index}`}
-                onClick={() => handleAccordionClick(`sauce-${index}`)}
-                forceOpen={!isMobile}
+                isOpen={isMobile ? openAccordionId === `sauce-${index}` : true}
+                onClick={
+                  isMobile
+                    ? () => handleAccordionClick(`sauce-${index}`)
+                    : () => { }
+                }
+                skipInitialAnimation={!isMobile}
               />
             </SwiperSlide>
           ))}

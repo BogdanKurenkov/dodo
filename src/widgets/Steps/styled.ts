@@ -8,7 +8,7 @@ export const StepsWrapper = styled.section`
   position: relative;
   width: 100%;
   padding: 120px 0 80px;
-  height: 100%;
+  min-height: 100vh;
   overflow: hidden;
   background: ${({ theme }) => theme.colors.white};
   z-index: 1;
@@ -20,16 +20,21 @@ export const StepsWrapper = styled.section`
     content: "";
     position: absolute;
     width: 100%;
-    height: 100%;
-    top: -15%;
-    right: -60%;
+    height: 100vh;
+    top: -150px;
+    right: -70%;
     background-image: url("/images/steps-background.png");
-    background-size: contain;
+    background-size: auto;
     background-repeat: no-repeat;
     z-index: -1;
     display: none;
+    pointer-events: none;
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       display: block;
+    }
+    @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+      top: -150px;
+      right: -60%;
     }
   }
 `;
@@ -89,7 +94,7 @@ export const StepsTitle = styled.h3`
   line-height: 100%;
   color: ${({ theme }) => theme.colors.black};
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-    font-size: 32px;
+    font-size: 26px;
   }
 `;
 
@@ -188,6 +193,7 @@ export const Accordion = styled(AccordionStyled)`
   );
   box-shadow: 0px 5px 15px -1px #0000001a;
   backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     padding: 38px 22px 42px 25px;
     border-radius: 30px;
@@ -263,6 +269,7 @@ export const StepsButton = styled.button`
   background: #ffffff;
   box-shadow: 0px 5px 15px -1px #0000001a;
   backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border-radius: 10px;
   padding: 9px 12px;
   border: none;
@@ -431,7 +438,8 @@ export const StepsQrWrapper = styled.div`
   background: ${({ theme }) => theme.colors.orange};
   border-radius: 12px;
   box-shadow: 0px 6.05px 18.16px -1.21px #0000001a;
-  backdrop-filter: blur(29.048555374145508px);
+  backdrop-filter: blur(29px);
+  -webkit-backdrop-filter: blur(29px);
 `;
 
 export const QrTitle = styled.span`
@@ -448,12 +456,11 @@ export const QrCodeImage = styled.img`
   object-fit: cover;
 `;
 
-export const Button = styled(StyledButton)<{ $backgroundColor?: string }>`
+export const Button = styled(StyledButton)`
   && {
     padding: 41px;
     margin: 88px 0 0;
     width: 610px;
-    background: ${({ theme }) => theme.colors.black};
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       padding: 31px 45px 38px;
       margin: 26px auto 0;

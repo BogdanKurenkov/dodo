@@ -19,6 +19,8 @@ export const VoteBackground = styled.section`
     background-repeat: no-repeat;
     background-position: 40% 60%;
     z-index: -1;
+    pointer-events: none;
+
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       background-image: url("/images/vote-background-mob.png");
       background-size: auto;
@@ -37,10 +39,12 @@ export const SaucesList = styled.div`
   position: relative;
   z-index: 1;
   padding: 88px 0 0;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     gap: 0;
     justify-content: space-between;
   }
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     gap: 0;
     justify-content: space-between;
@@ -49,6 +53,7 @@ export const SaucesList = styled.div`
     margin: 0 auto;
     padding: 56px 0 0;
   }
+
   @media (max-width: 375px) {
     width: 100%;
   }
@@ -59,6 +64,7 @@ export const SauceContainer = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     &:nth-child(odd) {
       margin-top: -50px;
@@ -89,6 +95,7 @@ export const SauceContainer = styled.div`
       align-self: flex-end;
       margin-left: 0;
     }
+
     &:nth-child(1) {
       margin-top: 0px;
       margin-left: 0px;
@@ -102,7 +109,6 @@ export const SauceCard = styled.div`
   background: linear-gradient(160.9deg, #908f8f 29%, #c2c2c2 87.15%);
   border-radius: 41.15px 41.15px 41.15px 11.76px;
   min-width: 178px;
-  width: 100%;
   height: 219px;
   position: relative;
   overflow: hidden;
@@ -144,27 +150,34 @@ export const SauceCard = styled.div`
     clip-path: polygon(0 100%, 0 100%, 0 100%, 0 100%);
     z-index: 2;
     transition: all 0.4s ease;
+
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       width: calc(100% - 15px);
       height: calc(100% - 10px);
     }
   }
 
-  &:hover {
-    box-shadow: 6.63px -6.63px 66.32px 0px ${({ theme }) => theme.colors.orange};
-    &::after {
-      clip-path: polygon(0 45%, 100% 81%, 100% 100%, 0% 100%);
-    }
-    &::before {
-      clip-path: polygon(0 47%, 100% 81%, 100% 100%, 0% 100%);
+  @media (hover: hover) {
+    &:hover {
+      box-shadow: 6.63px -6.63px 66.32px 0px ${({ theme }) => theme.colors.orange};
+
+      &::after {
+        clip-path: polygon(0 45%, 100% 81%, 100% 100%, 0% 100%);
+      }
+
+      &::before {
+        clip-path: polygon(0 47%, 100% 81%, 100% 100%, 0% 100%);
+      }
     }
   }
 
   &.active {
     box-shadow: 6.63px -6.63px 66.32px 0px ${({ theme }) => theme.colors.orange};
+
     &::after {
       clip-path: polygon(0 45%, 100% 81%, 100% 100%, 0% 100%);
     }
+
     &::before {
       clip-path: polygon(0 47%, 100% 81%, 100% 100%, 0% 100%);
     }
@@ -182,6 +195,7 @@ export const SauceNumber = styled.span`
   transform: translateY(-50%);
   z-index: 0;
   pointer-events: none;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     font-size: 171px;
     right: -18px;
@@ -199,6 +213,7 @@ export const SauceType = styled.span`
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     font-size: 16px;
     bottom: 50px;
@@ -212,6 +227,7 @@ export const SauceSample = styled.span`
   line-height: 100%;
   color: ${({ theme }) => theme.colors.orange};
   text-align: center;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     font-size: 18px;
     margin-top: 22px;
@@ -226,6 +242,7 @@ export const SauceTitle = styled.span`
   text-transform: lowercase;
   color: ${({ theme }) => theme.colors.white};
   margin-top: 11px;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     font-size: 20px;
     margin-top: 8px;
@@ -237,6 +254,7 @@ export const Button = styled(StyledButton)`
     padding: 41px 40px 48px;
     margin: 86px auto 0;
     width: 610px;
+
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       width: 100%;
       padding: 31px 30px 38px;

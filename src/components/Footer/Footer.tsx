@@ -1,7 +1,9 @@
 import { FC } from "react";
-import { StyledFooter, FooterText } from "./styled";
-import { FooterLogo } from "./FooterLogo/FooterLogo";
 import { useTranslation } from "next-i18next";
+
+import { FooterLogo } from "./FooterLogo/FooterLogo";
+
+import { StyledFooter, FooterText } from "./styled";
 
 interface IFooterProps {
     color?: string;

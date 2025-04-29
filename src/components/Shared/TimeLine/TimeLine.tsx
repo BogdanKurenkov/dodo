@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { useTranslation } from "next-i18next";
+
 import { Date, Line, TimeLineWrapper } from "./styled";
 
 interface ITimeLine {

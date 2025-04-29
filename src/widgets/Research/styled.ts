@@ -1,5 +1,6 @@
+import styled, { keyframes, css } from "styled-components";
+
 import { Button } from "@/components/Shared/Button/Button";
-import styled, { keyframes } from "styled-components";
 
 const growAnimation = keyframes`
   from {
@@ -70,15 +71,23 @@ export const Graphics = styled.div`
   }
 `;
 
-export const BarBase = styled.div`
+export const BarBase = styled.div<{ $shouldAnimate?: boolean }>`
   border-radius: 18.35px;
   position: relative;
   box-shadow: 0px 4.59px 22.93px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
   display: flex;
   flex-direction: column;
-  animation: ${growAnimation} 1.5s ease-out forwards;
   transform-origin: bottom;
+  ${({ $shouldAnimate }) =>
+    $shouldAnimate
+      ? css`
+          animation: ${growAnimation} 1.5s ease-out forwards;
+        `
+      : css`
+          opacity: 0;
+        `};
 
   &::before {
     content: "";
@@ -107,7 +116,7 @@ export const FirstBar = styled(BarBase)`
   background: linear-gradient(
     169.11deg,
     rgba(70, 70, 80, 0.5) 10.47%,
-    rgba(70, 70, 80, 0.3) 80.6%
+    rgba(70, 70, 80, 0.4) 80.6%
   );
   gap: 34.86px;
 
@@ -137,7 +146,8 @@ export const SecondBar = styled(BarBase)`
   border: 0.99px solid rgba(144, 144, 144, 0.25);
   border-radius: 18.35px;
   box-shadow: 0px 4.59px 22.93px 0px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(202.016094207763672px);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
 
   @media (max-width: 500px) {
     height: 294px;
@@ -157,10 +167,7 @@ export const ThirdBar = styled(FirstBar)`
 export const BtnDesktop = styled(Button)`
   width: ${({ $width }) => ($width ? $width : "max-content")};
   margin-top: 40px;
-
-  background-color: ${({ $backgroundColor }) => {
-    if ($backgroundColor) return $backgroundColor;
-  }};
+  padding: 41px;
 
   @media (max-width: 1024px) {
     max-width: 100%;
@@ -178,9 +185,6 @@ export const BtnMobile = styled(Button)`
     display: flex;
     width: 100%;
     margin-top: 48px;
-
-    background-color: ${({ $backgroundColor }) => {
-      if ($backgroundColor) return $backgroundColor;
-    }};
+    padding: 17px 32px;
   }
 `;

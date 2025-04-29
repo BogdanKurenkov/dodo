@@ -22,6 +22,7 @@ export const StyledHeader = styled.header<{
 `;
 
 export const HeaderIcons = styled.div`
+  position: relative;
   ${({ theme }) => theme.mixins.flexBetween};
 `;
 
@@ -47,8 +48,16 @@ export const Menu = styled.div<{ $isOpen: boolean }>`
   visibility: ${({ $isOpen }) => ($isOpen ? "visible" : "hidden")};
 `;
 
-export const LogoWrapper = styled(Link)`
+export const LogoWrapper = styled(Link)<{ $isOpen: boolean }>`
   cursor: pointer;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+    transition: all 0.2s ease;
+    transition-delay: ${({ $isOpen }) => ($isOpen ? "0s" : "0.2s")};
+    width: ${({ $isOpen }) => ($isOpen ? "0px" : "46px")};
+    opacity: ${({ $isOpen }) => ($isOpen ? "0" : "1")};
+    visibility: ${({ $isOpen }) => ($isOpen ? "hidden" : "visible")};
+  }
 `;
 
 export const MenuLink = styled(Link)`
@@ -57,8 +66,34 @@ export const MenuLink = styled(Link)`
   text-transform: lowercase;
   border-bottom: 1px solid rgba(244, 244, 241, 0.4);
   padding-bottom: 32px;
+  transition: 0.5s ease;
+
+  @media (hover: hover) {
+    &:hover {
+      color: rgba(244, 244, 241, 0.6);
+    }
+  }
 
   @media (max-width: 500px) {
     font-size: 30px;
+  }
+`;
+
+export const DodoLabWrapper = styled.div<{ $isOpen: boolean }>`
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  position: absolute;
+  transition: all 0.4s ease-in-out;
+  width: auto;
+  left: ${({ $isOpen }) => ($isOpen ? "0" : "50%")};
+  transform: ${({ $isOpen }) => ($isOpen ? "none" : "translateX(-50%)")};
+
+  .dodLab-text {
+    transition: all 0.4s ease-in-out;
+    @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+      visibility: ${({ $isOpen }) => ($isOpen ? "visible" : "hidden")};
+      width: ${({ $isOpen }) => ($isOpen ? "140px" : "0px")};
+    }
   }
 `;

@@ -21,6 +21,16 @@ const fadeIn = keyframes`
 
 export const Container = styled.div`
   margin: 0 auto;
+
+  & button {
+    display: none;
+  }
+
+  @media (max-width: 500px) {
+    & button {
+      display: flex;
+    }
+  }
 `;
 
 export const BarsContainer = styled.div`
@@ -31,23 +41,11 @@ export const BarsContainer = styled.div`
   position: relative;
 `;
 
-export const BarWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 1;
-  height: 100%;
-  position: relative;
-  z-index: 1;
-  width: calc(33% - 12px);
-`;
-
-export const AnimatedBar = styled.div<{ $isHighest: boolean }>`
+export const AnimatedBar = styled.div`
   width: 100%;
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  background-blend-mode: overlay;
   animation: ${growUp} 1s ease-out forwards;
   position: absolute;
   bottom: 40px;
@@ -67,7 +65,6 @@ export const AnimatedBar = styled.div<{ $isHighest: boolean }>`
   );
 
   box-shadow: 0px 6.37px 31.83px 0px #00000026;
-  backdrop-filter: blur(30.55645179748535px);
 
   height: var(--min-height);
   max-height: 450px;
@@ -77,6 +74,7 @@ export const AnimatedBar = styled.div<{ $isHighest: boolean }>`
   line-height: 100%;
   z-index: 1;
   backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
 
   & span {
     opacity: 40%;
@@ -123,6 +121,35 @@ export const AnimatedBar = styled.div<{ $isHighest: boolean }>`
       font-size: 32px;
     }
   }
+`;
+
+export const BarWrapper = styled.div<{ $isHighest: boolean }>`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+  width: calc(33% - 12px);
+
+  ${({ $isHighest }) =>
+    $isHighest &&
+    `
+    & ${AnimatedBar} {
+      background: linear-gradient(169.11deg, #612800 10.47%, #2f1300 80.6%);
+      color: rgba(255, 105, 0, 1);
+
+      & span {
+        opacity: 1;
+      }
+
+      &::after {
+        opacity: 1;
+        color: rgba(255, 105, 0, 1);
+      }
+    }
+  `}
 `;
 
 export const Sauce = styled(Image)`

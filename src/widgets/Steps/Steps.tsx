@@ -1,4 +1,6 @@
 import { FC, useState, useEffect } from "react";
+import { useTranslation } from "next-i18next";
+import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
 
 import { Container } from "@/components/Shared/Container/Container";
 import { SectionTitle } from "@/components/Shared/SectionTitle/SectionTitle";
@@ -40,30 +42,26 @@ import {
   StepsQrWrapper,
   QrTitle,
   QrCodeImage,
-  Button
+  Button,
 } from "./styled";
 
 export const Steps: FC = () => {
   const [openAccordionId, setOpenAccordionId] = useState<string | null>(null);
 
+  const { t } = useTranslation('common');
+
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const savedOpenAccordionId = sessionStorage.getItem(
-        "stepsOpenAccordionId",
-      );
-      if (savedOpenAccordionId) {
-        setOpenAccordionId(savedOpenAccordionId);
-      }
+    const savedOpenAccordionId = sessionStorage.getItem("stepsOpenAccordionId");
+    if (savedOpenAccordionId) {
+      setOpenAccordionId(savedOpenAccordionId);
     }
   }, []);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      if (openAccordionId === null) {
-        sessionStorage.removeItem("stepsOpenAccordionId");
-      } else {
-        sessionStorage.setItem("stepsOpenAccordionId", openAccordionId);
-      }
+    if (openAccordionId === null) {
+      sessionStorage.removeItem("stepsOpenAccordionId");
+    } else {
+      sessionStorage.setItem("stepsOpenAccordionId", openAccordionId);
     }
   }, [openAccordionId]);
 
@@ -74,14 +72,14 @@ export const Steps: FC = () => {
   };
 
   return (
-    <StepsWrapper>
+    <StepsWrapper id="participate">
       <Container>
         <StepsHeader>
           <SectionTitle isWhite={false}>
-            Сделайте <br /> свой выбор
+            <TextWithLineBreaks text={t('choice.title')} />
           </SectionTitle>
           <SectionDescription>
-            Вступайте в команду Додо Лаб и участвуйте:
+            {t('choice.description')}
           </SectionDescription>
           <TimeLine isWhite={false} />
         </StepsHeader>
@@ -90,8 +88,8 @@ export const Steps: FC = () => {
             title={
               <>
                 <StepsSummary>
-                  <StepsStage>этап 1</StepsStage>
-                  <StepsTitle>Найдите акцию</StepsTitle>
+                  <StepsStage>{t('choice.stage.title')} 1</StepsStage>
+                  <StepsTitle>{t('choice.stage.stage1.title')}</StepsTitle>
                 </StepsSummary>
                 <Plus isCross={openAccordionId === "0"} />
               </>
@@ -99,13 +97,13 @@ export const Steps: FC = () => {
             content={
               <StepsList>
                 <StepsItem>
-                  <StepsText>Скачайте приложение</StepsText>
+                  <StepsText>{t('choice.stage.stage1.download')}</StepsText>
                   <StepsButton>
                     <ButtonImage>
                       <DodoLogo />
                     </ButtonImage>
                     <ButtonContent>
-                      <ButtonTitle>Додо Пицца доставка и ресторан</ButtonTitle>
+                      <ButtonTitle>{t('choice.stage.stage1.dodo')}</ButtonTitle>
                       <ButtonCopyright>
                         DODO Brands International DMCC
                       </ButtonCopyright>
@@ -114,21 +112,19 @@ export const Steps: FC = () => {
                 </StepsItem>
                 <StepsItem>
                   <StepsText>
-                    Перейдите в профиль в правом верхнем углу приложения и
-                    найдите акцию с Набором соусов Додо Лаб*
+                    {t('choice.stage.stage1.profile')}
                   </StepsText>
                   <StepsNote>
-                    *Количество наборов по акции ограничено. Если наборы по
-                    акции закончились, вы можете найти их в меню
+                    {t('choice.stage.stage1.qty')}
                   </StepsNote>
                   <StepsCard>
                     <CardContent>
-                      <CardSubtitle>на любой тип заказа</CardSubtitle>
+                      <CardSubtitle>{t('choice.stage.stage1.type')}</CardSubtitle>
                       <CardTitle>
-                        Набор соусов Додо Лаб за 1 ₽ при заказе от 990 ₽
+                        {t('choice.stage.stage1.kit')}
                       </CardTitle>
-                      <CardNote>до 10 июня</CardNote>
-                      <CardButton>Применить</CardButton>
+                      <CardNote>{t('choice.stage.stage1.to')}</CardNote>
+                      <CardButton>{t('buttons.apply')}</CardButton>
                     </CardContent>
                     <CardImagesWrapper>
                       <CardImage src={Snack.src} alt="Snack" />
@@ -147,8 +143,8 @@ export const Steps: FC = () => {
             title={
               <>
                 <StepsSummary>
-                  <StepsStage>этап 2</StepsStage>
-                  <StepsTitle>Попробуйте соусы</StepsTitle>
+                  <StepsStage>{t('choice.stage.title')} 2</StepsStage>
+                  <StepsTitle>{t('choice.stage.stage2.title')}</StepsTitle>
                 </StepsSummary>
                 <Plus isCross={openAccordionId === "1"} />
               </>
@@ -157,12 +153,11 @@ export const Steps: FC = () => {
               <StepsList>
                 <StepsItem>
                   <StepsText>
-                    Закажите продукты из меню на сумму от 900 ₽ и примените
-                    акцию
+                    {t('choice.stage.stage2.order')}
                   </StepsText>
                 </StepsItem>
                 <StepsItem>
-                  <StepsText>Попробуйте все три соуса</StepsText>
+                  <StepsText>{t('choice.stage.stage2.try')}</StepsText>
                 </StepsItem>
               </StepsList>
             }
@@ -173,8 +168,8 @@ export const Steps: FC = () => {
             title={
               <>
                 <StepsSummary>
-                  <StepsStage>этап 3</StepsStage>
-                  <StepsTitle>Выберите один</StepsTitle>
+                  <StepsStage>{t('choice.stage.title')} 3</StepsStage>
+                  <StepsTitle>{t('choice.stage.stage3.title')}</StepsTitle>
                 </StepsSummary>
                 <Plus isCross={openAccordionId === "2"} />
               </>
@@ -182,20 +177,20 @@ export const Steps: FC = () => {
             content={
               <StepsList>
                 <StepsItem>
-                  <StepsText>Отсканируйте QR-код на коробке</StepsText>
+                  <StepsText>{t('choice.stage.stage3.qr')}</StepsText>
                   <StepsQrWrapper>
-                    <QrTitle>Поделитесь мнением</QrTitle>
+                    <QrTitle>{t('choice.stage.stage3.share')}</QrTitle>
                     <QrCodeImage src={QrCode.src} alt="QR Code" />
                   </StepsQrWrapper>
                 </StepsItem>
                 <StepsItem>
                   <StepsText>
-                    После авторизации откройте страницу голосования
+                    {t('choice.stage.stage3.auth')}
                   </StepsText>
                 </StepsItem>
                 <StepsItem>
                   <StepsText>
-                    Решите судьбу фирменного соуса Додо Пиццы!
+                    {t('choice.stage.stage3.select')}
                   </StepsText>
                 </StepsItem>
               </StepsList>
@@ -204,7 +199,7 @@ export const Steps: FC = () => {
             onClick={() => handleAccordionClick("2")}
           />
         </AccordionList>
-        <Button $variant="secondary">заказать набор</Button>
+        <Button $variant="primary">{t('buttons.buy')}</Button>
       </Container>
     </StepsWrapper>
   );
