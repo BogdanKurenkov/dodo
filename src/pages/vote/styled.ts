@@ -19,6 +19,7 @@ export const VoteBackground = styled.section`
     background-repeat: no-repeat;
     background-position: 40% 60%;
     z-index: -1;
+    pointer-events: none;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       background-image: url("/images/vote-background-mob.png");

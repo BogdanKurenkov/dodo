@@ -24,6 +24,7 @@ export const ResultBackground = styled.section`
     background-size: 65%;
     background-repeat: no-repeat;
     background-position: 120% 60%;
+    pointer-events: none;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       display: none;
@@ -107,6 +108,7 @@ export const ResultHeader = styled.div`
     background-repeat: no-repeat;
     background-position: top;
     display: none;
+    pointer-events: none;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       display: block;

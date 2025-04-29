@@ -28,6 +28,7 @@ export const StepsWrapper = styled.section`
     background-repeat: no-repeat;
     z-index: -1;
     display: none;
+    pointer-events: none;
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       display: block;
     }
