@@ -6,6 +6,7 @@ import { Container } from "@/components/Shared/Container/Container";
 import { SectionTitle } from "@/components/Shared/SectionTitle/SectionTitle";
 import { SectionDescription } from "@/components/Shared/SectionDescription/SectionDescription";
 import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 import {
   BtnDesktop,
@@ -23,6 +24,10 @@ import {
 export const Research: FC = () => {
   const { t } = useTranslation("common");
   const router = useRouter();
+  const [graphicsRef, isGraphicsVisible] = useIntersectionObserver({
+    threshold: 0.1,
+    rootMargin: "0px",
+  });
 
   const handleNavigate = () => {
     router.push("results");
@@ -47,10 +52,10 @@ export const Research: FC = () => {
             </BtnDesktop>
           </LeftCol>
           <RightCol>
-            <Graphics>
-              <FirstBar />
-              <SecondBar />
-              <ThirdBar />
+            <Graphics ref={graphicsRef}>
+              <FirstBar $shouldAnimate={isGraphicsVisible} />
+              <SecondBar $shouldAnimate={isGraphicsVisible} />
+              <ThirdBar $shouldAnimate={isGraphicsVisible} />
             </Graphics>
             <BtnMobile $variant="primary" onClick={handleNavigate}>
               {t("buttons.results")}

@@ -103,7 +103,7 @@ export const LottieBase: FC<ILottieBase> = ({
         return () => {
             allAnimations.delete(animation);
         };
-    }, []);
+    }, [resetAnimation]);
 
     return (
         <LottieWrapper>
