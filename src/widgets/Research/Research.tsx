@@ -25,7 +25,7 @@ export const Research: FC = () => {
   const { t } = useTranslation("common");
   const router = useRouter();
   const [graphicsRef, isGraphicsVisible] = useIntersectionObserver({
-    threshold: 0.1,
+    threshold: 0.3,
     rootMargin: "0px",
   });
 

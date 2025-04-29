@@ -80,14 +80,13 @@ export const BarBase = styled.div<{ $shouldAnimate?: boolean }>`
   display: flex;
   flex-direction: column;
   transform-origin: bottom;
+  transform: scaleY(0);
+
   ${({ $shouldAnimate }) =>
-    $shouldAnimate
-      ? css`
-          animation: ${growAnimation} 1.5s ease-out forwards;
-        `
-      : css`
-          opacity: 0;
-        `};
+    $shouldAnimate &&
+    css`
+      animation: ${growAnimation} 1.5s ease-out forwards;
+    `};
 
   &::before {
     content: "";

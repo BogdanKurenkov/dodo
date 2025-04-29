@@ -1,0 +1,46 @@
+import styled from "styled-components";
+
+import { StyledButton } from "@/components/Shared/Button/styled";
+
+export const TextWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    padding: 100px 0;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+      padding: 50px 0;
+    }
+`
+
+export const Button = styled(StyledButton) <{ $step?: number }>`
+  && {
+    padding: 41px 40px 48px;
+    margin-top: 86px;
+    width: 610px;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+      width: 100%;
+      padding: 31px 30px 38px;
+    }
+  }
+`;
+
+export const ButtonDesktop = styled(Button)`
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    display: none;
+  }
+`;
+
+export const ButtonMobile = styled(Button)`
+  display: none;
+
+  &&{
+    margin-top: 40px;
+  }
+  
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+      display: flex;
+      margin-top: 0;
+    }
+`

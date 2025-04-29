@@ -220,13 +220,15 @@ export const SauceType = styled.span`
   }
 `;
 
-export const SauceSample = styled.span`
+export const SauceSample = styled.span<{ $sPlaying: boolean }>`
   margin-top: 32px;
   font-weight: 500;
   font-size: 22.75px;
   line-height: 100%;
   color: ${({ theme }) => theme.colors.orange};
   text-align: center;
+  opacity: ${({ $sPlaying }) => ($sPlaying ? 1 : 0)};
+  transition: opacity 2s ease;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     font-size: 18px;
@@ -234,7 +236,7 @@ export const SauceSample = styled.span`
   }
 `;
 
-export const SauceTitle = styled.span`
+export const SauceTitle = styled.span<{ $sPlaying: boolean }>`
   font-size: 32px;
   font-weight: 500;
   line-height: 100%;
@@ -242,6 +244,8 @@ export const SauceTitle = styled.span`
   text-transform: lowercase;
   color: ${({ theme }) => theme.colors.white};
   margin-top: 11px;
+  opacity: ${({ $sPlaying }) => ($sPlaying ? 1 : 0)};
+  transition: opacity 2s ease;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     font-size: 20px;
@@ -249,16 +253,23 @@ export const SauceTitle = styled.span`
   }
 `;
 
-export const Button = styled(StyledButton)`
+export const Button = styled(StyledButton)<{ $step?: number }>`
   && {
     padding: 41px 40px 48px;
     margin: 86px auto 0;
     width: 610px;
+    transform: ${({ $step }) =>
+      $step === 1 ? "translateY(-200px)" : "translateY(0)"};
+    transition: transform 1s ease;
+    position: relative;
+    z-index: 3;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       width: 100%;
       padding: 31px 30px 38px;
       margin: 47px auto 0;
+      transform: ${({ $step }) =>
+        $step === 1 ? "translateY(-150px)" : "translateY(0)"};
     }
   }
 `;
