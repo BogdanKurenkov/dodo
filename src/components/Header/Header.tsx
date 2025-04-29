@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useTheme } from "styled-components";
 
 import { useDeviceDetect } from "@/hooks/useDeviceDetect";
+import { useClient } from "@/hooks/useClient";
 
 import { Container } from "@/components/Shared/Container/Container";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher/LanguageSwitcher";
@@ -14,7 +15,6 @@ const Dodo = dynamic<{ fill?: string }>(
   () => import("@/assets/svg/logo_desktop.svg"),
   { ssr: false },
 );
-
 const DodoMobile = dynamic<{ fill?: string }>(
   () => import("@/assets/svg/logo_mobile.svg"),
   { ssr: false },
@@ -27,7 +27,6 @@ const DodoLabTextMobile = dynamic<{ fill?: string, className?: string }>(
   () => import("@/assets/svg/dodo-lab_text.svg"),
   { ssr: false },
 );
-
 const DodoLab = dynamic<{ fill?: string }>(
   () => import("@/assets/svg/dodo-lab_desktop.svg"),
   { ssr: false },
@@ -43,7 +42,6 @@ import {
   LogoWrapper,
   DodoLabWrapper
 } from "./styled";
-import { useClient } from "@/hooks/useClient";
 
 export const Header = () => {
   const { t } = useTranslation("common");

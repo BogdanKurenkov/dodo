@@ -129,9 +129,8 @@ export default function Vote() {
                                             {animations_open[index]}
                                         </div>
                                     </div>
-
-                                    <SauceSample>{t('results.sample')} № {index + 1}</SauceSample>
-                                    <SauceTitle>{t(sauce)}</SauceTitle>
+                                    <SauceSample $sPlaying={isPlaying}>{t('results.sample')} № {index + 1}</SauceSample>
+                                    <SauceTitle $sPlaying={isPlaying}>{t(sauce)}</SauceTitle>
                                 </SauceContainer>
                             ))}
                         </SaucesList>
@@ -140,6 +139,7 @@ export default function Vote() {
                             disabled={step === 2 && !isButtonActive}
                             type="button"
                             onClick={handleVoteClick}
+                            $step={isPlaying ? 2 : 1}
                         >
                             {step === 2 ? t('buttons.vote_select') : t('buttons.start')}
                         </Button>

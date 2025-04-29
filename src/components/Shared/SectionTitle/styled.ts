@@ -7,7 +7,10 @@ export const StyledTitle = styled.h2<{ $isWhite: boolean }>`
   font-weight: 600;
   line-height: 100%;
   letter-spacing: -0.01em;
-  text-transform: capitalize;
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
 
   @media (max-width: 1024px) {
     font-size: 42px;
