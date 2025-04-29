@@ -3,14 +3,22 @@ import { GetServerSideProps } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/navigation";
+import dynamic from 'next/dynamic';
 
 import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
 import { Container } from "@/components/Shared/Container/Container";
 import { SectionTitle } from "@/components/Shared/SectionTitle/SectionTitle";
 import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
-import { LottieBase } from "@/components/LottieBase/LottieBase";
-import { LottieRotate } from "@/components/LottieRotate/LottieRotate";
+
+const LottieBase = dynamic(
+    () => import('@/components/LottieBase/LottieBase').then((mod) => mod.LottieBase),
+    { ssr: false }
+);
+const LottieRotate = dynamic(
+    () => import('@/components/LottieRotate/LottieRotate').then((mod) => mod.LottieRotate),
+    { ssr: false }
+);
 
 import {
     VoteBackground,
