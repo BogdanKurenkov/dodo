@@ -19,9 +19,7 @@ const LottieRotate = dynamic(
     () => import('@/components/LottieRotate/LottieRotate').then((mod) => mod.LottieRotate),
     {
         ssr: false,
-        loading: () => <div style={{ width: 200, height: 200 }} />
     },
-
 );
 
 import {
