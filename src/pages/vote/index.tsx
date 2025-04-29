@@ -15,18 +15,18 @@ import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextW
 import {
     VoteBackground,
     SaucesList,
-    // SauceContainer,
-    // SauceSample,
-    // SauceTitle,
+    SauceContainer,
+    SauceSample,
+    SauceTitle,
     Button,
     VotePrompt,
 } from "./styled";
 
-// const sauces = [
-//     "sauces.sauce1.name",
-//     "sauces.sauce2.name",
-//     "sauces.sauce3.name"
-// ];
+const sauces = [
+    "sauces.sauce1.name",
+    "sauces.sauce2.name",
+    "sauces.sauce3.name"
+];
 
 // const animations_open = [
 //     <LottieBase key={1} path="/lottie/vote/dip_1_3_opening_lottie/animation.json" width={200} height={200} />,
@@ -90,9 +90,9 @@ export default function Vote() {
                             <TextWithLineBreaks text={t('vote.title')} />
                         </SectionTitle>
                         <SaucesList>
-                            {/* {sauces.map((sauce, index) => (
+                            {sauces.map((sauce, index) => (
                                 <SauceContainer key={index}>
-                                    <div style={{ position: 'relative', width: '200px', height: '200px' }}>
+                                    {/* <div style={{ position: 'relative', width: '200px', height: '200px' }}>
                                         <div
                                             style={{
                                                 position: 'absolute',
@@ -120,12 +120,12 @@ export default function Vote() {
                                         >
                                             {animations_open[index]}
                                         </div>
-                                    </div>
+                                    </div> */}
 
                                     <SauceSample>{t('results.sample')} № {index + 1}</SauceSample>
                                     <SauceTitle>{t(sauce)}</SauceTitle>
                                 </SauceContainer>
-                            ))} */}
+                            ))}
                         </SaucesList>
                         <Button
                             $variant="glass"
