@@ -1,9 +1,12 @@
 import { FC, useState, useEffect } from "react";
-import { useLanguageSwitcher } from "@/hooks/useLanguageSwitcher";
 import Cookies from "js-cookie";
+
+import { useLanguageSwitcher } from "@/hooks/useLanguageSwitcher";
 
 import { Container } from "@/components/Shared/Container/Container";
 import { Footer } from "@/components/Footer/Footer";
+
+import Logo from "@/assets/svg/dodo-lab_desktop.svg";
 
 import {
   PopupWrapper,
@@ -14,8 +17,6 @@ import {
   LanguageButton,
   Button,
 } from "./styled";
-
-import Logo from "@/assets/svg/dodo-lab_desktop.svg";
 
 interface LanguageOption {
   code: "ru" | "kz" | "by";
@@ -39,9 +40,16 @@ export const PopupCitySelect: FC = () => {
 
   const handleConfirm = () => {
     if (selectedLanguage) {
-      changeLanguage(selectedLanguage);
+      sendMetricData(selectedLanguage);
+
+      const languageToSet = selectedLanguage === "by" ? "ru" : selectedLanguage;
+      changeLanguage(languageToSet);
       setIsOpen(false);
     }
+  };
+
+  const sendMetricData = (language: LanguageOption["code"]) => {
+    console.log(`Selected language for metrics: ${language}`);
   };
 
   if (!isOpen) return null;

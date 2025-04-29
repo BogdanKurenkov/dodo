@@ -14,6 +14,7 @@ export const PopupWrapper = styled.section`
   justify-content: space-between;
   z-index: 1001;
   background: ${({ theme }) => theme.colors.black};
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     justify-content: flex-end;
   }
@@ -30,11 +31,13 @@ export const PopupWrapper = styled.section`
     background-repeat: no-repeat;
     z-index: -1;
     pointer-events: none;
+
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       top: -5%;
       right: -65%;
       background-size: 130%;
     }
+
     @media (max-width: 350px) {
       top: 3%;
       right: -60%;
@@ -48,6 +51,7 @@ export const Header = styled.div`
   min-height: 0;
   height: auto;
   padding: 14.5px 0;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     padding: 13px 0;
     position: absolute;
@@ -62,6 +66,7 @@ export const LogoWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     height: 65px;
     justify-content: flex-start;
@@ -81,6 +86,7 @@ export const Language = styled.div`
   align-items: center;
   justify-content: center;
   gap: 28px;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     gap: 22px;
   }
