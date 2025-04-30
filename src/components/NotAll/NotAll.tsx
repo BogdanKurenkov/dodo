@@ -10,7 +10,9 @@ import { SectionTitle } from "../Shared/SectionTitle/SectionTitle";
 import { SectionDescription } from "@/components/Shared/SectionDescription/SectionDescription";
 import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
 
-import CardImg from "@/assets/images/card-image.png";
+import CardImg from "@/assets/images/results-slider_1.png";
+import CardImg1 from "@/assets/images/results-slider_2.png";
+import CardImg2 from "@/assets/images/results-slider_3.png";
 
 import {
     CardDescription,
@@ -25,6 +27,8 @@ import {
     PaginationWrapper,
     StyledCard
 } from "./styled";
+
+const images = [CardImg, CardImg1, CardImg2];
 
 export const NotAll: FC = () => {
     const { t } = useTranslation('common');
@@ -106,6 +110,7 @@ export const NotAll: FC = () => {
                         {Object.entries(cardsData).map(([key, card], index) => (
                             <SplideSlide key={key}>
                                 <Card
+                                    index={index}
                                     number={`${t('results.not_all.idea')} ${index + 1}`}
                                     title={card.title}
                                     description={card.description}
@@ -139,16 +144,17 @@ interface ICard {
     number: string;
     title: string;
     description: string;
+    index: number;
 }
 
-export const Card: FC<ICard> = ({ number, title, description }) => {
+export const Card: FC<ICard> = ({ number, title, description, index }) => {
     return (
         <StyledCard>
             <CardNumber>{number}</CardNumber>
             <CardTitle>
                 <TextWithLineBreaks text={title} />
             </CardTitle>
-            <CardImage alt="image" src={CardImg} />
+            <CardImage alt="image" src={images[index]} />
             <CardDescription>
                 <TextWithLineBreaks text={description} />
             </CardDescription>

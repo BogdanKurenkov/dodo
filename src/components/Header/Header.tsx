@@ -60,7 +60,7 @@ export const Header = () => {
   const client = useClient();
 
   const { source } = router.query;
-  const isAuth = true;
+  const isAuth = false;
 
   const handleBurgerToggle = (isOpen: boolean) => {
     setIsMenuOpen(isOpen);
@@ -70,11 +70,17 @@ export const Header = () => {
   };
 
   const handleAnchorClick = (anchorId: string) => {
+    if (source === 'qr' && router.pathname === '/') {
+      router.push("/auth?source=qr");
+      return
+    }
+
     if (router.pathname !== "/") {
       if (router.pathname === '/auth' && !isAuth) {
+        setIsMenuOpen(false);
         return
       } else {
-        router.push('/?source=qr')
+        router.push('/auth?source=qr')
       }
       router.push(`/#${anchorId}`).then(() => {
         const element = document?.getElementById(anchorId);
@@ -129,7 +135,7 @@ export const Header = () => {
     >
       <Container>
         <HeaderIcons>
-          <LogoWrapper href="/" $isOpen={isMenuOpen}>
+          <LogoWrapper href={source === "qr" ? "/?source=qr" : "/"} $isOpen={isMenuOpen}>
             {device === "mobile" ? <DodoMobile /> : <Dodo />}
           </LogoWrapper>
           {device === "mobile" ? (
