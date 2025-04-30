@@ -25,12 +25,16 @@ export const Banner: FC = () => {
     const { source } = router.query;
 
     const handleScrollToParticipate = () => {
-        const element = document?.getElementById('participate');
-        if (element) {
-            element.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+        if (source === "qr") {
+            router.push('/vote?source=qr')
+        } else {
+            const element = document?.getElementById('participate');
+            if (element) {
+                element.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
         }
     };
 

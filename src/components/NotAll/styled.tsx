@@ -88,10 +88,12 @@ export const CardTitle = styled.h4`
 export const CardImage = styled(Image)`
     width: 100%;
     margin: 35px 0;
+    border-radius: 22px;
 
     @media(max-width: 500px){
         margin: 15px 0;
-        height: 161px;
+        height: 250px;
+        object-fit: cover;
     }
 `;
 
@@ -100,9 +102,16 @@ export const CardDescription = styled.p`
     font-size: 25px;
     line-height: 100%;
     flex-grow: 1;
+    opacity: 80%;
 
     @media(max-width:1024px){
         font-size: 20px;
+    }
+
+    @media(max-width:500px){
+        & br{
+            display: none;
+        }
     }
 `;
 

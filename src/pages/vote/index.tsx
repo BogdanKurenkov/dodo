@@ -4,6 +4,7 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/navigation";
 import dynamic from 'next/dynamic';
+import Head from "next/head";
 
 import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
@@ -90,6 +91,9 @@ export default function Vote() {
 
     return (
         <>
+            <Head>
+                <title>Додо лаб</title>
+            </Head>
             <Header />
             <main className="main">
                 <VoteBackground>
