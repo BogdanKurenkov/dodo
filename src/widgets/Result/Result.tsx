@@ -12,8 +12,13 @@ import { SectionDescription } from "@/components/Shared/SectionDescription/Secti
 import { Container } from "@/components/Shared/Container/Container";
 import { VotesBlock } from "@/components/VotesBlock/VotesBlock";
 import { Button } from "@/components/Shared/Button/Button";
+import { Disclaimer } from "@/components/Shared/Disclaimer/Disclaimer";
 
-import { ResultsLeft, ResultsRight, ResultsWrapper } from "./styled";
+import {
+    ResultsLeft,
+    ResultsRight,
+    ResultsWrapper
+} from "./styled";
 
 export const Result: FC = () => {
     const { t } = useTranslation('common');
@@ -32,7 +37,7 @@ export const Result: FC = () => {
                 <SectionTitle isWhite={true}>
                     <TextWithLineBreaks text={t('results.title')} />
                 </SectionTitle>
-                <SectionDescription color={theme.colors.white}>10.05.</SectionDescription>
+                <SectionDescription color={theme.colors.white}>{t('results.date')}</SectionDescription>
                 <SectionDescription color={theme.colors.white}>
                     <TextWithLineBreaks text={t('results.description')} />
                 </SectionDescription>
@@ -45,6 +50,7 @@ export const Result: FC = () => {
                         {t('buttons.event')}
                     </Button>
                 }
+                <Disclaimer variant="descktop" />
             </ResultsLeft>
             <ResultsRight>
                 <VotesBlock percentages={[30, 45, 25]} />

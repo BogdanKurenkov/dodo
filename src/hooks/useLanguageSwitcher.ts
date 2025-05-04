@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 export const useLanguageSwitcher = () => {
   const router = useRouter();
   const { locale } = router;
+  const userCountry = Cookies.get("USER_COUNTRY");
 
   const changeLanguage = (newLocale: string) => {
     Cookies.set("NEXT_LOCALE", newLocale, { expires: 365 });
@@ -15,5 +16,5 @@ export const useLanguageSwitcher = () => {
     });
   };
 
-  return { changeLanguage, currentLocale: locale };
+  return { changeLanguage, currentLocale: locale, userCountry };
 };

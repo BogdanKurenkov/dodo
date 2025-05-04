@@ -1,14 +1,17 @@
 import { FC, useState, useEffect } from "react";
 import { useTranslation } from "next-i18next";
-import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
 
+import { useLanguageSwitcher } from "@/hooks/useLanguageSwitcher";
+
+import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
 import { Container } from "@/components/Shared/Container/Container";
 import { SectionTitle } from "@/components/Shared/SectionTitle/SectionTitle";
 import { TimeLine } from "@/components/Shared/TimeLine/TimeLine";
 import { Plus } from "@/components/Shared/Plus/Plus";
 
 import DodoLogo from "@/assets/svg/steps-logo.svg";
-import Snack from "@/assets/images/Snack-02.png";
+import Snack_RU from "@/assets/images/Snack_RU.png";
+import Snack_KZ from "@/assets/images/Snack_KZ.png";
 import QrCode from "@/assets/images/qr-code.png";
 import IconInfo from "@/assets/svg/icon-info.svg";
 
@@ -45,8 +48,33 @@ import {
   Button,
 } from "./styled";
 
+type CountryCode = 'ru' | 'kz' | 'by';
+type LocaleCode = 'ru' | 'kz';
+
+const promotion_info: Record<CountryCode, Record<LocaleCode, string>> = {
+  ru: {
+    ru: "Набор соусов Додо Лаб за 1 ₽ при заказе от 990 ₽",
+    kz: "Додо Лаб соусы жиынтығы 990 ₽-ден бастап тапсырыс бергенде 1₽"
+  },
+  kz: {
+    ru: "Набор соусов Додо Лаб за 10 Т при заказе от 5 000 Т",
+    kz: "5 000 ₸-ден бастап — Додо Лаб тұздықтар жиынтығы небәрі 10 ₸"
+  },
+  by: {
+    ru: "Набор соусов Додо Лаб за 1 руб. при заказе от 30 руб.",
+    kz: "Додо Лаб соустарының жиынтығы 1 рубльге. 30 рубльден асатын тапсырыстар үшін."
+  }
+};
+
 export const Steps: FC = () => {
   const [openAccordionId, setOpenAccordionId] = useState<string | null>(null);
+
+  const { userCountry, currentLocale } = useLanguageSwitcher();
+
+  const promotionText = userCountry && currentLocale
+    ? (promotion_info[userCountry as CountryCode]?.[currentLocale as LocaleCode]
+      || "Default promotion text")
+    : "Default promotion text";
 
   const { t } = useTranslation('common');
 
@@ -121,13 +149,13 @@ export const Steps: FC = () => {
                     <CardContent>
                       <CardSubtitle>{t('choice.stage.stage1.type')}</CardSubtitle>
                       <CardTitle>
-                        {t('choice.stage.stage1.kit')}
+                        {promotionText}
                       </CardTitle>
                       <CardNote>{t('choice.stage.stage1.to')}</CardNote>
                       <CardButton>{t('buttons.apply')}</CardButton>
                     </CardContent>
                     <CardImagesWrapper>
-                      <CardImage src={Snack.src} alt="Snack" />
+                      <CardImage src={currentLocale === "ru" ? Snack_RU.src : Snack_KZ.src} alt="Snack" />
                       <CardImageInfo>
                         <IconInfo />
                       </CardImageInfo>

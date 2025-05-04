@@ -22,8 +22,8 @@ export const ResultsLeft = styled.div`
     margin-bottom: 48px;
   }
 
-  & p:last-of-type {
-    margin-bottom: 60px;
+  & button {
+    margin-top: 120px;
   }
 
   @media (max-width: 1024px) {
@@ -49,7 +49,7 @@ export const ResultsLeft = styled.div`
 
 export const ResultsRight = styled.div`
   width: 60%;
-  margin-top: 300px;
+  margin-top: 310px;
 
   @media (max-width: 1024px) {
     width: 100%;

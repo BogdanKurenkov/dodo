@@ -4,7 +4,11 @@ import { useLanguageSwitcher } from '@/hooks/useLanguageSwitcher';
 
 import { LANGUAGES } from '@/constants/languages';
 
-import { StyledLanguageSwitcher, SwitcherWrapper, Divider } from './styled';
+import {
+    StyledLanguageSwitcher,
+    SwitcherWrapper,
+    Divider
+} from './styled';
 
 interface ILanguageSwitcher {
     isActive: boolean;
@@ -22,7 +26,7 @@ export const LanguageSwitcher: FC<ILanguageSwitcher> = ({ isActive }) => {
     return (
         <SwitcherWrapper $isActive={isActive} role="group" aria-label="Language switcher">
             <StyledLanguageSwitcher
-                $active={locale === LANGUAGES.RU}
+                $active={locale === LANGUAGES.RU || locale === LANGUAGES.BY}
                 onClick={() => handleLanguageChange(LANGUAGES.RU)}
                 aria-current={locale === LANGUAGES.RU ? 'true' : 'false'}
                 aria-label="Russian language"

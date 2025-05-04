@@ -4,6 +4,7 @@ import { useTranslation } from 'next-i18next';
 import { useDeviceDetect } from '@/hooks/useDeviceDetect';
 
 import { Button } from '@/components/Shared/Button/Button';
+import { Disclaimer } from '@/components/Shared/Disclaimer/Disclaimer';
 
 import SauceImage from '@/assets/images/sauce.png';
 
@@ -137,6 +138,7 @@ export const VotesBlock = ({ percentages }: IVotesBlock) => {
         })}
       </BarsContainer>
       <Button $variant='glass' $fullWidth>{t('buttons.event')}</Button>
+      <Disclaimer variant="mobile" />
     </Container>
   );
 };

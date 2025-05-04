@@ -1,5 +1,6 @@
 import { FC, useState, useEffect } from "react";
 import Cookies from "js-cookie";
+import { useTranslation } from "next-i18next";
 
 import { useLanguageSwitcher } from "@/hooks/useLanguageSwitcher";
 
@@ -17,7 +18,6 @@ import {
   LanguageButton,
   Button,
 } from "./styled";
-import { useTranslation } from "next-i18next";
 
 interface LanguageOption {
   code: "ru" | "kz" | "by";
@@ -44,17 +44,12 @@ export const PopupCitySelect: FC = () => {
 
   const handleConfirm = () => {
     if (selectedLanguage) {
-      sendMetricData(selectedLanguage);
-
-      const languageToSet = selectedLanguage === "by" ? "ru" : selectedLanguage;
-      changeLanguage(languageToSet);
+      changeLanguage(selectedLanguage);
+      Cookies.set('USER_COUNTRY', selectedLanguage, { expires: 365 })
       setIsOpen(false);
     }
   };
 
-  const sendMetricData = (language: LanguageOption["code"]) => {
-    console.log(`Selected language for metrics: ${language}`);
-  };
 
   if (!isOpen) return null;
 
