@@ -52,6 +52,7 @@ export default function Vote() {
     const [isButtonActive, setIsButtonActive] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
     const [step, setStep] = useState(1);
+    const [isTransitioning, setIsTransitioning] = useState(false);
 
     const animations_rotate = [
         <LottieRotate key={4} isAnimate={!isPlaying} isPlaying={isPlaying} path="/lottie/vote/dip_1_3_rotation_lottie/animation.json" width={200} height={200} />,
@@ -71,6 +72,7 @@ export default function Vote() {
 
     const handleNextStep = () => {
         if (step === 1) {
+            setIsTransitioning(true);
             setIsPlaying(true);
             setTimeout(() => {
                 setStep(2);
@@ -80,6 +82,7 @@ export default function Vote() {
 
     const handleVoteClick = () => {
         if (step === 1) {
+            setIsTransitioning(true);
             setIsPlaying(true);
             setTimeout(() => {
                 setStep(2);
@@ -96,7 +99,7 @@ export default function Vote() {
             </Head>
             <Header />
             <main className="main">
-                <VoteBackground>
+                <VoteBackground $step={step} $isTransitioning={isTransitioning}>
                     <Container>
                         <SectionTitle isWhite={true}>
                             <TextWithLineBreaks text={t('vote.title')} />
