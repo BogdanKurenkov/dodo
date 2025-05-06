@@ -18,7 +18,8 @@ const botLinks = {
     ru: "https://t.me/dodo_ru_bot?start=landing_sauces",
     by: "https://t.me/dodo_by_bot?start=landing_sauces",
     kz: "https://t.me/dodo_kz_bot?start=landing_sauces"
-}
+};
+
 export const TgAuth: FC = () => {
     const { t } = useTranslation('common');
 
@@ -29,7 +30,6 @@ export const TgAuth: FC = () => {
 
     const handleButtonClick = () => {
         const link = botLinks[userCountry as keyof typeof botLinks];
-        console.log(link)
         if (typeof window !== 'undefined') {
             window.open(link, '_blank', 'noopener,noreferrer');
         }

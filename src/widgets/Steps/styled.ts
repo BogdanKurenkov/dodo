@@ -97,6 +97,11 @@ export const StepsTitle = styled.h3`
   font-size: 42px;
   line-height: 100%;
   color: ${({ theme }) => theme.colors.black};
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     font-size: 26px;
   }
@@ -470,5 +475,21 @@ export const Button = styled(StyledButton)`
       margin: 26px auto 0;
       width: 100%;
     }
+  }
+`;
+
+export const TitleLg = styled.h2`
+  font-size: 96px;
+  font-weight: 500;
+  line-height: 95%;
+  color: ${({ theme }) => theme.colors.black};
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+    font-size: 42px;
+    line-height: 100%;
   }
 `;

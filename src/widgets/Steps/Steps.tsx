@@ -5,7 +5,6 @@ import { useLanguageSwitcher } from "@/hooks/useLanguageSwitcher";
 
 import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
 import { Container } from "@/components/Shared/Container/Container";
-
 import { TimeLine } from "@/components/Shared/TimeLine/TimeLine";
 import { Plus } from "@/components/Shared/Plus/Plus";
 
@@ -18,7 +17,6 @@ import IconInfo from "@/assets/svg/icon-info.svg";
 import {
   StepsWrapper,
   StepsHeader,
-  SectionTitle,
   SectionDescription,
   AccordionList,
   Accordion,
@@ -47,7 +45,9 @@ import {
   QrTitle,
   QrCodeImage,
   Button,
+  TitleLg,
 } from "./styled";
+import { appLink } from "@/constants/appLink";
 
 type CountryCode = 'ru' | 'kz' | 'by';
 type LocaleCode = 'ru' | 'kz' | 'by';
@@ -72,6 +72,12 @@ export const Steps: FC = () => {
   const [promotionText, setPromotionText] = useState('');
 
   const { userCountry, currentLocale } = useLanguageSwitcher();
+
+  const handleAppRedirect = () => {
+    if (typeof window !== 'undefined') {
+      window.open(appLink, '_blank', 'noopener,noreferrer');
+    }
+  }
 
   useEffect(() => {
     const savedOpenAccordionId = sessionStorage.getItem("stepsOpenAccordionId");
@@ -112,9 +118,9 @@ export const Steps: FC = () => {
     <StepsWrapper id="participate">
       <Container>
         <StepsHeader>
-          <SectionTitle $isWhite={false}>
+          <TitleLg>
             <TextWithLineBreaks text={t('choice.title')} />
-          </SectionTitle>
+          </TitleLg>
           <SectionDescription>
             {t('choice.description')}
           </SectionDescription>
@@ -236,7 +242,7 @@ export const Steps: FC = () => {
             onClick={() => handleAccordionClick("2")}
           />
         </AccordionList>
-        <Button $variant="primary">{t('buttons.buy')}</Button>
+        <Button onClick={handleAppRedirect} $variant="primary">{t('buttons.buy')}</Button>
       </Container>
     </StepsWrapper>
   );

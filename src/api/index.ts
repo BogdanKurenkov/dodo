@@ -5,7 +5,7 @@ import {
   VoteResponse,
 } from "./types";
 
-const API_BASE_URL = "https://gitea.azatdev.ru/default/dodo_back";
+const API_BASE_URL = "https://dodev.testdevweb.ru";
 
 export const authUser = async (token: string): Promise<AuthResponse> => {
   try {

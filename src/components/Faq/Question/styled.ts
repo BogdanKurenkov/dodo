@@ -17,7 +17,7 @@ export const StyledQuestion = styled.div`
   line-height: 100%;
   gap: 28px;
 
-  &::first-letter {
+  & span::first-letter {
     text-transform: uppercase;
   }
 

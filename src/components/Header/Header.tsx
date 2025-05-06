@@ -60,7 +60,7 @@ export const Header = () => {
   const client = useClient();
 
   const { source } = router.query;
-  const isAuth = false;
+  // const isAuth = false;
 
   const handleBurgerToggle = (isOpen: boolean) => {
     setIsMenuOpen(isOpen);
@@ -69,18 +69,23 @@ export const Header = () => {
     }, 500);
   };
 
-  const handleAnchorClick = (anchorId: string) => {
-    if (source === 'qr' && router.pathname === '/') {
+  const handleAnchorClick = (anchorId: string, index: number) => {
+    if (source === 'qr' && router.pathname === '/' && index === 0) {
       router.push("/auth?source=qr");
       return
     }
 
     if (router.pathname !== "/") {
-      if (router.pathname === '/auth' && !isAuth) {
+      if (router.pathname === '/auth' && index === 0) {
         setIsMenuOpen(false);
         return
       } else {
-        router.push('/auth?source=qr')
+        router.push(`/#${anchorId}?source=qr`).then(() => {
+          const element = document?.getElementById(anchorId);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+          }
+        });
       }
       router.push(`/#${anchorId}`).then(() => {
         const element = document?.getElementById(anchorId);
@@ -156,24 +161,24 @@ export const Header = () => {
                   <MenuLink
                     key={key}
                     href={`#${key}`}
-                    aria-disabled={!isAuth && source === "qr" && index !== 0}
+                    // aria-disabled={!isAuth && source === "qr" && index !== 0}
                     onClick={(e) => {
-                      if (!isAuth && source === "qr" && index !== 0) {
-                        e.preventDefault();
-                        return;
-                      }
+                      // if (!isAuth && source === "qr" && index !== 0) {
+                      //   e.preventDefault();
+                      //   return;
+                      // }
                       e.preventDefault();
-                      handleAnchorClick(key);
+                      handleAnchorClick(key, index);
                     }}
-                    style={
-                      !isAuth && source === "qr" && index !== 0
-                        ? {
-                          pointerEvents: "none",
-                          opacity: 0.5,
-                          cursor: "not-allowed",
-                        }
-                        : {}
-                    }
+                  // style={
+                  //   !isAuth && source === "qr" && index !== 0
+                  //     ? {
+                  //       pointerEvents: "none",
+                  //       opacity: 0.5,
+                  //       cursor: "not-allowed",
+                  //     }
+                  //     : {}
+                  // }
                   >
                     {t(translationKey)}
                   </MenuLink>

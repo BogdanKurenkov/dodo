@@ -17,7 +17,9 @@ export const Question: FC<IQuestion> = ({ question, answer, isOpen, onClick }) =
     return (
         <QuestionWrapper onClick={onClick}>
             <StyledQuestion>
-                {question}
+                <span>
+                    {question}
+                </span>
                 <Plus isCross={isOpen} />
             </StyledQuestion>
 

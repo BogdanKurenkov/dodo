@@ -199,7 +199,7 @@ export default function Vote() {
             >
               {step === 2 ? t("buttons.vote_select") : t("buttons.start")}
             </Button>
-            <VotePrompt style={{ opacity: step === 1 ? "0" : "1" }}>
+            <VotePrompt style={{ opacity: step === 1 ? "0" : "0.4" }}>
               {t("vote.click")}
             </VotePrompt>
           </Container>
