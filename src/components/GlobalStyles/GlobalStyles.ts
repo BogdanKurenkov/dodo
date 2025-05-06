@@ -23,7 +23,7 @@ export const GlobalStyles = createGlobalStyle`
     color: ${({ theme }) => theme.colors.white};
     overflow-x: hidden;
   }
-  
+
   a {
     text-decoration: none;
     color: inherit;

@@ -2,7 +2,10 @@ import styled from "styled-components";
 
 import { StyledButton } from "@/components/Shared/Button/styled";
 
-export const VoteBackground = styled.section`
+export const VoteBackground = styled.section<{
+  $step: number;
+  $isTransitioning: boolean;
+}>`
   position: relative;
   z-index: 1;
   padding: 90px 0;
@@ -23,8 +26,30 @@ export const VoteBackground = styled.section`
 
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       background-image: url("/images/vote-background-mob.png");
-      background-size: auto;
       background-position: 38% 0%;
+      opacity: ${({ $isTransitioning }) => ($isTransitioning ? 1 : 0)};
+      transition: all 1.2s ease;
+    }
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 5%;
+    left: 0;
+    display: none;
+    background-image: url("/images/vote-background.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 85% 100%;
+    z-index: -1;
+    pointer-events: none;
+    transition: all 1s ease;
+    opacity: ${({ $isTransitioning }) => ($isTransitioning ? 0 : 1)};
+    @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+      display: block;
     }
   }
 
