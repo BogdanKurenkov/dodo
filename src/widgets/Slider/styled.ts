@@ -164,7 +164,7 @@ export const SauceBackground = styled.img<{
       height: 70%;
       @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
         height: 100%;
-        transform: translate(-40%, -40%) scale(1.3) rotate(-9deg);
+        transform: translate(-45%, -40%) scale(1.3) rotate(-9deg);
         object-position: 50%;
       }
     `}
@@ -173,7 +173,7 @@ export const SauceBackground = styled.img<{
     $index === 2 &&
     css`
       @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-        transform: translate(-60%, -50%) scale(1.5) rotate(-2deg);
+        transform: translate(-60%, -50%) scale(1.6) rotate(-2deg);
         object-position: 50%;
       }
     `}

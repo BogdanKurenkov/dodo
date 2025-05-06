@@ -1,11 +1,15 @@
 import { FC, useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { useTranslation } from "next-i18next";
+import { useTheme } from "styled-components";
 
 import { useLanguageSwitcher } from "@/hooks/useLanguageSwitcher";
 
 import { Container } from "@/components/Shared/Container/Container";
+import { SectionDescription } from "@/components/Shared/SectionDescription/SectionDescription";
+import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
 import { Footer } from "@/components/Footer/Footer";
+import { PopupLanguageSwitcher } from "@/components/Shared/PopupLanguageSwitcher/PopupLanguageSwitcher";
 
 import Logo from "@/assets/svg/dodo-lab_desktop.svg";
 
@@ -24,12 +28,17 @@ interface LanguageOption {
 }
 
 export const PopupCitySelect: FC = () => {
-  const [selectedLanguage, setSelectedLanguage] = useState<LanguageOption["code"] | null>(null);
+  const [selectedLanguage, setSelectedLanguage] = useState<
+    LanguageOption["code"] | null
+  >(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [showLanguageSwitcher, setShowLanguageSwitcher] = useState(false);
 
   const { changeLanguage } = useLanguageSwitcher();
 
   const { t } = useTranslation();
+
+  const theme = useTheme();
 
   useEffect(() => {
     const localeCookie = Cookies.get("NEXT_LOCALE");
@@ -45,55 +54,74 @@ export const PopupCitySelect: FC = () => {
   const handleConfirm = () => {
     if (selectedLanguage) {
       changeLanguage(selectedLanguage);
-      Cookies.set('USER_COUNTRY', selectedLanguage, { expires: 365 })
+      Cookies.set("USER_COUNTRY", selectedLanguage, { expires: 365 });
       setIsOpen(false);
+      if (selectedLanguage === "kz") {
+        setShowLanguageSwitcher(true);
+      }
     }
   };
 
+  const handleCloseLanguageSwitcher = () => {
+    setShowLanguageSwitcher(false);
+  };
 
-  if (!isOpen) return null;
+  if (!isOpen && !showLanguageSwitcher) return null;
 
   return (
-    <PopupWrapper>
-      <Header>
-        <Container>
-          <LogoWrapper>
-            <Logo />
-          </LogoWrapper>
-        </Container>
-      </Header>
-      <Container>
-        <PopupContent>
-          <Language>
-            <LanguageButton
-              $isSelected={selectedLanguage === "ru"}
-              onClick={() => handleLanguageSelect("ru")}
-            >
-              ru
-            </LanguageButton>
-            <LanguageButton
-              $isSelected={selectedLanguage === "kz"}
-              onClick={() => handleLanguageSelect("kz")}
-            >
-              kz
-            </LanguageButton>
-            <LanguageButton
-              $isSelected={selectedLanguage === "by"}
-              onClick={() => handleLanguageSelect("by")}
-            >
-              by
-            </LanguageButton>
-          </Language>
-          <Button
-            $variant="glass"
-            disabled={!selectedLanguage}
-            onClick={handleConfirm}
-          >
-            {t('buttons.select')}
-          </Button>
-        </PopupContent>
-      </Container>
-      <Footer />
-    </PopupWrapper>
+    <>
+      {isOpen && (
+        <PopupWrapper>
+          <Header>
+            <Container>
+              <LogoWrapper>
+                <Logo />
+              </LogoWrapper>
+            </Container>
+          </Header>
+          <Container>
+            <PopupContent>
+              <SectionDescription color={theme.colors.white}>
+                <TextWithLineBreaks text={t("Выберите страну")} />
+              </SectionDescription>
+              <Language>
+                <LanguageButton
+                  $isSelected={selectedLanguage === "ru"}
+                  onClick={() => handleLanguageSelect("ru")}
+                >
+                  Russia
+                </LanguageButton>
+                <LanguageButton
+                  $isSelected={selectedLanguage === "kz"}
+                  onClick={() => handleLanguageSelect("kz")}
+                >
+                  Kazakhstan
+                </LanguageButton>
+                <LanguageButton
+                  $isSelected={selectedLanguage === "by"}
+                  onClick={() => handleLanguageSelect("by")}
+                >
+                  Belarus
+                </LanguageButton>
+              </Language>
+              <Button
+                $variant="glass"
+                disabled={!selectedLanguage}
+                onClick={handleConfirm}
+              >
+                {t("buttons.select")}
+              </Button>
+            </PopupContent>
+          </Container>
+          <Footer />
+        </PopupWrapper>
+      )}
+      {showLanguageSwitcher && (
+        <PopupLanguageSwitcher
+          isActive={true}
+          onClose={handleCloseLanguageSwitcher}
+        />
+      )}
+    </>
   );
 };
