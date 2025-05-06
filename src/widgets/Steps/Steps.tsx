@@ -17,7 +17,6 @@ import IconInfo from "@/assets/svg/icon-info.svg";
 import {
   StepsWrapper,
   StepsHeader,
-  SectionTitle,
   SectionDescription,
   AccordionList,
   Accordion,
