@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import { Text } from "@/components/Shared/SectionDescription/styled";
+import { StyledTitle } from "@/components/Shared/SectionTitle/SectionTitle";
 import { Accordion as AccordionStyled } from "@/components/Accordion/Accordion";
 import { StyledButton } from "@/components/Shared/Button/styled";
 
@@ -44,6 +45,10 @@ export const StepsHeader = styled.div`
     flex-direction: column;
     gap: 28px;
   }
+`;
+
+export const SectionTitle = styled(StyledTitle)`
+  font-size: 96px;
 `;
 
 export const SectionDescription = styled(Text)<{ $color?: string }>`

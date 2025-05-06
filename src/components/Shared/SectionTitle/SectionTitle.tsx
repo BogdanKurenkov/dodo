@@ -10,3 +10,5 @@ interface ITitle {
 export const SectionTitle: FC<ITitle> = ({ children, isWhite }) => {
     return <StyledTitle $isWhite={isWhite}>{children}</StyledTitle>
 }
+
+export { StyledTitle };

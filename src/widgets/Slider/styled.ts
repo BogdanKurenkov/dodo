@@ -120,7 +120,7 @@ export const SauceBackground = styled.img<{
   $isMobile: boolean;
 }>`
   position: absolute;
-  bottom: 30px;
+  bottom: 90px;
   left: 0;
   width: 100%;
   height: 85%;
@@ -182,7 +182,7 @@ export const SauceBackground = styled.img<{
 export const Swiper = styled(SwiperComponent)`
   width: 100%;
   height: 100%;
-  margin: 85px 0 97px;
+  margin: 85px 0 130px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     margin: 68px auto 0;
@@ -227,7 +227,7 @@ export const Swiper = styled(SwiperComponent)`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    transition: all 0.3s ease-in-out;
+    transition: all 1s ease-in-out;
     gap: 0px;
     margin: 0 !important;
 
@@ -259,7 +259,7 @@ export const Swiper = styled(SwiperComponent)`
     width: 2px;
     background: ${({ theme }) => theme.colors.white};
     opacity: 0.4;
-    transition: all 0.3s ease-in-out;
+    transition: all 1s ease-in-out;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       width: 0;
