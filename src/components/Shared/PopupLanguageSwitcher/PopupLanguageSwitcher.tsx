@@ -33,7 +33,7 @@ export const PopupLanguageSwitcher: FC<ILanguageSwitcher> = ({
   };
 
   const handleConfirm = () => {
-    if (selectedLocale !== currentLocale) {
+    if (selectedLocale !== currentLocale && selectedLocale) {
       changeLanguage(selectedLocale);
     }
     onClose();
