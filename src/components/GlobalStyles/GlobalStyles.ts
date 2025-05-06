@@ -47,4 +47,15 @@ export const GlobalStyles = createGlobalStyle`
       margin-top: 82px;
     }
   }
+
+  button, input[type="button"], input[type="submit"] {
+    outline: none !important;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    user-select: none;
+  }
+
+  button:focus, input[type="button"]:focus, input[type="submit"]:focus {
+    outline: none;
+  }
 `;

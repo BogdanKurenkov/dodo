@@ -60,7 +60,6 @@ export const Header = () => {
   const client = useClient();
 
   const { source } = router.query;
-  // const isAuth = false;
 
   const handleBurgerToggle = (isOpen: boolean) => {
     setIsMenuOpen(isOpen);
@@ -72,33 +71,25 @@ export const Header = () => {
   const handleAnchorClick = (anchorId: string, index: number) => {
     if (source === 'qr' && router.pathname === '/' && index === 0) {
       router.push("/auth?source=qr");
-      return
+      setIsMenuOpen(false);
+      return;
+    }
+
+    if (router.pathname === '/auth' && index === 0) {
+      setIsMenuOpen(false);
+      return;
     }
 
     if (router.pathname !== "/") {
-      if (router.pathname === '/auth' && index === 0) {
-        setIsMenuOpen(false);
-        return
-      } else {
-        router.push(`/#${anchorId}?source=qr`).then(() => {
-          const element = document?.getElementById(anchorId);
-          if (element) {
-            element.scrollIntoView({ behavior: "smooth" });
-          }
-        });
-      }
-      router.push(`/#${anchorId}`).then(() => {
+      const targetPath = source === "qr" ? `/?source=qr#${anchorId}` : `/#${anchorId}`;
+      router.push(targetPath).then(() => {
         const element = document?.getElementById(anchorId);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-        }
+        element?.scrollIntoView({ behavior: "smooth" });
       });
     } else {
-      const element = document?.getElementById(anchorId);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
+      document?.getElementById(anchorId)?.scrollIntoView({ behavior: "smooth" });
     }
+
     setIsMenuOpen(false);
   };
 

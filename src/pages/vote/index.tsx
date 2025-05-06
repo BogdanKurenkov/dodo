@@ -34,6 +34,7 @@ import {
   Button,
   VotePrompt,
 } from "./styled";
+import { useDeviceDetect } from "@/hooks/useDeviceDetect";
 
 const sauces = [
   "sauces.sauce1.name",
@@ -41,26 +42,6 @@ const sauces = [
   "sauces.sauce3.name",
 ];
 
-const animations_open = [
-  <LottieBase
-    key={1}
-    path="/lottie/vote/dip_1_3_opening_lottie/animation.json"
-    width={200}
-    height={200}
-  />,
-  <LottieBase
-    key={2}
-    path="/lottie/vote/dip_2_2_opening_lottie/animation.json"
-    width={200}
-    height={200}
-  />,
-  <LottieBase
-    key={3}
-    path="/lottie/vote/dip_3_2_opening_lottie/animation.json"
-    width={200}
-    height={200}
-  />,
-];
 
 export default function Vote() {
   const { t } = useTranslation("common");
@@ -73,31 +54,42 @@ export default function Vote() {
   const [step, setStep] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
+  const device = useDeviceDetect();
+
+  const animations_open = [
+    <LottieBase
+      key={1}
+      path="/lottie/vote/dip_1_3_opening_lottie/animation.json"
+    />,
+    <LottieBase
+      key={2}
+      path="/lottie/vote/dip_2_2_opening_lottie/animation.json"
+    />,
+    <LottieBase
+      key={3}
+      path="/lottie/vote/dip_3_2_opening_lottie/animation.json"
+    />,
+  ];
+
   const animations_rotate = [
     <LottieRotate
       key={4}
       isAnimate={!isPlaying}
       isPlaying={isPlaying}
       path="/lottie/vote/dip_1_3_rotation_lottie/animation.json"
-      width={200}
-      height={200}
     />,
     <LottieRotate
       key={5}
       direction="down"
       isAnimate={!isPlaying}
       isPlaying={isPlaying}
-      path="/lottie/vote/dip_3_3_rotation_lottie/animation.json"
-      width={200}
-      height={200}
+      path="/lottie/vote/dip_2_2_rotation_lottie/animation.json"
     />,
     <LottieRotate
       key={6}
       isAnimate={!isPlaying}
       isPlaying={isPlaying}
       path="/lottie/vote/dip_3_2_rotation_lottie/animation.json"
-      width={200}
-      height={200}
     />,
   ];
 
@@ -117,7 +109,7 @@ export default function Vote() {
       setIsPlaying(true);
       setTimeout(() => {
         setStep(2);
-      }, 1000);
+      }, 1200);
     }
   };
 
@@ -127,7 +119,7 @@ export default function Vote() {
       setIsPlaying(true);
       setTimeout(() => {
         setStep(2);
-      }, 1000);
+      }, 1200);
     } else {
       router.push("/voteResult");
     }
@@ -151,8 +143,8 @@ export default function Vote() {
                   <div
                     style={{
                       position: "relative",
-                      width: "200px",
-                      height: "200px",
+                      width: device === "desktop" ? 300 : 230,
+                      height: device === "desktop" ? 300 : 230,
                     }}
                   >
                     <div
@@ -162,7 +154,7 @@ export default function Vote() {
                         left: 0,
                         opacity: step === 1 ? 1 : 0,
                         pointerEvents: step === 1 ? "auto" : "none",
-                        transition: "opacity 0.3s ease",
+                        transition: "",
                       }}
                       onClick={handleNextStep}
                     >
@@ -176,7 +168,7 @@ export default function Vote() {
                         left: 0,
                         opacity: step === 2 ? 1 : 0,
                         pointerEvents: step === 2 ? "auto" : "none",
-                        transition: "opacity 0.3s ease",
+                        transition: "",
                       }}
                       onClick={() => handleCardClick(index)}
                     >
