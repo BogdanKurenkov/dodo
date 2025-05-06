@@ -307,7 +307,6 @@ export const VotePrompt = styled.span`
   text-align: center;
   text-transform: lowercase;
   color: ${({ theme }) => theme.colors.white};
-  opacity: 0.4;
   margin: 28px auto 0;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {

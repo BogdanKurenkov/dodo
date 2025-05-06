@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 
+import { useClient } from '@/hooks/useClient';
 import { useDeviceDetect } from '@/hooks/useDeviceDetect';
 
 import { Button } from '@/components/Shared/Button/Button';
@@ -16,8 +18,7 @@ import {
   Container,
   Sauce
 } from './styled';
-import { useRouter } from 'next/router';
-import { useClient } from '@/hooks/useClient';
+
 
 interface IVotesBlock {
   percentages: number[];
@@ -39,7 +40,6 @@ export const VotesBlock = ({ percentages }: IVotesBlock) => {
 
   const router = useRouter();
   const { source } = router.query;
-
 
   const maxValue = Math.max(...percentages);
   const maxIndices = percentages.reduce((acc, curr, index) => {
@@ -145,7 +145,9 @@ export const VotesBlock = ({ percentages }: IVotesBlock) => {
           );
         })}
       </BarsContainer>
-      {source !== 'qr' && client && <Button $variant='glass' $fullWidth>{t('buttons.event')}</Button>}
+      {source !== 'qr' && client && <Button style={{
+        height: '92px'
+      }} $variant='glass' $fullWidth>{t('buttons.event')}</Button>}
       <Disclaimer variant="mobile" />
     </Container>
   );

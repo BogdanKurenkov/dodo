@@ -13,7 +13,6 @@ export const StyledLanguageSwitcher = styled.button<IStyledLanguageSwitcher>`
   opacity: ${({ $active }) => ($active ? "100%" : "40%")};
 
   @media (max-width: 500px) {
-    font-size: 30px;
   }
 `;
 
@@ -39,7 +38,6 @@ export const SwitcherWrapper = styled.div<{ $isActive: boolean }>`
 
   @media (max-width: 500px) {
     transition: ${({ $isActive }) => ($isActive ? "1.2s ease" : "0s ease")};
-    font-size: 30px;
   }
 `;
 

@@ -3,8 +3,14 @@ import styled from "styled-components";
 const Disclaimer = styled.p`
   font-weight: 400;
   font-size: 18px;
-  opacity: 40%;
   line-height: 110%;
+  opacity: 40%;
+
+  @media (max-width: 500px) {
+    & br {
+      display: none;
+    }
+  }
 `;
 
 export const DisclaimerDesktop = styled(Disclaimer)`

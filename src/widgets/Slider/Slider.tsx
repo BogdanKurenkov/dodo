@@ -1,5 +1,6 @@
 import { useTranslation } from "next-i18next";
 import { FC, useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
@@ -67,7 +68,7 @@ const sauces: Sauce[] = [
   {
     image: SauceImageBackground3,
     type: "sauces.sauce3.name",
-    description: "sauces.sauce1.description",
+    description: "sauces.sauce3.description",
     taste: "sauces.sauce3.taste_description",
     aroma: "sauces.sauce3.aroma_description",
     texture: "sauces.sauce3.texture_description",
@@ -99,6 +100,9 @@ export const Slider: FC = () => {
 
   const deviceType = useDeviceDetect();
   const isMobile = deviceType === "mobile";
+
+  const router = useRouter();
+  const { source } = router.query;
 
   const { t } = useTranslation('common');
 
@@ -132,13 +136,16 @@ export const Slider: FC = () => {
   };
 
   return (
-    <SliderWrapper>
+    <SliderWrapper style={{
+      marginBottom: source === "qr" ? "0" : (deviceType === "desktop" ? "40px" : "0")
+    }}>
       <Container>
         <SectionTitle isWhite={true}>
           <TextWithLineBreaks text={t("slider_title")} />
         </SectionTitle>
       </Container>
-      {!isMobile &&
+      {
+        !isMobile &&
         sauces.map((sauce, index) => (
           <SauceBackground
             key={index}
@@ -148,7 +155,8 @@ export const Slider: FC = () => {
             $isActive={index === activeIndex}
             $isMobile={false}
           />
-        ))}
+        ))
+      }
       <SwiperWrapper>
         <AccordionBackground></AccordionBackground>
         <Swiper
@@ -225,6 +233,6 @@ export const Slider: FC = () => {
           ))}
         </Swiper>
       </SwiperWrapper>
-    </SliderWrapper>
+    </SliderWrapper >
   );
 };

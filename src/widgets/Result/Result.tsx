@@ -46,6 +46,7 @@ export const Result: FC = () => {
                         $fullWidth={device === 'mobile'}
                         $width="410px"
                         $variant="glass"
+                        style={{ height: '120px' }}
                     >
                         {t('buttons.event')}
                     </Button>

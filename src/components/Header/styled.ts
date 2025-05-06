@@ -36,7 +36,11 @@ export const StyledNav = styled.nav<{ $isOpen: boolean }>`
   transition: 0.5s ease;
 
   @media (max-width: 768px) {
-    margin-top: ${({ $isOpen }) => ($isOpen ? "32px" : "0")};
+    margin-top: ${({ $isOpen }) => ($isOpen ? "38px" : "0")};
+  }
+
+  @media (max-width: 500px) {
+    gap: 26px;
   }
 `;
 
@@ -75,7 +79,7 @@ export const MenuLink = styled(Link)`
   }
 
   @media (max-width: 500px) {
-    font-size: 30px;
+    padding-bottom: 26px;
   }
 `;
 

@@ -162,13 +162,14 @@ export const PaginationWrapper = styled.div`
     align-items: center;
     justify-content: center;
     flex-direction: row;
-    margin-top: 20px;
-    gap: 40px;
-    width: 100%;
+
+    gap: 20px;
+    width: 265px;
+    margin: 20px auto 0;
 
     @media(max-width: 500px) {
         display: flex;
-        padding: 0 26px;
+        
     }
 `;
 

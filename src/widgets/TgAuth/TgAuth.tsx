@@ -13,12 +13,14 @@ import { SectionDescription } from "@/components/Shared/SectionDescription/Secti
 import { Button } from "@/components/Shared/Button/Button";
 
 import { AuthWrapper } from "./styled";
+import { authUser } from "@/api";
 
 const botLinks = {
     ru: "https://t.me/dodo_ru_bot?start=landing_sauces",
     by: "https://t.me/dodo_by_bot?start=landing_sauces",
     kz: "https://t.me/dodo_kz_bot?start=landing_sauces"
-}
+};
+
 export const TgAuth: FC = () => {
     const { t } = useTranslation('common');
 
@@ -28,11 +30,11 @@ export const TgAuth: FC = () => {
     const theme = useTheme();
 
     const handleButtonClick = () => {
-        const link = botLinks[userCountry as keyof typeof botLinks];
-        console.log(link)
-        if (typeof window !== 'undefined') {
-            window.open(link, '_blank', 'noopener,noreferrer');
-        }
+        // const link = botLinks[userCountry as keyof typeof botLinks];
+        // if (typeof window !== 'undefined') {
+        //     window.open(link, '_blank', 'noopener,noreferrer');
+        // }
+        authUser("sdgsdgsd")
     };
 
     return <AuthWrapper>

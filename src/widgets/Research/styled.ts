@@ -136,14 +136,12 @@ export const SecondBar = styled(BarBase)`
   gap: 34.86px;
   background: linear-gradient(
       169.11deg,
-      rgba(96, 96, 96, 0.4) 10.47%,
-      rgba(96, 96, 96, 0.1) 80.6%
+      rgba(96, 96, 96, 0.02) 10.47%,
+      rgba(96, 96, 96, 0) 80.6%
     ),
-    rgba(255, 105, 0, 1);
+    rgba(255, 105, 0, 0.45);
   background-blend-mode: overlay;
-  opacity: 0.6;
   border: 0.99px solid rgba(144, 144, 144, 0.25);
-  border-radius: 18.35px;
   box-shadow: 0px 4.59px 22.93px 0px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);

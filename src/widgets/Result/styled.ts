@@ -23,7 +23,7 @@ export const ResultsLeft = styled.div`
   }
 
   & button {
-    margin-top: 120px;
+    margin-top: 88px;
   }
 
   @media (max-width: 1024px) {
