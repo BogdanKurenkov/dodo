@@ -7,14 +7,18 @@ import { Result } from "@/widgets/Result/Result";
 import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
 import { NotAll } from "@/components/NotAll/NotAll";
+import { useRouter } from "next/router";
 
 export default function Results() {
     const theme = useTheme();
 
+    const router = useRouter();
+    const { source } = router.query;
+
     return <>
         <Header />
         <Result />
-        <NotAll />
+        {source === "qr" && <NotAll />}
         <Footer background={theme.colors.white} color={theme.colors.black} />
     </>
 }

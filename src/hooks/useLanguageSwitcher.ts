@@ -11,7 +11,7 @@ export const useLanguageSwitcher = () => {
 
     const pathWithoutHash = router.asPath?.split("#")[0];
     router.push(pathWithoutHash, pathWithoutHash, {
-      locale: newLocale,
+      locale: userCountry === "by" && newLocale === "ru" ? "by" : newLocale,
       scroll: false,
     });
   };

@@ -49,9 +49,9 @@ import {
 } from "./styled";
 
 type CountryCode = 'ru' | 'kz' | 'by';
-type LocaleCode = 'ru' | 'kz';
+type LocaleCode = 'ru' | 'kz' | 'by';
 
-const promotion_info: Record<CountryCode, Record<LocaleCode, string>> = {
+const promotion_info: Record<CountryCode, Partial<Record<LocaleCode, string>>> = {
   ru: {
     ru: "Набор соусов Додо Лаб за 1 ₽ при заказе от 990 ₽",
     kz: "Додо Лаб соусы жиынтығы 990 ₽-ден бастап тапсырыс бергенде 1₽"
@@ -61,20 +61,28 @@ const promotion_info: Record<CountryCode, Record<LocaleCode, string>> = {
     kz: "5 000 ₸-ден бастап — Додо Лаб тұздықтар жиынтығы небәрі 10 ₸"
   },
   by: {
-    ru: "Набор соусов Додо Лаб за 1 руб. при заказе от 30 руб.",
+    by: "Набор соусов Додо Лаб за 1 руб. при заказе от 30 руб.",
     kz: "Додо Лаб соустарының жиынтығы 1 рубльге. 30 рубльден асатын тапсырыстар үшін."
   }
 };
 
 export const Steps: FC = () => {
   const [openAccordionId, setOpenAccordionId] = useState<string | null>(null);
+  const [promotionText, setPromotionText] = useState('');
 
   const { userCountry, currentLocale } = useLanguageSwitcher();
 
-  const promotionText = userCountry && currentLocale
-    ? (promotion_info[userCountry as CountryCode]?.[currentLocale as LocaleCode]
-      || "Default promotion text")
-    : "Default promotion text";
+  useEffect(() => {
+    const savedOpenAccordionId = sessionStorage.getItem("stepsOpenAccordionId");
+    if (savedOpenAccordionId) {
+      setOpenAccordionId(savedOpenAccordionId);
+    }
+
+    if (typeof window !== 'undefined') {
+      const text = promotion_info[userCountry as CountryCode]?.[currentLocale as LocaleCode] || '';
+      setPromotionText(text);
+    }
+  }, [userCountry, currentLocale]);
 
   const { t } = useTranslation('common');
 

@@ -12,7 +12,8 @@ import { TimeLine } from "@/components/Shared/TimeLine/TimeLine";
 import {
     TextWrapper,
     ButtonDesktop,
-    ButtonMobile
+    ButtonMobile,
+    BannerTitle
 } from "./styled";
 
 
@@ -42,9 +43,9 @@ export const Banner: FC = () => {
         <section id="about">
             <Container>
                 <TextWrapper>
-                    <SectionTitle isWhite>
+                    <BannerTitle>
                         <TextWithLineBreaks text={source === "qr" ? t('qr_title') : t('title')} />
-                    </SectionTitle>
+                    </BannerTitle>
                     <SectionDescription color={theme.colors.white}>
                         <TextWithLineBreaks text={source === "qr" ? t('qr_description') : t('description')} />
                     </SectionDescription>

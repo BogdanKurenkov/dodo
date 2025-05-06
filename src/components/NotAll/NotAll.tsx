@@ -84,7 +84,7 @@ export const NotAll: FC = () => {
                             setActiveIndex(splide.index);
                         }}
                         options={{
-                            type: isMobile ? 'loop' : 'slide',
+                            type: 'slide',
                             perPage: 3,
                             gap: '18px',
                             breakpoints: {
@@ -94,9 +94,7 @@ export const NotAll: FC = () => {
                                 },
                                 500: {
                                     perPage: 1,
-                                    padding: {
-                                        right: '15%'
-                                    }
+                                    gap: 0
                                 },
                             },
                             pagination: false,

@@ -44,3 +44,14 @@ export const ButtonMobile = styled(Button)`
       margin-top: 0;
     }
 `
+
+export const BannerTitle = styled.h1`
+  font-size: 96px;
+  font-weight: 500;
+  line-height: 95%;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+    font-size: 42px;
+    line-height: 100%;
+  }
+`;

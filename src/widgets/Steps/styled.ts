@@ -8,7 +8,6 @@ export const StepsWrapper = styled.section`
   position: relative;
   width: 100%;
   padding: 120px 0 80px;
-  min-height: 100vh;
   overflow: hidden;
   background: ${({ theme }) => theme.colors.white};
   z-index: 1;

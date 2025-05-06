@@ -7,10 +7,14 @@ interface IStyledLanguageSwitcher {
 export const StyledLanguageSwitcher = styled.button<IStyledLanguageSwitcher>`
   background: none;
   border: none;
-  font-size: 30px;
+  font-size: 42px;
   cursor: pointer;
   color: ${({ theme }) => theme.colors.white};
   opacity: ${({ $active }) => ($active ? "100%" : "40%")};
+
+  @media (max-width: 500px) {
+    font-size: 30px;
+  }
 `;
 
 export const SwitcherWrapper = styled.div<{ $isActive: boolean }>`
@@ -27,7 +31,7 @@ export const SwitcherWrapper = styled.div<{ $isActive: boolean }>`
   bottom: 50px;
   left: 50%;
   transform: translateX(-50%);
-  margin-left: 18px;
+  margin-left: 31px;
 
   @media (max-width: 1280px) {
     margin-left: 0;
@@ -35,6 +39,7 @@ export const SwitcherWrapper = styled.div<{ $isActive: boolean }>`
 
   @media (max-width: 500px) {
     transition: ${({ $isActive }) => ($isActive ? "1.2s ease" : "0s ease")};
+    font-size: 30px;
   }
 `;
 

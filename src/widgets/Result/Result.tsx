@@ -41,7 +41,7 @@ export const Result: FC = () => {
                 <SectionDescription color={theme.colors.white}>
                     <TextWithLineBreaks text={t('results.description')} />
                 </SectionDescription>
-                {source === 'qr' && client &&
+                {source !== 'qr' && client &&
                     <Button
                         $fullWidth={device === 'mobile'}
                         $width="410px"
