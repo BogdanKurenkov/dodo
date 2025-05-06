@@ -11,6 +11,10 @@ export const NotAllWrapper = styled.section`
     @media(max-width:500px){
         background-image: none;
         padding: 50px 0;
+
+        & > div {
+            padding: 0;
+        }
     }
 `;
 
@@ -21,6 +25,10 @@ export const Info = styled.div`
 
     @media(max-width:768px){
         gap: 28px;
+    }
+
+    @media(max-width:500px){
+        padding: 0 26px;
     }
 `;
 
@@ -40,6 +48,33 @@ export const CardsWrapper = styled.div`
 
     @media(max-width:768px){
         margin-top: 30px;
+    }
+
+    @media (max-width: 500px) {
+        padding-left: 0;
+
+        .splide__track {
+            overflow: visible !important;
+        }
+
+        .splide__list {
+            display: flex;
+            width: auto !important;
+        }
+
+        .splide__slide {
+            width: 85% !important;
+            margin-right: 15px !important;
+            flex-shrink: 0; 
+        }
+
+        .splide__slide:first-child {
+            padding-left: 26px;
+        }
+
+        .splide__slide:last-child {
+            padding-right: 26px;
+        }
     }
 `;
 
@@ -76,8 +111,11 @@ export const CardNumber = styled.p`
 export const CardTitle = styled.h4`
     font-size: 40px;
     font-weight: 500;
-    text-transform: lowercase;
     min-height: 80px;
+
+    &::first-letter{
+        text-transform: uppercase;
+    }
 
     @media(max-width:1024px){
         font-size: 32px;
@@ -104,6 +142,10 @@ export const CardDescription = styled.p`
     flex-grow: 1;
     opacity: 80%;
 
+    &::first-letter{
+        text-transform: uppercase;
+    }
+
     @media(max-width:1024px){
         font-size: 20px;
     }
@@ -126,6 +168,7 @@ export const PaginationWrapper = styled.div`
 
     @media(max-width: 500px) {
         display: flex;
+        padding: 0 26px;
     }
 `;
 
@@ -168,6 +211,7 @@ export const PaginationItem = styled.div`
         position: relative;
         flex: 1;
         gap: 40px;
+        
         @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
             gap: 20px;
         }

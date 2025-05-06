@@ -2,6 +2,7 @@ import { FC } from "react";
 import { useTranslation } from "next-i18next";
 import { useTheme } from "styled-components";
 
+import { useLanguageSwitcher } from "@/hooks/useLanguageSwitcher";
 import { useDeviceDetect } from "@/hooks/useDeviceDetect";
 import { useClient } from "@/hooks/useClient";
 
@@ -13,12 +14,26 @@ import { Button } from "@/components/Shared/Button/Button";
 
 import { AuthWrapper } from "./styled";
 
+const botLinks = {
+    ru: "https://t.me/dodo_ru_bot?start=landing_sauces",
+    by: "https://t.me/dodo_by_bot?start=landing_sauces",
+    kz: "https://t.me/dodo_kz_bot?start=landing_sauces"
+}
 export const TgAuth: FC = () => {
     const { t } = useTranslation('common');
 
+    const { userCountry } = useLanguageSwitcher();
     const device = useDeviceDetect();
     const client = useClient();
     const theme = useTheme();
+
+    const handleButtonClick = () => {
+        const link = botLinks[userCountry as keyof typeof botLinks];
+        console.log(link)
+        if (typeof window !== 'undefined') {
+            window.open(link, '_blank', 'noopener,noreferrer');
+        }
+    };
 
     return <AuthWrapper>
         <Container>
@@ -27,7 +42,14 @@ export const TgAuth: FC = () => {
             </SectionTitle>
             <SectionDescription color={theme.colors.white}>{t('auth.description')}</SectionDescription>
             {
-                client && <Button $fullWidth={device === 'mobile'} $variant="glass" $width="610px">{t('auth.bot')}</Button>
+                client && <Button
+                    $fullWidth={device === 'mobile'}
+                    $variant="glass"
+                    $width="610px"
+                    onClick={handleButtonClick}
+                >
+                    {t('auth.bot')}
+                </Button>
             }
         </Container>
     </AuthWrapper>

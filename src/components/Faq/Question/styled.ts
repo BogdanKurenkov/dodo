@@ -12,11 +12,14 @@ export const QuestionWrapper = styled.div`
 export const StyledQuestion = styled.div`
   ${({ theme }) => theme.mixins.flexBetween};
   align-items: center;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 32px;
   line-height: 100%;
-  text-transform: lowercase;
   gap: 28px;
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
 
   @media (max-width: 1024px) {
     font-size: 20px;

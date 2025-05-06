@@ -18,6 +18,13 @@ export const GlobalStyles = createGlobalStyle`
     overflow-x: hidden;
   }
 
+  @font-face {
+    font-family: 'KazakhFallback';
+    src: url('/fonts/segoe_ui_semibold.woff2') format('woff2');
+    unicode-range: U+04B1;
+    font-display: swap;
+  }
+
   body {
     background: ${({ theme }) => theme.colors.black};
     color: ${({ theme }) => theme.colors.white};
