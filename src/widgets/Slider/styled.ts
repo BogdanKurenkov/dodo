@@ -120,7 +120,7 @@ export const SauceBackground = styled.img<{
   $isMobile: boolean;
 }>`
   position: absolute;
-  bottom: 30px;
+  bottom: 90px;
   left: 0;
   width: 100%;
   height: 85%;
@@ -164,7 +164,7 @@ export const SauceBackground = styled.img<{
       height: 70%;
       @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
         height: 100%;
-        transform: translate(-40%, -40%) scale(1.3) rotate(-9deg);
+        transform: translate(-45%, -40%) scale(1.3) rotate(-9deg);
         object-position: 50%;
       }
     `}
@@ -173,7 +173,7 @@ export const SauceBackground = styled.img<{
     $index === 2 &&
     css`
       @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-        transform: translate(-60%, -50%) scale(1.5) rotate(-2deg);
+        transform: translate(-60%, -50%) scale(1.6) rotate(-2deg);
         object-position: 50%;
       }
     `}
@@ -182,7 +182,7 @@ export const SauceBackground = styled.img<{
 export const Swiper = styled(SwiperComponent)`
   width: 100%;
   height: 100%;
-  margin: 85px 0 97px;
+  margin: 85px 0 130px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     margin: 68px auto 0;
@@ -227,7 +227,7 @@ export const Swiper = styled(SwiperComponent)`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    transition: all 0.3s ease-in-out;
+    transition: all 1s ease-in-out;
     gap: 0px;
     margin: 0 !important;
 
@@ -259,7 +259,7 @@ export const Swiper = styled(SwiperComponent)`
     width: 2px;
     background: ${({ theme }) => theme.colors.white};
     opacity: 0.4;
-    transition: all 0.3s ease-in-out;
+    transition: all 1s ease-in-out;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       width: 0;

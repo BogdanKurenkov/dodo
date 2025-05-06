@@ -100,8 +100,8 @@ export const ResultHeader = styled.div`
     content: "";
     position: absolute;
     width: 100%;
-    height: 100%;
-    top: 150px;
+    height: 80%;
+    top: 170px;
     left: 0;
     background-image: url("/images/voteResult-background-mob.png");
     background-size: cover;

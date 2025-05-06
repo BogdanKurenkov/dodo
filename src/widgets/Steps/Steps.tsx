@@ -5,7 +5,7 @@ import { useLanguageSwitcher } from "@/hooks/useLanguageSwitcher";
 
 import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
 import { Container } from "@/components/Shared/Container/Container";
-import { SectionTitle } from "@/components/Shared/SectionTitle/SectionTitle";
+
 import { TimeLine } from "@/components/Shared/TimeLine/TimeLine";
 import { Plus } from "@/components/Shared/Plus/Plus";
 
@@ -18,6 +18,7 @@ import IconInfo from "@/assets/svg/icon-info.svg";
 import {
   StepsWrapper,
   StepsHeader,
+  SectionTitle,
   SectionDescription,
   AccordionList,
   Accordion,
@@ -111,7 +112,7 @@ export const Steps: FC = () => {
     <StepsWrapper id="participate">
       <Container>
         <StepsHeader>
-          <SectionTitle isWhite={false}>
+          <SectionTitle $isWhite={false}>
             <TextWithLineBreaks text={t('choice.title')} />
           </SectionTitle>
           <SectionDescription>

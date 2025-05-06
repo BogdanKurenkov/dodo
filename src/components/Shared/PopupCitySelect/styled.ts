@@ -86,6 +86,10 @@ export const Language = styled.div`
   align-items: center;
   justify-content: center;
   gap: 28px;
+  margin-top: 32px;
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    flex-wrap: wrap;
+  }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     gap: 22px;
@@ -99,24 +103,27 @@ export const LanguageButton = styled.button<{ $isSelected: boolean }>`
   align-items: center;
   justify-content: center;
   gap: 28px;
-  color: ${({ theme }) => theme.colors.white};
-  opacity: ${({ $isSelected }) => ($isSelected ? "1" : "0.4")};
+  background:#f4f4f1;
+
+  color: ${({ $isSelected }) => ($isSelected ? "#f4f4f1" : "#6C6C6A")};
   background: transparent;
   border: none;
   font-weight: 600;
   font-size: 64px;
   line-height: 100%;
   letter-spacing: 0%;
-  text-transform: lowercase;
   cursor: pointer;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-    font-size: 52px;
+    font-size: 42px;
     gap: 22px;
   }
 
   &::after {
     content: "/";
+    @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+      content: none;
+    }
   }
 
   &:last-child::after {
