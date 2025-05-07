@@ -4,7 +4,7 @@ import { Text } from "@/components/Shared/SectionDescription/styled";
 import { StyledButton } from "@/components/Shared/Button/styled";
 import { Sauce as SauceStyled } from "@/components/VotesBlock/styled";
 
-export const ResultBackground = styled.section`
+export const ResultWrapper = styled.section`
   position: relative;
   z-index: 0;
   padding: 90px 0;
@@ -12,23 +12,33 @@ export const ResultBackground = styled.section`
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     padding: 40px 0;
   }
+`;
+export const ResultBackground = styled.img`
+  position: absolute;
+  width: 60%;
+  height: auto;
+  top: 50%;
+  right: -5%;
+  transform: translateY(-50%);
+  object-fit: contain;
 
-  &::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background-image: url("/images/voteResult-background.png");
-    background-size: 65%;
-    background-repeat: no-repeat;
-    background-position: 120% 60%;
-    pointer-events: none;
+  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+    display: none;
+  }
+`;
 
-    @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-      display: none;
-    }
+export const ResultBackgroundMob = styled.img`
+  position: absolute;
+  width: 100%;
+  height: 65%;
+  top: 75%;
+  right: -5%;
+  transform: translateY(-50%) scale(1.2) rotate(-9deg);
+  object-fit: cover;
+  display: none;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+    display: block;
   }
 `;
 
@@ -96,7 +106,7 @@ export const ResultHeader = styled.div`
     }
   }
 
-  &::before {
+  /* &::before {
     content: "";
     position: absolute;
     width: 100%;
@@ -110,11 +120,10 @@ export const ResultHeader = styled.div`
     display: none;
     pointer-events: none;
 
-    
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       display: block;
     }
-  }
+  } */
 
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     padding: 40px 25px 0;

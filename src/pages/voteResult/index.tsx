@@ -9,11 +9,14 @@ import { Container } from "@/components/Shared/Container/Container";
 import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
 
 import SauceImage from "@/assets/images/sauce.png";
+import ResultBackgroundImage from "../../../public/images/voteResult-background.png";
 
 import {
+  ResultWrapper,
   ResultBackground,
   ContainerInner,
   ResultHeader,
+  ResultBackgroundMob,
   ResultTitle,
   ResultDescription,
   ResultContentWrapper,
@@ -22,9 +25,8 @@ import {
   Sauce,
 } from "./styled";
 
-
 export default function VoteResult() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
 
   const router = useRouter();
   const { locale } = router;
@@ -33,28 +35,36 @@ export default function VoteResult() {
     <>
       <Header />
       <main className="main">
-        <ResultBackground>
+        <ResultWrapper>
+          <ResultBackground src={ResultBackgroundImage.src} />
           <Container>
             <ContainerInner>
               <ResultHeader>
-                <ResultTitle>{t('vote_result.title')}</ResultTitle>
+                <ResultBackgroundMob src={ResultBackgroundImage.src} />
+                <ResultTitle>{t("vote_result.title")}</ResultTitle>
                 <ResultDescription>
-                  <TextWithLineBreaks text={t('vote_result.description')} />
+                  <TextWithLineBreaks text={t("vote_result.description")} />
                 </ResultDescription>
               </ResultHeader>
               <ResultContentWrapper>
                 <ResultSubtitle>
-                  <span>48%</span> {t('vote_result.participants')}
+                  <span>48%</span> {t("vote_result.participants")}
                 </ResultSubtitle>
                 <ResultDescription>
-                  <TextWithLineBreaks text={t('vote_result.vote')} /> {locale === 'kz' ? "" : "№2"}
+                  <TextWithLineBreaks text={t("vote_result.vote")} />{" "}
+                  {locale === "kz" ? "" : "№2"}
                 </ResultDescription>
-                <Button onClick={() => router.push('/results')} $variant="glass">{t('buttons.look')}</Button>
+                <Button
+                  onClick={() => router.push("/results")}
+                  $variant="glass"
+                >
+                  {t("buttons.look")}
+                </Button>
               </ResultContentWrapper>
               <Sauce alt="sauce" src={SauceImage} />
             </ContainerInner>
           </Container>
-        </ResultBackground>
+        </ResultWrapper>
       </main>
       <Footer />
     </>
