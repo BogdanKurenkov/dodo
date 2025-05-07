@@ -339,18 +339,18 @@ export const Banner: FC = () => {
           </TextWrapper>
         </Container>
         <LottieTop>
-          <div style={animations_box[0].style}>{animations_box[0].element}</div>
-          <div style={animations_sauce[1].style}>
+          <div style={animations_box[0].style as React.CSSProperties}>{animations_box[0].element}</div>
+          <div style={animations_sauce[1].style as React.CSSProperties}>
             {animations_sauce[1].element}
           </div>
         </LottieTop>
         <LottieBottom>
-          <div style={animations_box[1].style}>{animations_box[1].element}</div>
-          <div style={animations_sauce[0].style}>
+          <div style={animations_box[1].style as React.CSSProperties}>{animations_box[1].element}</div>
+          <div style={animations_sauce[0].style as React.CSSProperties}>
             {animations_sauce[0].element}
           </div>
-          <div style={animations_box[2].style}>{animations_box[2].element}</div>
-          <div style={animations_sauce[2].style}>
+          <div style={animations_box[2].style as React.CSSProperties}>{animations_box[2].element}</div>
+          <div style={animations_sauce[2].style as React.CSSProperties}>
             {animations_sauce[2].element}
           </div>
         </LottieBottom>

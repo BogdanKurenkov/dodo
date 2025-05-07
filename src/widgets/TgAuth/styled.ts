@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const AuthWrapper = styled.section`
-  background-image: url("/images/auth_bg.png");
+  background-image: url("/images/auth_bg2.png");
   background-repeat: no-repeat;
   background-position: right bottom;
   background-size: contain;
