@@ -1,13 +1,27 @@
 import styled from "styled-components";
 
 import { StyledButton } from "@/components/Shared/Button/styled";
+import { StyledContainer } from "@/components/Shared/Container/styled";
 
 export const AboutWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
+  @media (min-width: 2000px) {
+    width: 70%;
+    margin: 0 auto;
+  }
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    padding-top: 300px;
+  }
+`;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+export const Container = styled(StyledContainer)`
+  && {
+    @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+      display: flex;
+      flex-direction: column;
+    }
   }
 `;
 
@@ -19,6 +33,14 @@ export const TextWrapper = styled.div`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     padding: 50px 0;
+    gap: 28px;
+
+    &:first-of-type {
+      padding-bottom: 115px;
+    }
+    &:last-of-type {
+      padding-top: 100px;
+    }
   }
 `;
 
@@ -30,7 +52,9 @@ export const Button = styled(StyledButton)<{ $step?: number }>`
 
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       width: 100%;
+      margin-top: 35px;
       padding: 31px 30px 38px;
+      order: 4;
     }
   }
 `;
@@ -71,7 +95,12 @@ export const LottieTop = styled.div`
   right: 0;
   width: 100%;
   height: 1100px;
-  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+  z-index: -1;
+  @media (min-width: 2000px) {
+    width: 70%;
+    right: 50%;
+    transform: translateX(50%);
+    height: 810px;
   }
 `;
 
@@ -79,6 +108,8 @@ export const LottieBottom = styled.div`
   position: relative;
   width: 100%;
   height: 1260px;
-  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+  z-index: -1;
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    height: 760px;
   }
 `;
