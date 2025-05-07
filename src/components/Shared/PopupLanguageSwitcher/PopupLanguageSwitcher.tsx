@@ -1,8 +1,8 @@
 import { FC, useState } from "react";
-import { useTranslation } from "next-i18next";
 
 import { Container } from "@/components/Shared/Container/Container";
 import { useLanguageSwitcher } from "@/hooks/useLanguageSwitcher";
+
 import { LANGUAGES } from "@/constants/languages";
 
 import {
@@ -24,7 +24,6 @@ export const PopupLanguageSwitcher: FC<ILanguageSwitcher> = ({
   isActive,
   onClose,
 }) => {
-  const { t } = useTranslation();
   const { changeLanguage, currentLocale } = useLanguageSwitcher();
   const [selectedLocale, setSelectedLocale] = useState(currentLocale);
 
