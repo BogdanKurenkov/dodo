@@ -1,15 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: ${({ theme }) => theme.font.family};
-    line-height: 100%;
-    scroll-behavior: smooth;
-  }
-
   html {
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -19,10 +10,49 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   @font-face {
-    font-family: 'KazakhFallback';
+    font-family: "Neue Haas Unica W1G";
+    src: url("https://db.onlinewebfonts.com/t/31267e36af6f8dac65a56e78345e945e.eot");
+    src: url("https://db.onlinewebfonts.com/t/31267e36af6f8dac65a56e78345e945e.eot?#iefix") format("embedded-opentype"),
+         url("https://db.onlinewebfonts.com/t/31267e36af6f8dac65a56e78345e945e.woff2") format("woff2"),
+         url("https://db.onlinewebfonts.com/t/31267e36af6f8dac65a56e78345e945e.woff") format("woff"),
+         url("https://db.onlinewebfonts.com/t/31267e36af6f8dac65a56e78345e945e.ttf") format("truetype"),
+         url("https://db.onlinewebfonts.com/t/31267e36af6f8dac65a56e78345e945e.svg#Neue Haas Unica W1G") format("svg");
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: "Neue Haas Unica W1G";
+    src: url("https://db.onlinewebfonts.com/t/7d349f3b93cd47712cf75443b05965bf.eot");
+    src: url("https://db.onlinewebfonts.com/t/7d349f3b93cd47712cf75443b05965bf.eot?#iefix") format("embedded-opentype"),
+         url("https://db.onlinewebfonts.com/t/7d349f3b93cd47712cf75443b05965bf.woff2") format("woff2"),
+         url("https://db.onlinewebfonts.com/t/7d349f3b93cd47712cf75443b05965bf.woff") format("woff"),
+         url("https://db.onlinewebfonts.com/t/7d349f3b93cd47712cf75443b05965bf.ttf") format("truetype"),
+         url("https://db.onlinewebfonts.com/t/7d349f3b93cd47712cf75443b05965bf.svg#Neue Haas Unica W1G Medium") format("svg");
+    font-weight: 500; 
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Segoe ui Semibold';
     src: url('/fonts/segoe_ui_semibold.woff2') format('woff2');
-    unicode-range: U+04B1;
     font-display: swap;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    line-height: 100%;
+    scroll-behavior: smooth;
+  }
+
+  html[lang="ru"], html[lang="by"] * {
+    font-family: "Neue Haas Unica W1G", sans-serif;
+  }
+
+  html[lang="kk"], html[lang="kz"] * {
+    font-family: "Segoe ui Semibold", sans-serif;
   }
 
   body {
@@ -40,7 +70,7 @@ export const GlobalStyles = createGlobalStyle`
     list-style: none;
   }
 
-  .main{
+  .main {
     margin-top: 100px;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {

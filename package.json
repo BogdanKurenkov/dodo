@@ -17,6 +17,7 @@
     "lottie-react": "^2.4.1",
     "next": "15.2.4",
     "next-i18next": "^15.4.2",
+    "nookies": "^2.5.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "styled-components": "^6.1.17",
