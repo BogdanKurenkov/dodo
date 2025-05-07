@@ -14,10 +14,18 @@ import { PopupCitySelect } from "@/components/Shared/PopupCitySelect/PopupCitySe
 import { Header } from "@/components/Header/Header";
 import { Footer } from "@/components/Footer/Footer";
 import { BgWrapper } from "@/components/BgWrapper/BgWrapper";
+import { parseCookies } from "nookies";
 
-export default function Home() {
+interface HomeProps {
+  cookies: Record<string, string>;
+}
+
+export default function Home({ cookies }: HomeProps) {
   const router = useRouter();
   const { source } = router.query;
+
+  const { NEXT_LOCALE: locale, USER_COUNTRY: country } = cookies;
+  const isLanguageSelected = locale && country;
 
   const theme = useTheme();
 
@@ -40,38 +48,23 @@ export default function Home() {
           <Faq isQr={source === "qr"} />
         </BgWrapper>
       </main>
-      <Footer background={theme.colors.white} color={theme.colors.black} />
+      <Footer
+        background={isLanguageSelected ? theme.colors.white : theme.colors.black}
+        color={isLanguageSelected ? theme.colors.black : theme.colors.white}
+      />
     </>
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { req, query } = context;
-  const { source } = query;
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { req } = ctx;
 
-  const cookies =
-    req.headers.cookie?.split(";").reduce((acc, cookie) => {
-      const [key, value] = cookie.trim()?.split("=");
-      acc[key] = value;
-      return acc;
-    }, {} as Record<string, string>) || {};
-
-  // TODO потом убрать заглушку и привязатсья к реальной куке
-
-  const accessToken = cookies.accessToken || true;
-
-  if (!accessToken && source === "qr") {
-    return {
-      redirect: {
-        destination: "/auth?source=qr",
-        permanent: false,
-      },
-    };
-  }
+  const cookies = parseCookies({ req });
 
   return {
     props: {
-      ...(await serverSideTranslations(context.locale ?? "ru", ["common"])),
+      cookies,
+      ...(await serverSideTranslations(ctx.locale ?? "ru", ["common"])),
     },
   };
-};
+}
