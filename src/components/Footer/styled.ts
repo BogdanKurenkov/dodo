@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 
@@ -14,7 +15,7 @@ export const StyledFooter = styled.footer<{
   }
 `;
 
-export const FooterText = styled.p<{ $bg: string }>`
+export const FooterText = styled.p<{ $bg: string; $locale: string }>`
   display: flex;
   gap: 8px;
   align-items: flex-end;
@@ -25,7 +26,13 @@ export const FooterText = styled.p<{ $bg: string }>`
     width: 3px;
     height: 3px;
     background: ${({ $bg }) => $bg};
-    margin-bottom: 4px;
+    margin-bottom: ${({ $locale }) => ($locale === "kz" ? "4px" : "2px")};
+  }
+
+  @media (max-width: 500px) {
+    &::before {
+      margin-bottom: ${({ $locale }) => ($locale === "kz" ? "2px" : "1px")};
+    }
   }
 `;
 
@@ -43,7 +50,6 @@ export const FooterTop = styled.div`
   }
 
   @media (max-width: 500px) {
-    padding: 40px 0;
     font-size: 17px;
   }
 `;
@@ -54,13 +60,33 @@ export const FooterBottom = styled.div`
   justify-content: flex-start;
   gap: 28px;
   margin-top: 30px;
+
+  @media (max-width: 920px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 export const FooterLink = styled(Link)`
   text-decoration: underline;
   color: #979797;
+  font-size: 18px;
+
+  & br {
+    display: none;
+  }
 
   &::first-letter {
     text-transform: uppercase;
   }
+
+  @media (max-width: 500px) {
+    & br {
+      display: block !important;
+    }
+  }
+`;
+
+export const BgLogo = styled(Image)`
+  height: 17px;
 `;
