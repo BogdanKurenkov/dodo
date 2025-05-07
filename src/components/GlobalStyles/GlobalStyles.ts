@@ -45,15 +45,14 @@ export const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
     line-height: 100%;
     scroll-behavior: smooth;
-    font-family: "Neue Haas Unica W1G", sans-serif !important;
   }
 
   html[lang="ru"], html[lang="by"] * {
-    font-family: "Neue Haas Unica W1G", sans-serif !important;
+    font-family: "Neue Haas Unica W1G", sans-serif;
   }
 
   html[lang="kk"], html[lang="kz"] * {
-    font-family: "Segoe ui Semibold", sans-serif !important;
+    font-family: "Segoe ui Semibold", sans-serif;
   }
 
   body {
