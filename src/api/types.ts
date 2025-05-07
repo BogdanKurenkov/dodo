@@ -24,7 +24,7 @@ interface VoteErrorResponse {
 
 export type VoteResponse = VoteSuccessResponse | VoteErrorResponse;
 
-interface RatingItem {
+export interface RatingItem {
   sauce: SauceID;
   count: number;
 }

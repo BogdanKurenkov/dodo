@@ -8,7 +8,9 @@ import { useDeviceDetect } from '@/hooks/useDeviceDetect';
 import { Button } from '@/components/Shared/Button/Button';
 import { Disclaimer } from '@/components/Shared/Disclaimer/Disclaimer';
 
-import SauceImage from '@/assets/images/sauce.png';
+import Sauce1 from '@/assets/images/zoom_on_sauce_demiglace0009.png';
+import Sauce2 from '@/assets/images/zoom_on_sauce_hot0009.png';
+import Sauce3 from '@/assets/images/zoom_on_sauce_smoked0009.png';
 
 import {
   AnimatedBar,
@@ -18,7 +20,6 @@ import {
   Container,
   Sauce
 } from './styled';
-
 
 interface IVotesBlock {
   percentages: number[];
@@ -73,6 +74,7 @@ export const VotesBlock = ({ percentages }: IVotesBlock) => {
   const { pxPerPercent, minHeightPx, maxHeightPx, sauceHeight, barBottomDesktop, barBottomMobile } = deviceParams;
 
   const saucesInfo = ["sauces.sauce1.name", "sauces.sauce2.name", "sauces.sauce3.name"];
+  const sauceImages = [Sauce1, Sauce2, Sauce3];
 
   useEffect(() => {
     setHeights([0, 0, 0]);
@@ -115,7 +117,7 @@ export const VotesBlock = ({ percentages }: IVotesBlock) => {
             maxHeightPx
           );
 
-          const sauceBottom = barHeight - 40 - sauceHeight / 2 + (device === 'mobile' ? 8 : 11);
+          const sauceBottom = barHeight - 40 - sauceHeight / 2 + (device === 'mobile' ? (-80) : 11);
 
           return (
             <BarWrapper key={index} $isHighest={maxIndices.includes(index)}>
@@ -130,7 +132,7 @@ export const VotesBlock = ({ percentages }: IVotesBlock) => {
               </AnimatedBar>
               <Sauce
                 alt="sauce"
-                src={SauceImage}
+                src={sauceImages[index]}
                 style={{
                   bottom: `${sauceBottom}px`,
                 }}

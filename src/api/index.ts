@@ -5,13 +5,12 @@ import {
   VoteResponse,
 } from "./types";
 
-const API_BASE_URL = "https://dodev.testdevweb.ru";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export const authUser = async (token: string): Promise<AuthResponse> => {
   try {
     const response = await fetch(`${API_BASE_URL}/api/auth`, {
       method: "POST",
-      mode: "no-cors",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -66,7 +65,6 @@ export const getRating = async (): Promise<RatingResponse> => {
 export const getExcelReport = async (): Promise<Blob> => {
   const response = await fetch(`${API_BASE_URL}/api/rating`, {
     method: "GET",
-    mode: "no-cors",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",

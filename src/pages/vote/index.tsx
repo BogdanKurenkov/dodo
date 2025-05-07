@@ -5,6 +5,11 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import Head from "next/head";
+import Cookies from "js-cookie";
+
+import { sendVote } from "@/api";
+
+import { useDeviceDetect } from "@/hooks/useDeviceDetect";
 
 import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
@@ -34,7 +39,7 @@ import {
   Button,
   VotePrompt,
 } from "./styled";
-import { useDeviceDetect } from "@/hooks/useDeviceDetect";
+
 
 const sauces = [
   "sauces.sauce1.name",
@@ -121,7 +126,14 @@ export default function Vote() {
         setStep(2);
       }, 1200);
     } else {
-      router.push("/voteResult");
+      const data = {
+        token: Cookies.get("token") || "",
+        completed: true,
+        sauce: activeCard as 1 | 2 | 3
+      }
+      sendVote(data).then(() => {
+        router.push("/voteResult");
+      })
     }
   };
 
