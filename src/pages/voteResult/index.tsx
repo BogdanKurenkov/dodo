@@ -14,7 +14,7 @@ import { Header } from "@/components/Header/Header";
 import { Container } from "@/components/Shared/Container/Container";
 import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
 
-import SauceImage from "@/assets/images/sauce.png";
+import Sauce2 from '@/assets/images/zoom_on_sauce_hot0009.png';
 
 import {
   ResultBackground,
@@ -82,7 +82,7 @@ export default function VoteResult() {
                   {t('buttons.look')}
                 </Button>
               </ResultContentWrapper>
-              <Sauce alt="sauce" src={SauceImage} />
+              <Sauce alt="sauce" src={Sauce2} />
             </ContainerInner>
           </Container>
         </ResultBackground>

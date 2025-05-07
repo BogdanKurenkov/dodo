@@ -117,7 +117,7 @@ export const VotesBlock = ({ percentages }: IVotesBlock) => {
             maxHeightPx
           );
 
-          const sauceBottom = barHeight - 40 - sauceHeight / 2 + (device === 'mobile' ? (-80) : 11);
+          const sauceBottom = barHeight - 40 - sauceHeight / 2 + (device === 'mobile' ? (-80) : (-20));
 
           return (
             <BarWrapper key={index} $isHighest={maxIndices.includes(index)}>

@@ -13,7 +13,9 @@ import { Container } from "@/components/Shared/Container/Container";
 import { SectionTitle } from "@/components/Shared/SectionTitle/SectionTitle";
 import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
 
-import SauceImage from "@/assets/images/sauce.png";
+import Sauce1 from '@/assets/images/zoom_on_sauce_demiglace0009.png';
+import Sauce2 from '@/assets/images/zoom_on_sauce_hot0009.png';
+import Sauce3 from '@/assets/images/zoom_on_sauce_smoked0009.png';
 import SauceImageBackground1 from "../../../public/images/slide-background-1.png";
 import SauceImageBackground2 from "../../../public/images/voteResult-background.png";
 import SauceImageBackground3 from "../../../public/images/slide-background-3.png";
@@ -135,6 +137,8 @@ export const Slider: FC = () => {
     }
   };
 
+  const sauceImages = [Sauce1, Sauce2, Sauce3];
+
   return (
     <SliderWrapper style={{
       marginBottom: source === "qr" ? "0" : (deviceType === "desktop" ? "40px" : "0")
@@ -186,7 +190,7 @@ export const Slider: FC = () => {
                     $isMobile={true}
                   />
                 )}
-                <Sauce alt="Sauce" src={SauceImage} />
+                <Sauce alt="Sauce" src={sauceImages[index]} />
               </BackgroundImages>
               <Accordion
                 title={
