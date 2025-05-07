@@ -19,27 +19,27 @@ export default function Auth() {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const { locale, query, req } = context;
+    const { locale, query, /*req*/ } = context;
     const { source } = query;
 
-    const cookies =
-        req.headers.cookie?.split(";").reduce((acc, cookie) => {
-            const [key, value] = cookie.trim()?.split("=");
-            acc[key] = value;
-            return acc;
-        }, {} as Record<string, string>) || {};
+    // const cookies =
+    //     req.headers.cookie?.split(";").reduce((acc, cookie) => {
+    //         const [key, value] = cookie.trim()?.split("=");
+    //         acc[key] = value;
+    //         return acc;
+    //     }, {} as Record<string, string>) || {};
 
-    const accessToken = cookies.token || false;
+    // const accessToken = cookies.token || false;
 
 
-    if (accessToken) {
-        return {
-            redirect: {
-                destination: '/vote',
-                permanent: false,
-            },
-        };
-    }
+    // if (accessToken) {
+    //     return {
+    //         redirect: {
+    //             destination: '/vote',
+    //             permanent: false,
+    //         },
+    //     };
+    // }
 
     if (source !== 'qr') {
         return {

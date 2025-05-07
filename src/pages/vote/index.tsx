@@ -5,9 +5,9 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import Head from "next/head";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 
-import { sendVote } from "@/api";
+// import { sendVote } from "@/api";
 
 import { useDeviceDetect } from "@/hooks/useDeviceDetect";
 
@@ -126,14 +126,17 @@ export default function Vote() {
         setStep(2);
       }, 1200);
     } else {
-      const data = {
-        token: Cookies.get("token") || "",
-        completed: true,
-        sauce: activeCard as 1 | 2 | 3
-      }
-      sendVote(data).then(() => {
-        router.push("/voteResult");
-      })
+      // const data = {
+      //   token: Cookies.get("token") || "",
+      //   completed: true,
+      //   sauce: activeCard as 1 | 2 | 3
+      // }
+      // sendVote(data).then(() => {
+      //   router.push("/voteResult");
+      // }).catch(() => {
+
+      // })
+      router.push("/voteResult");
     }
   };
 

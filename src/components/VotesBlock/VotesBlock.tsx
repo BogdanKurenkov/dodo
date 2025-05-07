@@ -42,6 +42,10 @@ export const VotesBlock = ({ percentages }: IVotesBlock) => {
   const router = useRouter();
   const { source } = router.query;
 
+  const handleNavigate = () => {
+    router.push("/#participate")
+  }
+
   const maxValue = Math.max(...percentages);
   const maxIndices = percentages.reduce((acc, curr, index) => {
     if (curr === maxValue) acc.push(index);
@@ -147,9 +151,16 @@ export const VotesBlock = ({ percentages }: IVotesBlock) => {
           );
         })}
       </BarsContainer>
-      {source !== 'qr' && client && <Button style={{
-        height: '92px'
-      }} $variant='glass' $fullWidth>{t('buttons.event')}</Button>}
+      {source !== 'qr' && client &&
+        <Button
+          onClick={handleNavigate}
+          style={{
+            height: '92px'
+          }}
+          $variant='glass'
+          $fullWidth>
+          {t('buttons.event')}
+        </Button>}
       <Disclaimer variant="mobile" />
     </Container>
   );

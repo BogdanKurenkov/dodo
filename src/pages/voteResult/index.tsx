@@ -4,10 +4,16 @@ import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 
-import { authUser, getRating } from "@/api";
-import { AuthResponse, RatingItem } from "@/api/types";
+import {
+  // authUser,
+  getRating
+} from "@/api";
+import {
+  // AuthResponse,
+  RatingItem
+} from "@/api/types";
 
 import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
@@ -38,15 +44,15 @@ export default function VoteResult() {
   const rounded = useTransform(count, Math.round);
 
   const [/*rate*/, setRate] = useState<RatingItem[]>([]);
-  const [/*user*/, setUser] = useState<AuthResponse>();
+  // const [user, setUser] = useState<AuthResponse>();
 
   useEffect(() => {
     getRating().then((res) => {
       setRate(res.data)
     })
-    authUser(Cookies.get('token') || "").then((res) => {
-      setUser(res)
-    })
+    // authUser(Cookies.get('token') || "").then((res) => {
+    //   setUser(res)
+    // })
   }, [])
 
   useEffect(() => {

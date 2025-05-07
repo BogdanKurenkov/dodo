@@ -31,6 +31,10 @@ export const Result: FC = () => {
     const device = useDeviceDetect();
     const client = useClient();
 
+    const handleNavigate = () => {
+        router.push("/#participate")
+    }
+
     return <Container>
         <ResultsWrapper>
             <ResultsLeft>
@@ -47,6 +51,7 @@ export const Result: FC = () => {
                         $width="410px"
                         $variant="glass"
                         style={{ height: '120px' }}
+                        onClick={handleNavigate}
                     >
                         {t('buttons.event')}
                     </Button>

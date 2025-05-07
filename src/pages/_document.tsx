@@ -21,15 +21,8 @@ export default class MyDocument extends Document {
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
 
-    let lang = 'ru';
-
-    const urlParts = ctx.asPath?.split('/').filter(Boolean);
-    if (urlParts?.length && ['kz', 'by', 'ru'].includes(urlParts[0])) {
-      lang = urlParts[0];
-    } else {
-      const cookies = parseCookies(ctx);
-      lang = cookies.NEXT_LOCALE || 'ru';
-    }
+    const cookies = parseCookies(ctx);
+    const lang = cookies.NEXT_LOCALE || 'ru';
 
     try {
       ctx.renderPage = () =>
@@ -56,11 +49,25 @@ export default class MyDocument extends Document {
   }
 
   render(): JSX.Element {
-    const { lang } = this.props as { lang?: string }; // Safe access
+    const { lang } = this.props as { lang?: string };
 
     return (
       <Html lang={lang}>
         <Head>
+          <link
+            rel="preload"
+            href="https://db.onlinewebfonts.com/t/31267e36af6f8dac65a56e78345e945e.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload"
+            href="https://db.onlinewebfonts.com/t/7d349f3b93cd47712cf75443b05965bf.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
           <link
             rel="preload"
             href="/fonts/segoe_ui_semibold.woff2"

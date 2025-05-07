@@ -33,14 +33,14 @@ export const ButtonDesktop = styled(Button)`
 `;
 
 export const ButtonMobile = styled(Button)`
-  display: none;
+  display: none !important;
 
   &&{
     margin-top: 40px;
   }
   
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-      display: flex;
+      display: flex !important;
       margin-top: 0;
     }
 `
