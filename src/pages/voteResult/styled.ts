@@ -110,6 +110,7 @@ export const ResultHeader = styled.div`
     display: none;
     pointer-events: none;
 
+    
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       display: block;
     }

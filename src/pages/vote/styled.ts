@@ -26,7 +26,7 @@ export const VoteBackground = styled.section<{
 
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       background-image: url("/images/vote-background-mob.png");
-      background-position: 38% 0%;
+      background-position: 40% 15%;
       opacity: ${({ $isTransitioning }) => ($isTransitioning ? 1 : 0)};
       transition: all 1.2s ease;
     }
