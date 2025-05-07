@@ -136,7 +136,7 @@ export default function Vote() {
       // }).catch(() => {
 
       // })
-      router.push("/voteResult");
+      router.push("/voteResult?source=qr");
     }
   };
 
