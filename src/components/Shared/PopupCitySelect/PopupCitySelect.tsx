@@ -1,10 +1,8 @@
 import { FC, useState, useEffect } from "react";
-import Cookies from "js-cookie";
-import { useTranslation } from "next-i18next";
+import { parseCookies, setCookie } from "nookies";
 import { useTheme } from "styled-components";
 
 import { useLanguageSwitcher } from "@/hooks/useLanguageSwitcher";
-
 import { Container } from "@/components/Shared/Container/Container";
 import { SectionDescription } from "@/components/Shared/SectionDescription/SectionDescription";
 import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
@@ -25,25 +23,32 @@ import {
 
 interface LanguageOption {
   code: "ru" | "kz" | "by";
+  label: string;
 }
 
 export const PopupCitySelect: FC = () => {
-  const [selectedLanguage, setSelectedLanguage] = useState<
-    LanguageOption["code"] | null
-  >(null);
+  const [selectedLanguage, setSelectedLanguage] = useState<LanguageOption["code"] | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [showLanguageSwitcher, setShowLanguageSwitcher] = useState(false);
 
   const { changeLanguage } = useLanguageSwitcher();
-
-  const { t } = useTranslation();
-
   const theme = useTheme();
 
+  const languageOptions: LanguageOption[] = [
+    { code: "ru", label: "Russia" },
+    { code: "kz", label: "Kazakhstan" },
+    { code: "by", label: "Belarus" },
+  ];
+
   useEffect(() => {
-    const localeCookie = Cookies.get("NEXT_LOCALE");
-    if (!localeCookie) {
+    const cookies = parseCookies();
+    const hasLocale = !!cookies.NEXT_LOCALE;
+    const hasCountry = !!cookies.USER_COUNTRY;
+
+    if (!hasLocale && !hasCountry) {
       setIsOpen(true);
+    } else if (cookies.USER_COUNTRY === "kz" && !hasLocale) {
+      setShowLanguageSwitcher(true);
     }
   }, []);
 
@@ -52,16 +57,22 @@ export const PopupCitySelect: FC = () => {
   };
 
   const handleConfirm = () => {
-    if (selectedLanguage) {
-      if (selectedLanguage !== 'kz') {
-        changeLanguage(selectedLanguage);
-      }
-      Cookies.set("USER_COUNTRY", selectedLanguage, { expires: 365 });
-      setIsOpen(false);
-      if (selectedLanguage === "kz") {
-        setShowLanguageSwitcher(true);
-      }
+    if (!selectedLanguage) return;
+
+    setCookie(null, "USER_COUNTRY", selectedLanguage, {
+      maxAge: 365 * 24 * 60 * 60
+    });
+
+    if (selectedLanguage !== "kz") {
+      changeLanguage(selectedLanguage);
     }
+
+    setIsOpen(false);
+
+    if (selectedLanguage === "kz") {
+      setShowLanguageSwitcher(true);
+    }
+
   };
 
   const handleCloseLanguageSwitcher = () => {
@@ -87,31 +98,22 @@ export const PopupCitySelect: FC = () => {
                 <TextWithLineBreaks text="Выберите страну" />
               </SectionDescription>
               <Language>
-                <LanguageButton
-                  $isSelected={selectedLanguage === "ru"}
-                  onClick={() => handleLanguageSelect("ru")}
-                >
-                  Russia
-                </LanguageButton>
-                <LanguageButton
-                  $isSelected={selectedLanguage === "kz"}
-                  onClick={() => handleLanguageSelect("kz")}
-                >
-                  Kazakhstan
-                </LanguageButton>
-                <LanguageButton
-                  $isSelected={selectedLanguage === "by"}
-                  onClick={() => handleLanguageSelect("by")}
-                >
-                  Belarus
-                </LanguageButton>
+                {languageOptions.map((option) => (
+                  <LanguageButton
+                    key={option.code}
+                    $isSelected={selectedLanguage === option.code}
+                    onClick={() => handleLanguageSelect(option.code)}
+                  >
+                    {option.label}
+                  </LanguageButton>
+                ))}
               </Language>
               <Button
                 $variant="glass"
                 disabled={!selectedLanguage}
                 onClick={handleConfirm}
               >
-                {t("buttons.select")}
+                Выбрать
               </Button>
             </PopupContent>
           </Container>
