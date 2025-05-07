@@ -5,7 +5,8 @@ import {
   VoteResponse,
 } from "./types";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL || "https://dodev.testdevweb.ru";
 
 export const authUser = async (token: string): Promise<AuthResponse> => {
   try {
