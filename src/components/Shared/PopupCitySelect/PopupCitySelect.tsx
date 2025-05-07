@@ -53,7 +53,9 @@ export const PopupCitySelect: FC = () => {
 
   const handleConfirm = () => {
     if (selectedLanguage) {
-      changeLanguage(selectedLanguage);
+      if (selectedLanguage !== 'kz') {
+        changeLanguage(selectedLanguage);
+      }
       Cookies.set("USER_COUNTRY", selectedLanguage, { expires: 365 });
       setIsOpen(false);
       if (selectedLanguage === "kz") {
@@ -82,7 +84,7 @@ export const PopupCitySelect: FC = () => {
           <Container>
             <PopupContent>
               <SectionDescription color={theme.colors.white}>
-                <TextWithLineBreaks text={t("Выберите страну")} />
+                <TextWithLineBreaks text="Выберите страну" />
               </SectionDescription>
               <Language>
                 <LanguageButton

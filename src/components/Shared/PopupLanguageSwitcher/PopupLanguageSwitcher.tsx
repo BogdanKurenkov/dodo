@@ -43,7 +43,7 @@ export const PopupLanguageSwitcher: FC<ILanguageSwitcher> = ({
     <PopupOverlay>
       <Container>
         <PopupContent>
-          <PopupDescription>Выбери язык</PopupDescription>
+          <PopupDescription>Выберите язык</PopupDescription>
           <SwitcherWrapper
             $isActive={isActive}
             role="group"
@@ -72,8 +72,8 @@ export const PopupLanguageSwitcher: FC<ILanguageSwitcher> = ({
               {LANGUAGES.KZ}
             </StyledLanguageSwitcher>
           </SwitcherWrapper>
-          <Button $variant="glass" onClick={handleConfirm}>
-            {t("buttons.select")}
+          <Button $variant="glass" $fullWidth onClick={handleConfirm}>
+            {selectedLocale === 'kz' ? "таңдау" : "выбрать"}
           </Button>
         </PopupContent>
       </Container>
