@@ -52,6 +52,7 @@ export const TgAuth: FC = () => {
                     $variant="glass"
                     $width="610px"
                     onClick={handleButtonClick}
+                    style={{ height: device === 'desktop' ? "120px" : "92px" }}
                 >
                     {t('auth.bot')}
                 </Button>
