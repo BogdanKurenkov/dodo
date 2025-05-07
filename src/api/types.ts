@@ -1,9 +1,20 @@
-type SauceID = 1 | 2 | 3;
+export type SauceID = 1 | 2 | 3;
+export type SauceName = "томленый" | "жаркий" | "копченый";
+
+export interface AuthRequest {
+  token: string;
+  lang?: string | null;
+  country?: string | null;
+}
 
 export interface AuthResponse {
   message: string;
   user: string;
+  country: string;
+  lang: string;
   voted: boolean;
+  sauce: SauceID | null;
+  sauce_name: SauceName | null;
 }
 
 export interface VoteRequest {
@@ -12,19 +23,19 @@ export interface VoteRequest {
   completed: boolean | null;
 }
 
-interface VoteSuccessResponse {
+export interface VoteSuccessResponse {
   message: string;
   user: string;
   voted: boolean;
 }
 
-interface VoteErrorResponse {
+export interface VoteErrorResponse {
   message: string;
 }
 
 export type VoteResponse = VoteSuccessResponse | VoteErrorResponse;
 
-interface RatingItem {
+export interface RatingItem {
   sauce: SauceID;
   count: number;
 }
@@ -32,4 +43,8 @@ interface RatingItem {
 export interface RatingResponse {
   data: RatingItem[];
   total_votes: number;
+}
+
+export interface VisitResponse {
+  message: string;
 }

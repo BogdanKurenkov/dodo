@@ -8,10 +8,12 @@ import { Container } from "@/components/Shared/Container/Container";
 import { TimeLine } from "@/components/Shared/TimeLine/TimeLine";
 import { Plus } from "@/components/Shared/Plus/Plus";
 
+import { appLink } from "@/constants/appLink";
+
 import DodoLogo from "@/assets/svg/steps-logo.svg";
 import Snack_RU from "@/assets/images/Snack_RU.png";
 import Snack_KZ from "@/assets/images/Snack_KZ.png";
-import QrCode from "@/assets/images/qr-code.png";
+import QrCode from "@/assets/images/qr-code_1.png";
 import IconInfo from "@/assets/svg/icon-info.svg";
 
 import {
@@ -47,7 +49,6 @@ import {
   Button,
   TitleLg,
 } from "./styled";
-import { appLink } from "@/constants/appLink";
 
 type CountryCode = 'ru' | 'kz' | 'by';
 type LocaleCode = 'ru' | 'kz' | 'by';

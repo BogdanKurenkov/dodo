@@ -1,22 +1,24 @@
 import {
+  AuthRequest,
   AuthResponse,
   RatingResponse,
   VoteRequest,
   VoteResponse,
+  VisitResponse,
 } from "./types";
 
-const API_BASE_URL = "https://dodev.testdevweb.ru";
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL || "https://dodev.testdevweb.ru";
 
-export const authUser = async (token: string): Promise<AuthResponse> => {
+export const authUser = async (data: AuthRequest): Promise<AuthResponse> => {
   try {
     const response = await fetch(`${API_BASE_URL}/api/auth`, {
       method: "POST",
-      mode: "no-cors",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ token }),
+      body: JSON.stringify(data),
     });
 
     if (!response.ok) {
@@ -32,50 +34,92 @@ export const authUser = async (token: string): Promise<AuthResponse> => {
 };
 
 export const sendVote = async (data: VoteRequest): Promise<VoteResponse> => {
-  const response = await fetch(`${API_BASE_URL}/api/voice`, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/voice`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
 
-  if (!response.ok) {
-    throw new Error(`Vote failed: ${response.status}`);
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || `Vote failed: ${response.status}`);
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error("Vote request failed:", error);
+    throw error;
   }
-
-  return response.json();
 };
 
 export const getRating = async (): Promise<RatingResponse> => {
-  const response = await fetch(`${API_BASE_URL}/api/rating`, {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-    },
-  });
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/rating`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+    });
 
-  if (!response.ok) {
-    throw new Error(`Failed to get rating: ${response.status}`);
+    if (!response.ok) {
+      throw new Error(`Failed to get rating: ${response.status}`);
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error("Failed to fetch rating:", error);
+    throw error;
   }
-
-  return response.json();
 };
 
 export const getExcelReport = async (): Promise<Blob> => {
-  const response = await fetch(`${API_BASE_URL}/api/rating`, {
-    method: "GET",
-    mode: "no-cors",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-  });
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/voices/export`, {
+      method: "GET",
+      headers: {
+        Accept:
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      },
+    });
 
-  if (!response.ok) {
-    throw new Error(`Failed to get Excel report: ${response.status}`);
+    if (!response.ok) {
+      throw new Error(`Failed to get Excel report: ${response.status}`);
+    }
+
+    return response.blob();
+  } catch (error) {
+    console.error("Failed to fetch Excel report:", error);
+    throw error;
   }
+};
 
-  return response.blob();
+export const trackVisit = async (
+  refererLink?: string
+): Promise<VisitResponse> => {
+  try {
+    const url = new URL(`${API_BASE_URL}/api/visit`);
+    if (refererLink) {
+      url.searchParams.append("referer_link", refererLink);
+    }
+
+    const response = await fetch(url.toString(), {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to track visit: ${response.status}`);
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error("Failed to track visit:", error);
+    throw error;
+  }
 };

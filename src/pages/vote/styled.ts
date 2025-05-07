@@ -75,7 +75,7 @@ export const SaucesList = styled.div`
     justify-content: space-between;
     flex-direction: column;
     width: min-content;
-    margin: 0 auto;
+    /* margin: 0 auto; */
     padding: 56px 0 0;
   }
 
@@ -92,19 +92,26 @@ export const SauceContainer = styled.div`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     &:nth-child(odd) {
-      margin-top: -50px;
+      margin-top: -80px;
       align-self: flex-start;
-      margin-left: 28px;
+      margin-left: 0;
+    }
+
+    &:nth-child(1) {
+      margin-left: -28px !important;
     }
 
     &:nth-child(even) {
-      margin-top: -100px;
-      align-self: flex-end;
-      margin-left: 165px;
+      margin-top: -130px;
     }
+
     &:nth-child(1) {
       margin-top: 0px;
       margin-left: 0px;
+    }
+
+    &:nth-child(2) {
+      margin-left: calc(100vw - 246px) !important;
     }
   }
 
@@ -112,13 +119,14 @@ export const SauceContainer = styled.div`
     &:nth-child(odd) {
       margin-top: -50px;
       align-self: flex-start;
-      margin-left: 28px;
+    }
+
+    &:nth-child(2) {
+      margin-left: calc(100vw - 200px) !important;
     }
 
     &:nth-child(even) {
       margin-top: -100px;
-      align-self: flex-end;
-      margin-left: 0;
     }
 
     &:nth-child(1) {
@@ -246,7 +254,7 @@ export const SauceType = styled.span`
 `;
 
 export const SauceSample = styled.span<{ $sPlaying: boolean }>`
-  margin-top: 32px;
+  margin-top: -32px;
   font-weight: 500;
   font-size: 22.75px;
   line-height: 100%;
@@ -257,7 +265,6 @@ export const SauceSample = styled.span<{ $sPlaying: boolean }>`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     font-size: 18px;
-    margin-top: 22px;
   }
 `;
 

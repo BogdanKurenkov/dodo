@@ -35,5 +35,8 @@ export const Answer = styled.p`
   color: ${({ theme }) => theme.colors.black};
   padding-top: 28px;
   margin: 0;
-  text-transform: lowercase;
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
 `;

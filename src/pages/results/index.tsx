@@ -1,5 +1,6 @@
 import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useRouter } from "next/router";
 import { useTheme } from "styled-components";
 
 import { Result } from "@/widgets/Result/Result";
@@ -7,7 +8,6 @@ import { Result } from "@/widgets/Result/Result";
 import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
 import { NotAll } from "@/components/NotAll/NotAll";
-import { useRouter } from "next/router";
 
 export default function Results() {
     const theme = useTheme();
@@ -19,7 +19,10 @@ export default function Results() {
         <Header />
         <Result />
         {source === "qr" && <NotAll />}
-        <Footer background={theme.colors.white} color={theme.colors.black} />
+        <Footer
+            background={source === "qr" ? theme.colors.white : theme.colors.black}
+            color={source === "qr" ? theme.colors.black : theme.colors.white}
+        />
     </>
 }
 

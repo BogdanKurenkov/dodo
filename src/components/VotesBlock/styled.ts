@@ -161,9 +161,12 @@ export const Sauce = styled(Image)`
   transition: bottom 1s ease-out;
   opacity: 0;
   animation: ${fadeIn} 0.7s ease-out 0.9s forwards;
+  width: 100%;
+  height: 100%;
 
   @media (max-width: 500px) {
-    width: 165%;
+    width: 125%;
+    height: 125%;
     object-fit: scale-down;
   }
 `;

@@ -35,6 +35,7 @@ export const PopupContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     border-radius: 32px;
     padding: 32px 20px 20px;

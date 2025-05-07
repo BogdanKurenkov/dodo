@@ -4,6 +4,8 @@ import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import { usePublicJson } from "@/hooks/usePublicJson";
 
 import { LottieWrapper } from "../LottieBase/styled";
+import { useDeviceDetect } from "@/hooks/useDeviceDetect";
+import { useClient } from "@/hooks/useClient";
 
 interface ILottieRotate {
     path: string;
@@ -24,7 +26,12 @@ export const LottieRotate: FC<ILottieRotate> = ({
     direction
 }) => {
     const animationData = usePublicJson(path);
+
     const lottieRef = useRef<LottieRefCurrentProps>(null);
+
+    const device = useDeviceDetect();
+
+    const client = useClient();
 
     useEffect(() => {
         if (isPlaying) {
@@ -35,23 +42,27 @@ export const LottieRotate: FC<ILottieRotate> = ({
     }, [isPlaying]);
 
     return (
-        <LottieWrapper $direction={direction} $isAnimate={isAnimate}>
-            <Lottie
-                lottieRef={lottieRef}
-                animationData={animationData}
-                autoplay={false}
-                loop={false}
-                rendererSettings={{
-                    preserveAspectRatio: "xMidYMid slice",
-                    progressiveLoad: true,
-                    hideOnTransparent: true,
-                }}
-                initialSegment={isPlaying ? undefined : [0, 0]}
-                style={{
-                    width: width,
-                    height: height,
-                }}
-            />
-        </LottieWrapper>
+        <>
+            {
+                client && <LottieWrapper $direction={direction} $isAnimate={isAnimate}>
+                    <Lottie
+                        lottieRef={lottieRef}
+                        animationData={animationData}
+                        autoplay={false}
+                        loop={false}
+                        rendererSettings={{
+                            preserveAspectRatio: "xMidYMid slice",
+                            progressiveLoad: true,
+                            hideOnTransparent: true,
+                        }}
+                        initialSegment={isPlaying ? undefined : [0, 0]}
+                        style={{
+                            width: width ? width : device === "desktop" ? 300 : 230,
+                            height: height ? height : device === "desktop" ? 300 : 230,
+                        }}
+                    />
+                </LottieWrapper>
+            }
+        </>
     );
 };

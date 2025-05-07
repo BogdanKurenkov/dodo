@@ -1,14 +1,14 @@
 import localFont from "next/font/local";
 
-export const neueHaasUnica = localFont({
-  src: [
-    {
-      path: "../../public/fonts/NeueHaasUnicaW1G-Regular.woff2",
-      style: "normal",
-    },
-  ],
-  display: "swap",
-});
+// export const neueHaasUnica = localFont({
+//   src: [
+//     {
+//       path: "../../public/fonts/NeueHaasUnicaW1G.woff2",
+//       style: "normal",
+//     },
+//   ],
+//   display: "swap",
+// });
 
 export const Rooftop = localFont({
   src: [

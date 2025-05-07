@@ -4,6 +4,7 @@ import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import { usePublicJson } from "@/hooks/usePublicJson";
 
 import { LottieWrapper } from "./styled";
+import { useDeviceDetect } from "@/hooks/useDeviceDetect";
 
 const allAnimations = new Set<{
     ref: LottieRefCurrentProps;
@@ -32,9 +33,12 @@ export const LottieBase: FC<ILottieBase> = ({
     height,
 }) => {
     const [isPlayingForward, setIsPlayingForward] = useState(false);
+
     const lottieRef = useRef<LottieRefCurrentProps>(null);
 
     const animationData = usePublicJson(path);
+
+    const device = useDeviceDetect();
 
     const resetAnimation = useCallback(() => {
         if (lottieRef.current) {
@@ -123,8 +127,8 @@ export const LottieBase: FC<ILottieBase> = ({
                     hideOnTransparent: true,
                 }}
                 style={{
-                    width: width,
-                    height: height,
+                    width: width ? width : device === "desktop" ? 300 : 230,
+                    height: height ? height : device === "desktop" ? 300 : 230,
                     cursor: onClickPlay ? "pointer" : "default",
                 }}
             />

@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 
 import { Container } from "@/components/Shared/Container/Container";
 import { useLanguageSwitcher } from "@/hooks/useLanguageSwitcher";
+
 import { LANGUAGES } from "@/constants/languages";
 
 import {
@@ -41,7 +42,7 @@ export const PopupLanguageSwitcher: FC<ILanguageSwitcher> = ({
     <PopupOverlay>
       <Container>
         <PopupContent>
-          <PopupDescription>Выбери язык</PopupDescription>
+          <PopupDescription>Выберите язык</PopupDescription>
           <SwitcherWrapper
             $isActive={isActive}
             role="group"
@@ -70,8 +71,8 @@ export const PopupLanguageSwitcher: FC<ILanguageSwitcher> = ({
               {LANGUAGES.KZ}
             </StyledLanguageSwitcher>
           </SwitcherWrapper>
-          <Button $variant="glass" onClick={handleConfirm}>
-            Выбрать
+          <Button $variant="glass" $fullWidth onClick={handleConfirm}>
+            {selectedLocale === 'kz' ? "таңдау" : "выбрать"}
           </Button>
         </PopupContent>
       </Container>

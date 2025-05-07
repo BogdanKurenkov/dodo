@@ -3,6 +3,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTheme } from "styled-components";
+import { parseCookies } from "nookies";
 
 import { Faq } from "@/widgets/Faq/Faq";
 import { Research } from "@/widgets/Research/Research";
@@ -10,14 +11,21 @@ import { Banner } from "@/widgets/Banner/Banner";
 import { Slider } from "@/widgets/Slider/Slider";
 import { Steps } from "@/widgets/Steps/Steps";
 import { PopupCitySelect } from "@/components/Shared/PopupCitySelect/PopupCitySelect";
-
 import { Header } from "@/components/Header/Header";
 import { Footer } from "@/components/Footer/Footer";
 import { BgWrapper } from "@/components/BgWrapper/BgWrapper";
+import { PageWrapper } from "@/components/Shared/PageWrapper/PageWrapper";
 
-export default function Home() {
+interface HomeProps {
+  cookies: Record<string, string>;
+}
+
+export default function Home({ cookies }: HomeProps) {
   const router = useRouter();
   const { source } = router.query;
+
+  const { NEXT_LOCALE: locale, USER_COUNTRY: country } = cookies;
+  const isLanguageSelected = locale && country;
 
   const theme = useTheme();
 
@@ -29,49 +37,36 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
-      <PopupCitySelect />
-      <main className="main">
-        <Banner />
-        <Slider />
-        {source !== "qr" && <Steps />}
-        <BgWrapper isQr={source === "qr"}>
-          {source !== "qr" && <Research />}
-          <Faq isQr={source === "qr"} />
-        </BgWrapper>
-      </main>
-      <Footer background={theme.colors.white} color={theme.colors.black} />
+      <PageWrapper>
+        <Header />
+        <PopupCitySelect />
+        <main className="main" style={{ opacity: isLanguageSelected ? 1 : 0 }}>
+          <Banner />
+          <Slider />
+          {source !== "qr" && <Steps />}
+          <BgWrapper isQr={source === "qr"}>
+            {source !== "qr" && <Research />}
+            <Faq isQr={source === "qr"} />
+          </BgWrapper>
+        </main>
+        <Footer
+          background={isLanguageSelected ? theme.colors.white : theme.colors.black}
+          color={isLanguageSelected ? theme.colors.black : theme.colors.white}
+        />
+      </PageWrapper>
     </>
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { req, query } = context;
-  const { source } = query;
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { req } = ctx;
 
-  const cookies =
-    req.headers.cookie?.split(";").reduce((acc, cookie) => {
-      const [key, value] = cookie.trim()?.split("=");
-      acc[key] = value;
-      return acc;
-    }, {} as Record<string, string>) || {};
-
-  // TODO потом убрать заглушку и привязатсья к реальной куке
-
-  const accessToken = cookies.accessToken || true;
-
-  if (!accessToken && source === "qr") {
-    return {
-      redirect: {
-        destination: "/auth?source=qr",
-        permanent: false,
-      },
-    };
-  }
+  const cookies = parseCookies({ req });
 
   return {
     props: {
-      ...(await serverSideTranslations(context.locale ?? "ru", ["common"])),
+      cookies,
+      ...(await serverSideTranslations(ctx.locale ?? "ru", ["common"])),
     },
   };
-};
+}

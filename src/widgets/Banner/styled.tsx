@@ -42,17 +42,17 @@ export const ButtonDesktop = styled(Button)`
 `;
 
 export const ButtonMobile = styled(Button)`
-  display: none;
+  display: none !important;
 
   && {
     margin-top: 40px;
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    display: flex;
-    margin-top: 0;
-  }
-`;
+      display: flex !important;
+      margin-top: 0;
+    }
+`
 
 export const BannerTitle = styled.h1`
   font-size: 96px;

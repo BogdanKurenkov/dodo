@@ -12,6 +12,7 @@ export const StepsWrapper = styled.section`
   overflow: hidden;
   background: ${({ theme }) => theme.colors.white};
   z-index: 1;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     padding: 60px 0;
   }
@@ -29,9 +30,11 @@ export const StepsWrapper = styled.section`
     z-index: -1;
     display: none;
     pointer-events: none;
+
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       display: block;
     }
+
     @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
       top: -150px;
       right: -60%;
@@ -54,6 +57,7 @@ export const SectionTitle = styled(StyledTitle)`
 export const SectionDescription = styled(Text)<{ $color?: string }>`
   color: ${({ theme }) => theme.colors.black};
   margin: 48px 0 88px;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     order: 3;
     margin: 0;
@@ -65,6 +69,7 @@ export const AccordionList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 18px;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     margin-top: 48px;
     gap: 28px;
@@ -75,6 +80,7 @@ export const StepsSummary = styled.div`
   display: flex;
   align-items: center;
   gap: 49px;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     flex-direction: column;
     align-items: flex-start;
@@ -87,6 +93,7 @@ export const StepsStage = styled.span`
   font-size: 32px;
   line-height: 100%;
   color: ${({ theme }) => theme.colors.orange};
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     font-size: 18px;
   }
@@ -113,6 +120,7 @@ export const StepsList = styled.ul`
   margin-top: 22px;
   margin-left: 142px;
   margin-right: 100px;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     margin-left: 0;
     margin-right: 0;
@@ -125,6 +133,7 @@ export const StepsText = styled.p`
   font-size: 22px;
   line-height: 110%;
   color: ${({ theme }) => theme.colors.black};
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     font-size: 20px;
   }
@@ -158,6 +167,7 @@ export const StepsItem = styled.li`
   gap: 42px;
   justify-content: flex-start;
   position: relative;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     flex-direction: column;
     gap: 18px;
@@ -177,6 +187,7 @@ export const StepsItem = styled.li`
   &:first-child {
     padding-top: 10px;
     padding-bottom: 28px;
+
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       padding-top: 0;
     }
@@ -203,6 +214,7 @@ export const Accordion = styled(AccordionStyled)`
   box-shadow: 0px 5px 15px -1px #0000001a;
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     padding: 38px 22px 42px 25px;
     border-radius: 30px;
@@ -229,6 +241,7 @@ export const Accordion = styled(AccordionStyled)`
     -webkit-mask-composite: destination-out;
     mask-composite: exclude;
     pointer-events: none;
+
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       border-radius: 30px;
     }
@@ -242,6 +255,7 @@ export const Accordion = styled(AccordionStyled)`
         grid-template-rows: repeat(2, 1fr);
         grid-column-gap: 42px;
         grid-row-gap: 10px;
+
         @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
           display: flex;
           flex-direction: column;
@@ -251,6 +265,7 @@ export const Accordion = styled(AccordionStyled)`
 
         ${StepsText} {
           grid-area: 1 / 1 / 2 / 2;
+
           @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
             order: 1;
           }
@@ -258,6 +273,7 @@ export const Accordion = styled(AccordionStyled)`
 
         ${StepsNote} {
           grid-area: 2 / 1 / 3 / 2;
+
           @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
             order: 3;
           }
@@ -265,6 +281,7 @@ export const Accordion = styled(AccordionStyled)`
 
         ${StepsCard} {
           grid-area: 1 / 2 / 3 / 3;
+
           @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
             order: 2;
           }
@@ -286,6 +303,7 @@ export const StepsButton = styled.button`
   gap: 14px;
   max-width: 240px;
   cursor: pointer;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     padding: 9px 10px;
   }
@@ -308,6 +326,7 @@ export const ButtonTitle = styled.span`
   color: ${({ theme }) => theme.colors.black};
   text-align: left;
   margin-bottom: 4px;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     font-size: 14px;
   }
@@ -353,6 +372,7 @@ export const CardSubtitle = styled.span`
   text-transform: uppercase;
   color: rgba(23, 23, 23, 0.5);
   margin-bottom: 6px;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     font-size: 7px;
     margin-bottom: 5px;
@@ -366,8 +386,9 @@ export const CardTitle = styled.h4`
   letter-spacing: -1%;
   margin-bottom: 3px;
   color: #171717;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-    font-size: 9px;
+    font-size: 10px;
   }
 `;
 
@@ -379,6 +400,7 @@ export const CardNote = styled.span`
   margin-bottom: 18px;
   display: block;
   color: rgba(23, 23, 23, 0.5);
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     font-size: 8px;
     margin-bottom: 16px;
@@ -397,6 +419,7 @@ export const CardButton = styled.button`
   border-radius: 24px;
   background: ${({ theme }) => theme.colors.orange};
   border: none;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     font-size: 8px;
   }
@@ -470,6 +493,7 @@ export const Button = styled(StyledButton)`
     padding: 41px;
     margin: 88px 0 0;
     width: 610px;
+
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       padding: 31px 45px 38px;
       margin: 26px auto 0;

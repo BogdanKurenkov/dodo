@@ -6,9 +6,6 @@ export const theme = {
         glass_button: 'linear-gradient(98.19deg, rgba(73, 73, 78, 0.5) 15.13%, rgba(73, 73, 78, 0.3) 80.56%)'
 
     },
-    fonts: {
-        main: 'Inter, sans-serif',
-    },
     spacing: {
         small: '8px',
         medium: '16px',

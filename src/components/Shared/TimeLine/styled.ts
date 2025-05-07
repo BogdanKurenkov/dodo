@@ -18,6 +18,7 @@ export const Line = styled.p<{ $isWhite: boolean }>`
   background: ${({ theme, $isWhite }) =>
     $isWhite ? theme.colors.white : theme.colors.black};
   flex-grow: 1;
+  margin-top: 5px;
 `;
 
 export const TimeLineWrapper = styled.div`
