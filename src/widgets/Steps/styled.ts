@@ -5,7 +5,6 @@ import { Text } from "@/components/Shared/SectionDescription/styled";
 import { StyledTitle } from "@/components/Shared/SectionTitle/SectionTitle";
 import { Accordion as AccordionStyled } from "@/components/Accordion/Accordion";
 import { StyledButton } from "@/components/Shared/Button/styled";
-import Image from "next/image";
 
 export const StepsWrapper = styled.section`
   position: relative;
