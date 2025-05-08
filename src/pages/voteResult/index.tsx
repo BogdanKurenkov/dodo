@@ -21,7 +21,7 @@ import { Container } from "@/components/Shared/Container/Container";
 import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
 
 import Sauce2 from '@/assets/images/zoom_on_sauce_hot0009.png';
-import ResultBackgroundImage from "../../../public/images/voteResult-background.png";
+import ResultBackgroundImage from "../../../public/images/voteResult-background.webp";
 
 import {
   ResultWrapper,
