@@ -57,8 +57,8 @@ export const LottieRotate: FC<ILottieRotate> = ({
                         }}
                         initialSegment={isPlaying ? undefined : [0, 0]}
                         style={{
-                            width: width ? width : device === "desktop" ? 300 : 230,
-                            height: height ? height : device === "desktop" ? 300 : 230,
+                            width: width ? width : device === "desktop" ? 350 : 230,
+                            height: height ? height : device === "desktop" ? 350 : 230,
                         }}
                     />
                 </LottieWrapper>

@@ -9,6 +9,7 @@ export const VoteBackground = styled.section<{
   position: relative;
   z-index: 1;
   padding: 90px 0;
+  height: ${({ $step }) => ($step === 1 ? "calc(100% - 200px)" : "100%")};
 
   &::before {
     content: "";
@@ -60,7 +61,8 @@ export const VoteBackground = styled.section<{
 
 export const SaucesList = styled.div`
   ${({ theme }) => theme.mixins.flexCenter}
-  gap: 146px;
+  /* gap: 146px; */
+  justify-content: space-between;
   position: relative;
   z-index: 1;
   padding: 88px 0 0;

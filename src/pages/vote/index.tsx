@@ -158,8 +158,8 @@ export default function Vote() {
                   <div
                     style={{
                       position: "relative",
-                      width: device === "desktop" ? 300 : 230,
-                      height: device === "desktop" ? 300 : 230,
+                      width: device === "desktop" ? 350 : 230,
+                      height: device === "desktop" ? 350 : 230,
                     }}
                   >
                     <div

@@ -72,11 +72,11 @@ export default function VoteResult() {
       <Header />
       <main className="main">
         <ResultWrapper>
-          <ResultBackground src={ResultBackgroundImage.src} />
+          <ResultBackground src={ResultBackgroundImage} alt="Vote result background" />
           <Container>
             <ContainerInner>
               <ResultHeader>
-                <ResultBackgroundMob src={ResultBackgroundImage.src} />
+                <ResultBackgroundMob src={ResultBackgroundImage} alt="Vote result background" />
                 <ResultTitle>{t("vote_result.title")}</ResultTitle>
                 <ResultDescription>
                   <TextWithLineBreaks text={t("vote_result.description")} />

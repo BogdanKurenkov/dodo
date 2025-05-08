@@ -114,7 +114,7 @@ export const Sauce = styled(Image)`
   }
 `;
 
-export const SauceBackground = styled.img<{
+export const SauceBackground = styled(Image)<{
   $index: number;
   $isActive: boolean;
   $isMobile: boolean;

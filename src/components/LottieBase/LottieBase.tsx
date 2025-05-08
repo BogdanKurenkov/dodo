@@ -127,8 +127,8 @@ export const LottieBase: FC<ILottieBase> = ({
                     hideOnTransparent: true,
                 }}
                 style={{
-                    width: width ? width : device === "desktop" ? 300 : 230,
-                    height: height ? height : device === "desktop" ? 300 : 230,
+                    width: width ? width : device === "desktop" ? 350 : 230,
+                    height: height ? height : device === "desktop" ? 350 : 230,
                     cursor: onClickPlay ? "pointer" : "default",
                 }}
             />
