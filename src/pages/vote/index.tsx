@@ -13,7 +13,6 @@ import { useDeviceDetect } from "@/hooks/useDeviceDetect";
 
 import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
-import { Container } from "@/components/Shared/Container/Container";
 import { SectionTitle } from "@/components/Shared/SectionTitle/SectionTitle";
 import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
 
@@ -32,6 +31,7 @@ const LottieRotate = dynamic(
 
 import {
   VoteBackground,
+  Container,
   SaucesList,
   SauceContainer,
   SauceSample,
@@ -40,13 +40,11 @@ import {
   VotePrompt,
 } from "./styled";
 
-
 const sauces = [
   "sauces.sauce1.name",
   "sauces.sauce2.name",
   "sauces.sauce3.name",
 ];
-
 
 export default function Vote() {
   const { t } = useTranslation("common");
@@ -147,7 +145,7 @@ export default function Vote() {
       </Head>
       <Header />
       <main role="main" className="main">
-        <VoteBackground $step={step} $isTransitioning={isTransitioning}>
+        <VoteBackground $step={step} $isTransitioning={isTransitioning} $sPlaying={isPlaying}>
           <Container>
             <SectionTitle isWhite={true}>
               <TextWithLineBreaks text={t("vote.title")} />
