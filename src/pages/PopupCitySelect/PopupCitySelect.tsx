@@ -27,7 +27,7 @@ interface LanguageOption {
   code: "ru" | "kz" | "by";
 }
 
-export const PopupCitySelect: FC = () => {
+const PopupCitySelect: FC = () => {
   const [selectedLanguage, setSelectedLanguage] = useState<
     LanguageOption["code"] | null
   >(null);
@@ -125,3 +125,5 @@ export const PopupCitySelect: FC = () => {
     </>
   );
 };
+
+export default PopupCitySelect
