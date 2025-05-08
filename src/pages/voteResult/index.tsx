@@ -70,7 +70,7 @@ export default function VoteResult() {
   return (
     <>
       <Header />
-      <main className="main">
+      <main role="main" className="main">
         <ResultWrapper>
           <ResultBackground src={ResultBackgroundImage.src} />
           <Container>

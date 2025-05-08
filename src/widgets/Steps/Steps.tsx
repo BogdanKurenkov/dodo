@@ -171,7 +171,7 @@ export const Steps: FC = () => {
                       <CardButton>{t('buttons.apply')}</CardButton>
                     </CardContent>
                     <CardImagesWrapper>
-                      <CardImage src={currentLocale === "ru" ? Snack_RU.src : Snack_KZ.src} alt="Snack" />
+                      <CardImage src={currentLocale === "ru" ? Snack_RU : Snack_KZ} alt="Snack" />
                       <CardImageInfo>
                         <IconInfo />
                       </CardImageInfo>
@@ -224,7 +224,7 @@ export const Steps: FC = () => {
                   <StepsText>{t('choice.stage.stage3.qr')}</StepsText>
                   <StepsQrWrapper>
                     <QrTitle>{t('choice.stage.stage3.share')}</QrTitle>
-                    <QrCodeImage src={QrCode.src} alt="QR Code" />
+                    <QrCodeImage src={QrCode} alt="QR Code" />
                   </StepsQrWrapper>
                 </StepsItem>
                 <StepsItem>

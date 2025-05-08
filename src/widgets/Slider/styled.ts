@@ -235,6 +235,12 @@ export const Swiper = styled(SwiperComponent)`
     gap: 0px;
     margin: 0 !important;
 
+    @media (hover: hover) {
+      &:hover {
+        opacity: 1;
+      }
+    }
+
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       flex-direction: row;
       font-size: 22px;
