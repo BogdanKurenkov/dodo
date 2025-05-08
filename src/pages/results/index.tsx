@@ -17,8 +17,10 @@ export default function Results() {
 
     return <>
         <Header />
-        <Result />
-        {source === "qr" && <NotAll />}
+        <main role="main">
+            <Result />
+            {source === "qr" && <NotAll />}
+        </main>
         <Footer
             background={source === "qr" ? theme.colors.white : theme.colors.black}
             color={source === "qr" ? theme.colors.black : theme.colors.white}

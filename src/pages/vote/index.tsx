@@ -146,7 +146,7 @@ export default function Vote() {
         <title>Додо лаб</title>
       </Head>
       <Header />
-      <main className="main">
+      <main role="main" className="main">
         <VoteBackground $step={step} $isTransitioning={isTransitioning}>
           <Container>
             <SectionTitle isWhite={true}>

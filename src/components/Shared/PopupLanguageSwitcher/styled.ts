@@ -35,7 +35,7 @@ export const PopupContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  
+
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     border-radius: 32px;
     padding: 32px 20px 20px;
@@ -98,6 +98,13 @@ export const StyledLanguageSwitcher = styled.button<IStyledLanguageSwitcher>`
   cursor: pointer;
   color: ${({ theme }) => theme.colors.white};
   opacity: ${({ $active }) => ($active ? "100%" : "40%")};
+  transition: opacity 0.5s ease;
+
+  @media (hover: hover) {
+    &:hover {
+      opacity: 100%;
+    }
+  }
 
   @media (max-width: 500px) {
     font-size: 30px;

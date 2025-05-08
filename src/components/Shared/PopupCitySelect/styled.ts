@@ -101,8 +101,7 @@ export const LanguageButton = styled.button<{ $isSelected: boolean }>`
   align-items: center;
   justify-content: center;
   gap: 28px;
-  background:#f4f4f1;
-
+  background: #f4f4f1;
   color: ${({ $isSelected }) => ($isSelected ? "#f4f4f1" : "#6C6C6A")};
   background: transparent;
   border: none;
@@ -111,16 +110,23 @@ export const LanguageButton = styled.button<{ $isSelected: boolean }>`
   line-height: 100%;
   letter-spacing: 0%;
   cursor: pointer;
+  transition: 0.5s ease;
+
+  @media (hover: hover) {
+    &:hover {
+      color: #f4f4f1;
+    }
+  }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-    font-size: 20px;
-    gap: 12px;
     font-size: 20px;
     gap: 12px;
   }
 
   &::after {
     content: "/";
+    color: ${({ $isSelected }) => ($isSelected ? "#f4f4f1" : "#6C6C6A")};
+    pointer-events: none;
   }
 
   &:last-child::after {

@@ -28,7 +28,7 @@ export const Footer: FC<IFooterProps> = ({ color = '#F4F4F1', background }) => {
     const { t } = useTranslation('common');
     const { currentLocale } = useLanguageSwitcher();
 
-    return <StyledFooter id="contacts" $color={color} $background={background}>
+    return <StyledFooter id="contacts" $color={color} $background={background} role="contentinfo" aria-labelledby="footer-heading">
         <Container>
             <FooterWrapper>
                 <FooterTop $locale={currentLocale!}>
@@ -38,20 +38,24 @@ export const Footer: FC<IFooterProps> = ({ color = '#F4F4F1', background }) => {
                         {t('footer.project')}
                     </FooterText>
                 </FooterTop>
-                <FooterBottom>
+                <FooterBottom as="nav" aria-label="Legal links and logo">
                     <FooterLink
+                        $bg={color}
                         style={{ color: color !== "#F4F4F1" ? "#979797" : "#676767" }}
                         href="#"
+                        aria-label={t('footer.policy1')}
                     >
                         {t('footer.policy1')}
                     </FooterLink>
                     <FooterLink
+                        $bg={color}
                         href="#"
+                        aria-label={t('footer.policy2')}
                         style={{ color: color !== "#F4F4F1" ? "#979797" : "#676767" }}
                     >
                         <TextWithLineBreaks text={t('footer.policy2')} />
                     </FooterLink>
-                    <BgLogo alt="dodo pizza" src={color === "#F4F4F1" ? BgLogoDark : BgLogoWhite} />
+                    <BgLogo alt="Dodo Pizza brand logo" src={color === "#F4F4F1" ? BgLogoDark : BgLogoWhite} />
                 </FooterBottom>
             </FooterWrapper>
         </Container>

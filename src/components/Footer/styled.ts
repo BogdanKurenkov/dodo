@@ -67,10 +67,25 @@ export const FooterBottom = styled.div`
   }
 `;
 
-export const FooterLink = styled(Link)`
+export const FooterLink = styled(Link)<{ $bg: string }>`
   text-decoration: underline;
   color: #979797;
   font-size: 18px;
+  transition: 0.5s ease;
+
+  @media (hover: hover) {
+    &:hover span {
+      color: ${({ theme, $bg }) =>
+        $bg !== "#F4F4F1" ? theme.colors.black : theme.colors.white};
+    }
+
+    &:hover {
+      text-decoration-color: ${({ theme, $bg }) =>
+        $bg !== "#F4F4F1" ? theme.colors.black : theme.colors.white};
+      color: ${({ theme, $bg }) =>
+        $bg !== "#F4F4F1" ? theme.colors.black : theme.colors.white} !important;
+    }
+  }
 
   & br {
     display: none;

@@ -10,7 +10,7 @@ export default function Auth() {
     return (
         <PageWrapper>
             <Header />
-            <main>
+            <main role="main">
                 <TgAuth />
             </main>
             <Footer />

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
@@ -43,7 +43,11 @@ import {
   DodoLabWrapper
 } from "./styled";
 
-export const Header = () => {
+interface IHeader {
+  country?: string
+}
+
+export const Header: FC<IHeader> = ({ country }) => {
   const { t } = useTranslation("common");
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -128,48 +132,65 @@ export const Header = () => {
       $isClosing={isClosing}
       $isOpen={isMenuOpen}
       style={!isMenuOpen ? headerStyle : {}}
+      role="banner"
+      aria-label="header"
     >
       <Container>
-        <HeaderIcons>
-          <LogoWrapper href={source === "qr" ? "/?source=qr" : "/"} $isOpen={isMenuOpen}>
-            {device === "mobile" ? <DodoMobile /> : <Dodo />}
+        <HeaderIcons role="group" aria-label="Header icons and controls">
+          <LogoWrapper
+            href={source === "qr" ? "/?source=qr" : "/"}
+            $isOpen={isMenuOpen}
+            aria-label="Logo"
+          >
+            {device === "mobile" ? (
+              <DodoMobile aria-hidden="true" />
+            ) : (
+              <Dodo aria-hidden="true" />
+            )}
           </LogoWrapper>
           {device === "mobile" ? (
-            <DodoLabWrapper $isOpen={isMenuOpen}>
-              <DodoLabMobile fill={theme.colors.white} className="dodLab-icon" />
-              <DodoLabTextMobile fill={theme.colors.white} className="dodLab-text" />
+            <DodoLabWrapper $isOpen={isMenuOpen} aria-label="Dodo Lab">
+              <DodoLabMobile
+                fill={theme.colors.white}
+                className="dodLab-icon"
+                aria-hidden="true"
+              />
+              <DodoLabTextMobile
+                fill={theme.colors.white}
+                className="dodLab-text"
+                aria-hidden="true"
+              />
             </DodoLabWrapper>
           ) : (
-            <DodoLab fill={theme.colors.white} />
+            <DodoLab fill={theme.colors.white} aria-hidden="true" />
           )}
-          <Burger isOpen={isMenuOpen} onToggle={handleBurgerToggle} />
+          <Burger
+            isOpen={isMenuOpen}
+            onToggle={handleBurgerToggle}
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMenuOpen}
+            aria-controls="main-navigation"
+          />
         </HeaderIcons>
-        <Menu $isOpen={isMenuOpen}>
-          <StyledNav $isOpen={isMenuOpen}>
+        <Menu
+          $isOpen={isMenuOpen}
+          role="navigation"
+          aria-label="Main navigation"
+          id="main-navigation"
+        >
+          <StyledNav $isOpen={isMenuOpen} role="menu">
             {client &&
               Object.entries(source === "qr" ? routesQr : routesLink).map(
                 ([key, translationKey], index) => (
                   <MenuLink
                     key={key}
                     href={`#${key}`}
-                    // aria-disabled={!isAuth && source === "qr" && index !== 0}
                     onClick={(e) => {
-                      // if (!isAuth && source === "qr" && index !== 0) {
-                      //   e.preventDefault();
-                      //   return;
-                      // }
                       e.preventDefault();
                       handleAnchorClick(key, index);
                     }}
-                  // style={
-                  //   !isAuth && source === "qr" && index !== 0
-                  //     ? {
-                  //       pointerEvents: "none",
-                  //       opacity: 0.5,
-                  //       cursor: "not-allowed",
-                  //     }
-                  //     : {}
-                  // }
+                    role="menuitem"
+                    aria-label={t(translationKey)}
                   >
                     {t(translationKey)}
                   </MenuLink>
@@ -177,7 +198,12 @@ export const Header = () => {
               )}
           </StyledNav>
         </Menu>
-        <LanguageSwitcher isActive={isMenuOpen} />
+        {country === "kz" && (
+          <LanguageSwitcher
+            isActive={isMenuOpen}
+            aria-label="Language switcher"
+          />
+        )}
       </Container>
     </StyledHeader>
   );
