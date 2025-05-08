@@ -28,7 +28,7 @@ export const Footer: FC<IFooterProps> = ({ color = '#F4F4F1', background }) => {
     const { t } = useTranslation('common');
     const { currentLocale } = useLanguageSwitcher();
 
-    return <StyledFooter id="contacts" $color={color} $background={background} role="contentinfo" aria-labelledby="footer-heading">
+    return <StyledFooter id="contacts" $color={color} $background={background} aria-labelledby="footer-heading">
         <Container>
             <FooterWrapper>
                 <FooterTop $locale={currentLocale!}>
@@ -41,7 +41,6 @@ export const Footer: FC<IFooterProps> = ({ color = '#F4F4F1', background }) => {
                 <FooterBottom as="nav" aria-label="Legal links and logo">
                     <FooterLink
                         $bg={color}
-                        style={{ color: color !== "#F4F4F1" ? "#979797" : "#676767" }}
                         href="#"
                         aria-label={t('footer.policy1')}
                     >
@@ -51,7 +50,6 @@ export const Footer: FC<IFooterProps> = ({ color = '#F4F4F1', background }) => {
                         $bg={color}
                         href="#"
                         aria-label={t('footer.policy2')}
-                        style={{ color: color !== "#F4F4F1" ? "#979797" : "#676767" }}
                     >
                         <TextWithLineBreaks text={t('footer.policy2')} />
                     </FooterLink>

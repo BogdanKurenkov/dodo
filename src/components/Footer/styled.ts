@@ -69,9 +69,10 @@ export const FooterBottom = styled.div`
 
 export const FooterLink = styled(Link)<{ $bg: string }>`
   text-decoration: underline;
-  color: #979797;
   font-size: 18px;
   transition: 0.5s ease;
+
+  color: ${({ $bg }) => ($bg !== "#F4F4F1" ? "#979797" : "#676767")};
 
   @media (hover: hover) {
     &:hover span {
