@@ -94,7 +94,7 @@ export const PopupCitySelect: FC = () => {
           </Header>
           <Container>
             <PopupContent>
-              <SectionDescription color={theme.colors.white}>
+              <SectionDescription role="region" aria-labelledby="country-heading" color={theme.colors.white}>
                 <TextWithLineBreaks text="Выберите страну" />
               </SectionDescription>
               <Language>
