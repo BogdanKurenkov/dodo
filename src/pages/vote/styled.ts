@@ -18,7 +18,7 @@ export const VoteBackground = styled.section<{
     height: 100%;
     top: 0;
     left: 0;
-    background-image: url("/images/vote-background.png");
+    background-image: url("/images/vote-background.webp");
     background-size: auto;
     background-repeat: no-repeat;
     background-position: ${({ $step }) =>
@@ -28,7 +28,7 @@ export const VoteBackground = styled.section<{
     pointer-events: none;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-      background-image: url("/images/vote-background-mob.png");
+      background-image: url("/images/vote-background-mob.webp");
       background-position: 40% 15%;
       opacity: ${({ $isTransitioning }) => ($isTransitioning ? 1 : 0)};
       transition: all 1.2s ease;
@@ -43,7 +43,7 @@ export const VoteBackground = styled.section<{
     top: 5%;
     left: 0;
     display: none;
-    background-image: url("/images/vote-background.png");
+    background-image: url("/images/vote-background.webp");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 85% 100%;

@@ -17,9 +17,9 @@ import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextW
 import Sauce1 from "@/assets/images/zoom_on_sauce_demiglace0009.png";
 import Sauce2 from "@/assets/images/zoom_on_sauce_hot0009.png";
 import Sauce3 from "@/assets/images/zoom_on_sauce_smoked0009.png";
-import SauceImageBackground1 from "../../../public/images/slide-background-1.png";
-import SauceImageBackground2 from "../../../public/images/voteResult-background.png";
-import SauceImageBackground3 from "../../../public/images/slide-background-3.png";
+import SauceImageBackground1 from "../../../public/images/slide-background-1.webp";
+import SauceImageBackground2 from "../../../public/images/voteResult-background.webp";
+import SauceImageBackground3 from "../../../public/images/slide-background-3.webp";
 
 import {
   SliderWrapper,
@@ -235,7 +235,7 @@ export const Slider: FC = () => {
                 onClick={
                   isMobile
                     ? () => handleAccordionClick(`sauce-${index}`)
-                    : () => {}
+                    : () => { }
                 }
                 skipInitialAnimation={!isMobile}
               />
