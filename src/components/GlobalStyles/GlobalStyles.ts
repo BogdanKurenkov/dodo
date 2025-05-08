@@ -45,6 +45,7 @@ export const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
     line-height: 100%;
     scroll-behavior: smooth;
+    font-family: "Neue Haas Unica W1G", sans-serif;
   }
 
   html[lang="ru"], html[lang="by"] * {

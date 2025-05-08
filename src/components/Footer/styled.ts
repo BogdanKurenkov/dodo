@@ -38,7 +38,7 @@ export const FooterText = styled.p<{ $bg: string; $locale: string }>`
 
 export const FooterWrapper = styled.div``;
 
-export const FooterTop = styled.div`
+export const FooterTop = styled.div<{ $locale: string }>`
   display: flex;
   align-items: center;
   gap: 2px;
@@ -50,7 +50,7 @@ export const FooterTop = styled.div`
   }
 
   @media (max-width: 500px) {
-    font-size: 17px;
+    font-size: ${({ $locale }) => ($locale === "kz" ? "17px" : "19.5px")};
   }
 `;
 

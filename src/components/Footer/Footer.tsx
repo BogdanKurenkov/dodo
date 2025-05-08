@@ -31,7 +31,7 @@ export const Footer: FC<IFooterProps> = ({ color = '#F4F4F1', background }) => {
     return <StyledFooter id="contacts" $color={color} $background={background}>
         <Container>
             <FooterWrapper>
-                <FooterTop>
+                <FooterTop $locale={currentLocale!}>
                     <FooterLogo fill={color} />
                     <span>додо лаб</span>
                     <FooterText $bg={color} $locale={currentLocale!}>
