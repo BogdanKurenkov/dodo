@@ -87,10 +87,12 @@ export const Language = styled.div`
   justify-content: center;
   gap: 28px;
   margin-top: 32px;
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    flex-wrap: wrap;
+  }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-    gap: 12px;
-    gap: 12px;
+    gap: 22px;
   }
 `;
 
@@ -113,14 +115,15 @@ export const LanguageButton = styled.button<{ $isSelected: boolean }>`
   cursor: pointer;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-    font-size: 20px;
-    gap: 12px;
-    font-size: 20px;
-    gap: 12px;
+    font-size: 42px;
+    gap: 22px;
   }
 
   &::after {
     content: "/";
+    @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+      content: none;
+    }
   }
 
   &:last-child::after {
@@ -136,8 +139,7 @@ export const Button = styled(StyledButton)`
 
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       padding: 31px 95px 38px;
-      margin: 40px auto 24px;
-      margin: 40px auto 24px;
+      margin: 64px auto 24px;
       width: 100%;
     }
   }
