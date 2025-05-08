@@ -9,7 +9,7 @@ export const VoteBackground = styled.section<{
   position: relative;
   z-index: 1;
   padding: 90px 0;
-  height: ${({ $step }) => ($step === 1 ? "calc(100% - 200px)" : "100%")};
+  height: ${({ $step }) => ($step === 1 ? "785px" : "100%")};
 
   &::before {
     content: "";
@@ -21,7 +21,9 @@ export const VoteBackground = styled.section<{
     background-image: url("/images/vote-background.png");
     background-size: auto;
     background-repeat: no-repeat;
-    background-position: 40% 60%;
+    background-position: ${({ $step }) =>
+      $step === 1 ? "40% 32.8%" : "40% 60%"};
+
     z-index: -1;
     pointer-events: none;
 
