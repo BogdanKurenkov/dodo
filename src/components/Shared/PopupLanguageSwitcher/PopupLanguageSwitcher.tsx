@@ -72,7 +72,7 @@ export const PopupLanguageSwitcher: FC<ILanguageSwitcher> = ({
             </StyledLanguageSwitcher>
           </SwitcherWrapper>
           <Button $variant="glass" $fullWidth onClick={handleConfirm}>
-            {selectedLocale === 'kz' ? "таңдау" : "выбрать"}
+            {selectedLocale === "kz" ? "таңдау" : "выбрать"}
           </Button>
         </PopupContent>
       </Container>

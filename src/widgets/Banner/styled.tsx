@@ -73,10 +73,10 @@ export const ButtonMobile = styled(Button)`
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-      display: flex !important;
-      margin-top: 0;
-    }
-`
+    display: flex !important;
+    margin-top: 0;
+  }
+`;
 
 export const BannerTitle = styled.h1`
   font-size: 96px;
@@ -101,6 +101,24 @@ export const LottieTop = styled.div`
     right: 50%;
     transform: translateX(50%);
     height: 810px;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+    &::before {
+      content: "";
+      position: absolute;
+      top: 60%;
+      left: 50%;
+      width: calc(100% + 300px);
+      height: 400px;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      background-image: url("/images/title-bg.png");
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      pointer-events: none;
+    }
   }
 `;
 

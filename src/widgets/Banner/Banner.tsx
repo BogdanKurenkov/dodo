@@ -236,7 +236,7 @@ const getDimensions = (group: string, deviceType: string) => {
         ? "185px"
         : deviceType === "tablet"
         ? "200px"
-        : "260px",
+        : "300px",
   };
 };
 
@@ -244,12 +244,13 @@ const createAnimations = (deviceType: string) => {
   return {
     animations_box: lottieConfigs
       .filter((config) => config.group === "box")
-      .map((config) => ({
+      .map((config, index) => ({
         element: (
           <LottieBanner
             key={config.key}
             path={config.path}
             {...getDimensions("box", deviceType)}
+            customAnimation={index === 0}
           />
         ),
         style: config.style(deviceType),
@@ -339,17 +340,23 @@ export const Banner: FC = () => {
           </TextWrapper>
         </Container>
         <LottieTop>
-          <div style={animations_box[0].style as React.CSSProperties}>{animations_box[0].element}</div>
+          <div style={animations_box[0].style as React.CSSProperties}>
+            {animations_box[0].element}
+          </div>
           <div style={animations_sauce[1].style as React.CSSProperties}>
             {animations_sauce[1].element}
           </div>
         </LottieTop>
         <LottieBottom>
-          <div style={animations_box[1].style as React.CSSProperties}>{animations_box[1].element}</div>
+          <div style={animations_box[1].style as React.CSSProperties}>
+            {animations_box[1].element}
+          </div>
           <div style={animations_sauce[0].style as React.CSSProperties}>
             {animations_sauce[0].element}
           </div>
-          <div style={animations_box[2].style as React.CSSProperties}>{animations_box[2].element}</div>
+          <div style={animations_box[2].style as React.CSSProperties}>
+            {animations_box[2].element}
+          </div>
           <div style={animations_sauce[2].style as React.CSSProperties}>
             {animations_sauce[2].element}
           </div>
