@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Image from "next/image";
 
 import { Text } from "@/components/Shared/SectionDescription/styled";
 import { StyledButton } from "@/components/Shared/Button/styled";
@@ -13,12 +14,12 @@ export const ResultWrapper = styled.section`
     padding: 40px 0;
   }
 `;
-export const ResultBackground = styled.img`
+export const ResultBackground = styled(Image)`
   position: absolute;
-  width: 60%;
+  width: 50%;
   height: auto;
   top: 50%;
-  right: -5%;
+  right: 5%;
   transform: translateY(-50%);
   object-fit: contain;
 
@@ -27,7 +28,7 @@ export const ResultBackground = styled.img`
   }
 `;
 
-export const ResultBackgroundMob = styled.img`
+export const ResultBackgroundMob = styled(Image)`
   position: absolute;
   width: 100%;
   height: 65%;
@@ -106,25 +107,6 @@ export const ResultHeader = styled.div`
     }
   }
 
-  /* &::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 80%;
-    top: 170px;
-    left: 0;
-    background-image: url("/images/voteResult-background-mob.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: top;
-    display: none;
-    pointer-events: none;
-
-    @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-      display: block;
-    }
-  } */
-
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     padding: 40px 25px 0;
     height: 610px;
@@ -197,12 +179,12 @@ export const Button = styled(StyledButton)`
 
 export const Sauce = styled(SauceStyled)`
   top: 50%;
-  right: 5%;
+  right: 0%;
   transform: translateY(-50%);
   left: initial;
   bottom: initial;
-  width: 338px;
-  height: 300px;
+  width: 400px;
+  height: 350px;
   object-fit: cover;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {

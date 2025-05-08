@@ -6,6 +6,7 @@ import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 import { Pagination, EffectFade } from "swiper/modules";
 import type { Swiper as SwiperCore } from "swiper/types";
+import { StaticImageData } from "next/image";
 
 import { useDeviceDetect } from "@/hooks/useDeviceDetect";
 
@@ -13,9 +14,9 @@ import { Container } from "@/components/Shared/Container/Container";
 import { SectionTitle } from "@/components/Shared/SectionTitle/SectionTitle";
 import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
 
-import Sauce1 from '@/assets/images/zoom_on_sauce_demiglace0009.png';
-import Sauce2 from '@/assets/images/zoom_on_sauce_hot0009.png';
-import Sauce3 from '@/assets/images/zoom_on_sauce_smoked0009.png';
+import Sauce1 from "@/assets/images/zoom_on_sauce_demiglace0009.png";
+import Sauce2 from "@/assets/images/zoom_on_sauce_hot0009.png";
+import Sauce3 from "@/assets/images/zoom_on_sauce_smoked0009.png";
 import SauceImageBackground1 from "../../../public/images/slide-background-1.png";
 import SauceImageBackground2 from "../../../public/images/voteResult-background.png";
 import SauceImageBackground3 from "../../../public/images/slide-background-3.png";
@@ -42,7 +43,7 @@ import {
 } from "./styled";
 
 interface Sauce {
-  image: { src: string };
+  image: StaticImageData;
   type: string;
   description: string;
   taste: string;
@@ -106,10 +107,12 @@ export const Slider: FC = () => {
   const router = useRouter();
   const { source } = router.query;
 
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
 
   useEffect(() => {
-    const savedOpenAccordionId = sessionStorage.getItem("sliderOpenAccordionId");
+    const savedOpenAccordionId = sessionStorage.getItem(
+      "sliderOpenAccordionId",
+    );
     if (savedOpenAccordionId) {
       setOpenAccordionId(savedOpenAccordionId);
     }
@@ -125,7 +128,7 @@ export const Slider: FC = () => {
 
   const handleAccordionClick = (accordionKey: string) => {
     setOpenAccordionId((prevId) =>
-      prevId === accordionKey ? null : accordionKey
+      prevId === accordionKey ? null : accordionKey,
     );
   };
 
@@ -140,27 +143,28 @@ export const Slider: FC = () => {
   const sauceImages = [Sauce1, Sauce2, Sauce3];
 
   return (
-    <SliderWrapper style={{
-      marginBottom: source === "qr" ? "0" : (deviceType === "desktop" ? "40px" : "0")
-    }}>
+    <SliderWrapper
+      style={{
+        marginBottom:
+          source === "qr" ? "0" : deviceType === "desktop" ? "40px" : "0",
+      }}
+    >
       <Container>
         <SectionTitle isWhite={true}>
           <TextWithLineBreaks text={t("slider_title")} />
         </SectionTitle>
       </Container>
-      {
-        !isMobile &&
+      {!isMobile &&
         sauces.map((sauce, index) => (
           <SauceBackground
             key={index}
             alt="Sauce Background"
-            src={sauce.image.src}
+            src={sauce.image}
             $index={index}
             $isActive={index === activeIndex}
             $isMobile={false}
           />
-        ))
-      }
+        ))}
       <SwiperWrapper>
         <AccordionBackground></AccordionBackground>
         <Swiper
@@ -196,7 +200,9 @@ export const Slider: FC = () => {
                 title={
                   <>
                     <SauceSummary>
-                      <SauceSample>{t('results.sample')} №{index + 1}</SauceSample>
+                      <SauceSample>
+                        {t("results.sample")} №{index + 1}
+                      </SauceSample>
                       <SauceTitle>{t(sauce.type)}</SauceTitle>
                     </SauceSummary>
                     <Plus
@@ -211,15 +217,15 @@ export const Slider: FC = () => {
                     <SauceDescription>{t(sauce.description)}</SauceDescription>
                     <SauceList>
                       <SauceItem>
-                        <SauceHighlight>{t('sauces.taste')}</SauceHighlight>
+                        <SauceHighlight>{t("sauces.taste")}</SauceHighlight>
                         <SauceDetail>{t(sauce.taste)}</SauceDetail>
                       </SauceItem>
                       <SauceItem>
-                        <SauceHighlight>{t('sauces.aroma')}</SauceHighlight>
+                        <SauceHighlight>{t("sauces.aroma")}</SauceHighlight>
                         <SauceDetail>{t(sauce.aroma)}</SauceDetail>
                       </SauceItem>
                       <SauceItem>
-                        <SauceHighlight>{t('sauces.texture')}</SauceHighlight>
+                        <SauceHighlight>{t("sauces.texture")}</SauceHighlight>
                         <SauceDetail>{t(sauce.texture)}</SauceDetail>
                       </SauceItem>
                     </SauceList>
@@ -229,7 +235,7 @@ export const Slider: FC = () => {
                 onClick={
                   isMobile
                     ? () => handleAccordionClick(`sauce-${index}`)
-                    : () => { }
+                    : () => {}
                 }
                 skipInitialAnimation={!isMobile}
               />
@@ -237,6 +243,6 @@ export const Slider: FC = () => {
           ))}
         </Swiper>
       </SwiperWrapper>
-    </SliderWrapper >
+    </SliderWrapper>
   );
 };

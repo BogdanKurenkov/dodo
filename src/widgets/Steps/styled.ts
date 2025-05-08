@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Image from "next/image";
 
 import { Text } from "@/components/Shared/SectionDescription/styled";
 import { StyledTitle } from "@/components/Shared/SectionTitle/SectionTitle";
@@ -447,7 +448,7 @@ export const CardImagesWrapper = styled.div`
   }
 `;
 
-export const CardImage = styled.img`
+export const CardImage = styled(Image)`
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -482,7 +483,7 @@ export const QrTitle = styled.span`
   color: #ffffff;
 `;
 
-export const QrCodeImage = styled.img`
+export const QrCodeImage = styled(Image)`
   width: 68px;
   height: 68px;
   object-fit: cover;

@@ -25,8 +25,8 @@ export const Accordion: FC<IAccordion> = ({
   const shouldRenderContent = forceOpen || isOpen;
 
   return (
-    <AccordionWrapper onClick={onClick} className={className}>
-      <AccordionHeader>{title}</AccordionHeader>
+    <AccordionWrapper className={className}>
+      <AccordionHeader onClick={onClick}>{title}</AccordionHeader>
 
       <AnimatePresence>
         {shouldRenderContent && (
