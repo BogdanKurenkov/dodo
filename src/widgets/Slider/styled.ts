@@ -162,6 +162,10 @@ export const SauceBackground = styled.img<{
     css`
       object-position: 15%;
       height: 70%;
+      @media (min-width: ${({ theme }) => theme.breakpoints.xl}) {
+        object-position: 30%;
+      }
+
       @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
         height: 100%;
         transform: translate(-45%, -40%) scale(1.3) rotate(-9deg);
@@ -416,7 +420,7 @@ export const SauceDescription = styled.p`
   font-size: 22px;
   line-height: 120%;
   color: ${({ theme }) => theme.colors.white};
-  opacity: 0.4;
+  opacity: 0.7;
   margin-top: 28px;
   margin-bottom: 28px;
 
@@ -472,7 +476,7 @@ export const SauceDetail = styled.span`
   line-height: 120%;
   text-transform: lowercase;
   color: ${({ theme }) => theme.colors.white};
-  opacity: 0.4;
+  opacity: 0.7;
   padding-top: 12px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
