@@ -96,7 +96,7 @@ export default function Home({ cookies }: HomeProps) {
         <main role="main" className="main" style={{ height: isLanguageSelected ? "auto" : 0, opacity: isLanguageSelected ? 1 : 0 }}>
           <div itemScope itemType="https://schema.org/WebPageElement">
             <Banner />
-            {/* <Slider /> */}
+            <Slider />
             {source !== "qr" && <Steps />}
             <BgWrapper isQr={source === "qr"}>
               {source !== "qr" && <Research />}
