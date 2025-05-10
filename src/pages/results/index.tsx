@@ -12,16 +12,20 @@ import { Result } from "@/widgets/Result/Result";
 import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
 import { NotAll } from "@/components/NotAll/NotAll";
+import { parseCookies } from "nookies";
 
 
 interface ResultsPageProps {
     ratingData: RatingResponse;
+    cookies: Record<string, string>;
 }
 
-export default function Results({ ratingData }: ResultsPageProps) {
+export default function Results({ ratingData, cookies }: ResultsPageProps) {
     const theme = useTheme();
     const router = useRouter();
     const { source } = router.query;
+
+    const { USER_COUNTRY: country } = cookies;
 
     return (
         <>
@@ -33,7 +37,7 @@ export default function Results({ ratingData }: ResultsPageProps) {
                 />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
-            <Header />
+            <Header country={country} />
             <main role="main">
                 <Result ratingData={ratingData} />
                 {source === "qr" && <NotAll />}
@@ -46,7 +50,9 @@ export default function Results({ ratingData }: ResultsPageProps) {
     );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({ locale, req }) => {
+    const cookies = parseCookies({ req })
+
     try {
         const ratingData = await getRating();
 
@@ -54,6 +60,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
             props: {
                 ...(await serverSideTranslations(locale ?? "ru", ["common"])),
                 ratingData,
+                cookies
             },
         };
     } catch (error) {
@@ -63,6 +70,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
             props: {
                 ...(await serverSideTranslations(locale ?? "ru", ["common"])),
                 ratingData: null,
+                cookies
             },
         };
     }

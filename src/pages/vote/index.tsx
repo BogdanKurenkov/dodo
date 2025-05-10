@@ -6,9 +6,8 @@ import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import Cookies from "js-cookie";
-// import { parseCookies } from "nookies";
 
-import { sendVote } from "@/api";
+import { authUser, sendVote } from "@/api";
 
 import { useDeviceDetect } from "@/hooks/useDeviceDetect";
 
@@ -48,10 +47,16 @@ const sauces = [
   "sauces.sauce3.name",
 ];
 
-export default function Vote() {
+interface IVote {
+  cookies: Record<string, string>;
+}
+
+export default function Vote({ cookies }: IVote) {
   const { t } = useTranslation("common");
 
   const router = useRouter();
+
+  const { USER_COUNTRY: country } = cookies;
 
   const [activeCard, setActiveCard] = useState<number | null>(null);
   const [isButtonActive, setIsButtonActive] = useState(false);
@@ -146,7 +151,7 @@ export default function Vote() {
         <meta name="description" content="Участвуйте в исследованиях Додо Лаб, пробуйте новые соусы и влияйте на меню Додо Пиццы" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <Header />
+      <Header country={country} />
       <main role="main" className="main">
         <VoteBackground $step={step} $isTransitioning={isTransitioning} $sPlaying={isPlaying}>
           <Container>
@@ -220,39 +225,54 @@ export default function Vote() {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  // const { query, req } = context;
-  // const { source } = query;
+  const { query, req } = context;
+  const { source } = query;
 
-  // const cookies =
-  //   req.headers.cookie?.split(";").reduce((acc, cookie) => {
-  //     const [key, value] = cookie.trim().split("=");
-  //     acc[key] = value;
-  //     return acc;
-  //   }, {} as Record<string, string>) || {};
+  const cookies =
+    req.headers.cookie?.split(";").reduce((acc, cookie) => {
+      const [key, value] = cookie.trim().split("=");
+      acc[key] = value;
+      return acc;
+    }, {} as Record<string, string>) || {};
 
-  // const token = cookies.token;
+  const token = cookies.token;
 
-  // if (!token) {
-  //   return {
-  //     redirect: {
-  //       destination: "/auth?source=qr",
-  //       permanent: false,
-  //     },
-  //   };
-  // }
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/auth?source=qr",
+        permanent: false,
+      },
+    };
+  }
 
+  if (source !== "qr") {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
 
-  // if (source !== "qr") {
-  //   return {
-  //     redirect: {
-  //       destination: "/",
-  //       permanent: false,
-  //     },
-  //   };
-  // }
+  try {
+    const res = await authUser({ token });
+
+    if (res.voted) {
+      return {
+        redirect: {
+          destination: "/voteResult?source=qr",
+          permanent: false,
+        },
+      };
+    }
+  } catch (error) {
+    console.error("Auth check failed:", error);
+  }
 
   return {
     props: {
+      cookies,
       ...(await serverSideTranslations(context.locale ?? "ru", ["common"])),
     },
   };

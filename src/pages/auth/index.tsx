@@ -16,9 +16,15 @@ import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
 import { PageWrapper } from "@/components/Shared/PageWrapper/PageWrapper";
 
-export default function Auth() {
+interface IAuth {
+    cookies: Record<string, string>;
+}
+
+export default function Auth({ cookies }: IAuth) {
     const fingerprint = useFingerprint();
     const router = useRouter();
+
+    const { USER_COUNTRY: country } = cookies;
 
     useEffect(() => {
         if (!fingerprint) return;
@@ -42,8 +48,6 @@ export default function Auth() {
             })
     }, [fingerprint, router]);
 
-
-
     return (
         <>
             <Head>
@@ -52,7 +56,7 @@ export default function Auth() {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
             <PageWrapper>
-                <Header />
+                <Header country={country} />
                 <main>
                     <TgAuth />
                 </main>
@@ -63,8 +67,15 @@ export default function Auth() {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const { locale, query } = context;
+    const { locale, query, req } = context;
     const { source } = query;
+
+    const cookies =
+        req.headers.cookie?.split(";").reduce((acc, cookie) => {
+            const [key, value] = cookie.trim().split("=");
+            acc[key] = value;
+            return acc;
+        }, {} as Record<string, string>) || {};
 
     if (source !== "qr") {
         return {
@@ -75,8 +86,20 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         };
     }
 
+    const token = cookies.token;
+
+    if (token && source === "qr") {
+        return {
+            redirect: {
+                destination: "/vote?source=qr",
+                permanent: false,
+            },
+        };
+    }
+
     return {
         props: {
+            cookies,
             ...(await serverSideTranslations(locale ?? "ru", ["common"])),
         },
     };
