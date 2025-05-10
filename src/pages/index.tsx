@@ -5,6 +5,9 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTheme } from "styled-components";
 import { parseCookies } from "nookies";
 import dynamic from "next/dynamic";
+import { useEffect } from "react";
+
+import { trackVisit } from "@/api";
 
 import { Faq } from "@/widgets/Faq/Faq";
 import { Research } from "@/widgets/Research/Research";
@@ -24,6 +27,7 @@ import { PageWrapper } from "@/components/Shared/PageWrapper/PageWrapper";
 import { useFingerprint } from "@/hooks/useFingerprint";
 
 
+
 interface HomeProps {
   cookies: Record<string, string>;
 }
@@ -39,6 +43,10 @@ export default function Home({ cookies }: HomeProps) {
   const theme = useTheme();
 
   useFingerprint();
+
+  useEffect(() => {
+    trackVisit(source === 'qr' ? "qr" : "link");
+  }, [])
 
   const pageTitle = "Додо Лаб";
   const pageDescription = "Участвуйте в исследованиях Додо Лаб, пробуйте новые соусы и влияйте на меню Додо Пиццы";

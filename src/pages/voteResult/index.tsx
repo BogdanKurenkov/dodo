@@ -41,7 +41,11 @@ import {
   Sauce,
 } from "./styled";
 
-export default function VoteResult() {
+interface IVoteResult {
+  cookies: Record<string, string>;
+}
+
+export default function VoteResult({ cookies }: IVoteResult) {
   const { t } = useTranslation("common");
 
   const router = useRouter();
@@ -52,6 +56,8 @@ export default function VoteResult() {
 
   const [/*rate*/, setRate] = useState<RatingItem[]>([]);
   const [/*user*/, setUser] = useState<AuthResponse>();
+
+  const { USER_COUNTRY: country } = cookies;
 
   useEffect(() => {
     getRating().then((res) => {
@@ -85,7 +91,7 @@ export default function VoteResult() {
         <meta name="description" content="Участвуйте в исследованиях Додо Лаб, пробуйте новые соусы и влияйте на меню Додо Пиццы" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <Header />
+      <Header country={country} />
       <main role="main" className="main">
         <ResultWrapper>
           <ResultBackground src={ResultBackgroundImage} alt="Vote result background" />
@@ -103,8 +109,8 @@ export default function VoteResult() {
                   <motion.span>{rounded}</motion.span>% {t('vote_result.participants')}
                 </ResultSubtitle>
                 <ResultDescription>
-                  <TextWithLineBreaks text={t("vote_result.vote")} />{" "}
-                  {locale === "kz" ? "" : "№2"}
+                  <TextWithLineBreaks text={`${t("vote_result.vote")} ${locale === "kz" ? "" : "№2"}`} />{" "}
+
                 </ResultDescription>
                 <Button
                   onClick={() => router.push("/results?source=qr")}
@@ -123,8 +129,10 @@ export default function VoteResult() {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ locale, query }) => {
+export const getServerSideProps: GetServerSideProps = async ({ locale, query, req }) => {
   const { source } = query;
+  const cookies = parseCookies({ req })
+
 
   if (source !== 'qr') {
     return {
@@ -137,6 +145,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query }) 
 
   return {
     props: {
+      cookies,
       ...(await serverSideTranslations(locale ?? "ru", ["common"])),
     },
   };
