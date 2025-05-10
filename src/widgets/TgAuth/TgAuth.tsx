@@ -29,7 +29,7 @@ export const TgAuth: FC = () => {
     const theme = useTheme();
 
     const handleButtonClick = () => {
-        const link = botLinks[userCountry as keyof typeof botLinks];
+        const link = botLinks[userCountry as keyof typeof botLinks] || "https://t.me/dodo_ru_bot?start=landing_sauces;"
         if (typeof window !== 'undefined') {
             window.open(link, '_blank', 'noopener,noreferrer');
         }
