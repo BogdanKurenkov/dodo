@@ -13,7 +13,8 @@ import { appLink } from "@/constants/appLink";
 import DodoLogo from "@/assets/svg/steps-logo.svg";
 import Snack_RU from "@/assets/images/Snack_RU.png";
 import Snack_KZ from "@/assets/images/Snack_KZ.png";
-import QrCode from "@/assets/images/qr-code_1.png";
+import QrCode_RU from "@/assets/images/qr_ru.png";
+import QrCode_KZ from "@/assets/images/qr_kz.png";
 import IconInfo from "@/assets/svg/icon-info.svg";
 
 import {
@@ -43,8 +44,6 @@ import {
   CardImagesWrapper,
   CardImage,
   CardImageInfo,
-  StepsQrWrapper,
-  QrTitle,
   QrCodeImage,
   Button,
   TitleLg,
@@ -68,11 +67,27 @@ const promotion_info: Record<CountryCode, Partial<Record<LocaleCode, string>>> =
   }
 };
 
+const step2_info: Record<CountryCode, Partial<Record<LocaleCode, string>>> = {
+  ru: {
+    ru: "Закажите продукты из меню на сумму от 900 ₽ и примените акцию",
+  },
+  kz: {
+    ru: "Закажите продукты из меню на сумму от 5000 ₸ и примените акцию",
+    kz: "Мәзірден 5000 ₸-ден бастап тапсырыс беріп, акцияны қолданыңыз"
+  },
+  by: {
+    by: "Закажите продукты из меню на сумму от 30 руб и примените акцию"
+  }
+};
+
 export const Steps: FC = () => {
   const [openAccordionId, setOpenAccordionId] = useState<string | null>(null);
   const [promotionText, setPromotionText] = useState('');
 
   const { userCountry, currentLocale } = useLanguageSwitcher();
+
+  const step2Text = step2_info[userCountry as CountryCode]?.[currentLocale as LocaleCode] || '';
+
 
   const handleAppRedirect = () => {
     if (typeof window !== 'undefined') {
@@ -197,7 +212,7 @@ export const Steps: FC = () => {
               <StepsList>
                 <StepsItem>
                   <StepsText>
-                    {t('choice.stage.stage2.order')}
+                    {step2Text}
                   </StepsText>
                 </StepsItem>
                 <StepsItem>
@@ -222,10 +237,7 @@ export const Steps: FC = () => {
               <StepsList>
                 <StepsItem>
                   <StepsText>{t('choice.stage.stage3.qr')}</StepsText>
-                  <StepsQrWrapper>
-                    <QrTitle>{t('choice.stage.stage3.share')}</QrTitle>
-                    <QrCodeImage src={QrCode} alt="QR Code" />
-                  </StepsQrWrapper>
+                  <QrCodeImage src={currentLocale !== "kz" ? QrCode_RU : QrCode_KZ} alt="QR Code" />
                 </StepsItem>
                 <StepsItem>
                   <StepsText>

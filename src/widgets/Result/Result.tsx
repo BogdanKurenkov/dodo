@@ -3,6 +3,8 @@ import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { useTheme } from "styled-components";
 
+import { RatingItem, RatingResponse } from "@/api/types";
+
 import { useDeviceDetect } from "@/hooks/useDeviceDetect";
 import { useClient } from "@/hooks/useClient";
 
@@ -20,7 +22,11 @@ import {
     ResultsWrapper
 } from "./styled";
 
-export const Result: FC = () => {
+interface IResult {
+    ratingData: RatingResponse;
+}
+
+export const Result: FC<IResult> = ({ ratingData }) => {
     const { t } = useTranslation('common');
 
     const theme = useTheme();
@@ -34,6 +40,17 @@ export const Result: FC = () => {
     const handleNavigate = () => {
         router.push("/#participate")
     }
+
+    const adaptRatingCounts = (data: RatingItem[], totalVotes: number): number[] => {
+        return Array.from({ length: 3 }, (_, i) => {
+            const sauceId = i + 1;
+            const item = data.find(item => item.sauce === sauceId);
+            const count = item?.count || 0;
+            return totalVotes > 0 ? Math.round((count / totalVotes) * 100) : 0;
+        });
+    };
+
+    const percentages = adaptRatingCounts(ratingData.data, ratingData.total_votes);
 
     return <Container>
         <ResultsWrapper>
@@ -59,9 +76,8 @@ export const Result: FC = () => {
                 <Disclaimer variant="descktop" />
             </ResultsLeft>
             <ResultsRight>
-                <VotesBlock percentages={[30, 45, 25]} />
+                <VotesBlock percentages={percentages} />
             </ResultsRight>
         </ResultsWrapper>
     </Container>
-
 }
