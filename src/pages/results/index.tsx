@@ -1,6 +1,7 @@
 import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
+import Head from "next/head";
 import { useTheme } from "styled-components";
 
 import { Result } from "@/widgets/Result/Result";
@@ -16,6 +17,9 @@ export default function Results() {
     const { source } = router.query;
 
     return <>
+        <Head>
+            <title>Додо Лаб</title>
+        </Head>
         <Header />
         <main role="main">
             <Result />

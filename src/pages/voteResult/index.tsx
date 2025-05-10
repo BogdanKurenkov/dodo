@@ -36,6 +36,7 @@ import {
   Button,
   Sauce,
 } from "./styled";
+import Head from "next/head";
 
 export default function VoteResult() {
   const { t } = useTranslation("common");
@@ -69,6 +70,11 @@ export default function VoteResult() {
 
   return (
     <>
+      <Head>
+        <title>Додо Лаб</title>
+        <meta name="description" content="Участвуйте в исследованиях Додо Лаб, пробуйте новые соусы и влияйте на меню Додо Пиццы" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
       <Header />
       <main role="main" className="main">
         <ResultWrapper>
