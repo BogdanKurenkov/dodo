@@ -7,7 +7,7 @@ export const StyledBgWrapper = styled.div<{ $isQr: boolean }>`
   ${({ $isQr }) =>
     !$isQr &&
     `
-    background-image: url("/images/faq_bg-desktop.png");
+    background-image: url("/images/faq_bg-desktop.webp");
     background-repeat: no-repeat;
     background-size: 118%;
     background-position: 47px 232px;

@@ -26,7 +26,7 @@ export const PopupWrapper = styled.section`
     height: 100%;
     top: -25%;
     right: -70%;
-    background-image: url("/images/popup-background.png");
+    background-image: url("/images/popup-background.webp");
     background-size: contain;
     background-repeat: no-repeat;
     z-index: -1;

@@ -25,7 +25,7 @@ export const StepsWrapper = styled.section`
     height: 100vh;
     top: -150px;
     right: -70%;
-    background-image: url("/images/steps-background.png");
+    background-image: url("/images/steps-background.webp");
     background-size: auto;
     background-repeat: no-repeat;
     z-index: -1;

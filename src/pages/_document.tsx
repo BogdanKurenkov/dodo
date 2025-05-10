@@ -54,27 +54,6 @@ export default class MyDocument extends Document {
     return (
       <Html lang={lang}>
         <Head>
-          <link
-            rel="preload"
-            href="https://db.onlinewebfonts.com/t/31267e36af6f8dac65a56e78345e945e.woff2"
-            as="font"
-            type="font/woff2"
-            crossOrigin="anonymous"
-          />
-          <link
-            rel="preload"
-            href="https://db.onlinewebfonts.com/t/7d349f3b93cd47712cf75443b05965bf.woff2"
-            as="font"
-            type="font/woff2"
-            crossOrigin="anonymous"
-          />
-          <link
-            rel="preload"
-            href="/fonts/segoe_ui_semibold.woff2"
-            as="font"
-            type="font/woff2"
-            crossOrigin="anonymous"
-          />
         </Head>
         <body>
           <Main />

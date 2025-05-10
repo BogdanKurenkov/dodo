@@ -8,7 +8,7 @@ export const SectionWrapper = styled.section<{ $isQr: boolean }>`
   ${({ $isQr }) =>
     $isQr &&
     `
-    background-image: url("/images/faq_bg-desktop.png");
+    background-image: url("/images/faq_bg-desktop.webp");
     background-repeat: no-repeat;
     background-size: 110%;
     background-position: top;
@@ -28,7 +28,7 @@ export const SectionWrapper = styled.section<{ $isQr: boolean }>`
   }
 
   @media (max-width: 500px) {
-    background-image: url("/images/faq-project_bg.png");
+    background-image: url("/images/faq-project_bg.webp");
     background-position: top right;
     background-repeat: no-repeat;
     background-size: contain;
@@ -106,7 +106,7 @@ export const QuestionsCol = styled.div`
     padding: 0 30px;
 
     &:nth-child(2) {
-      background-image: url("/images/faq-sauces_bg.png");
+      background-image: url("/images/faq-sauces_bg.webp");
       background-repeat: no-repeat;
       background-size: 90%;
       background-position: 0 -85px;

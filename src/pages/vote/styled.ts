@@ -1,15 +1,17 @@
 import styled from "styled-components";
 
+import { StyledContainer } from "@/components/Shared/Container/styled";
 import { StyledButton } from "@/components/Shared/Button/styled";
 
 export const VoteBackground = styled.section<{
   $step: number;
+  $sPlaying: boolean;
   $isTransitioning: boolean;
 }>`
   position: relative;
   z-index: 1;
   padding: 90px 0;
-  height: ${({ $step }) => ($step === 1 ? "785px" : "100%")};
+  height: ${({ $sPlaying }) => ($sPlaying ? "auto" : "785px")};
 
   &::before {
     content: "";
@@ -21,9 +23,8 @@ export const VoteBackground = styled.section<{
     background-image: url("/images/vote-background.webp");
     background-size: auto;
     background-repeat: no-repeat;
-    background-position: ${({ $step }) =>
-      $step === 1 ? "40% 32.8%" : "40% 60%"};
-
+    background-position: ${({ $sPlaying }) =>
+      $sPlaying ? "40% 60%" : "40% 32.8%"};
     z-index: -1;
     pointer-events: none;
 
@@ -58,6 +59,12 @@ export const VoteBackground = styled.section<{
 
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     padding: 40px 0;
+  }
+`;
+
+export const Container = styled(StyledContainer)`
+  && {
+    height: 100%;
   }
 `;
 

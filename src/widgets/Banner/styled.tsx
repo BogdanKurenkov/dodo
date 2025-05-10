@@ -113,7 +113,7 @@ export const LottieTop = styled.div`
       height: 400px;
       transform: translate(-50%, -50%);
       z-index: 0;
-      background-image: url("/images/title-bg.png");
+      background-image: url("/images/title-bg.webp");
       background-repeat: no-repeat;
       background-size: contain;
       background-position: center;

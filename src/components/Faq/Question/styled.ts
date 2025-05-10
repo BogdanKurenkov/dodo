@@ -39,4 +39,8 @@ export const Answer = styled.p`
   &::first-letter {
     text-transform: uppercase;
   }
+
+  @media (max-width: 1024px) {
+    font-size: 20px;
+  }
 `;

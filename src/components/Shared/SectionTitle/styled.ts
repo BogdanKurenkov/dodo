@@ -20,7 +20,7 @@ export const StyledTitle = styled.h2<{ $isWhite: boolean }>`
       height: calc(100% + 300px);
       transform: translateY(-50%);
       z-index: -1;
-      background-image: url("/images/title-bg.png");
+      background-image: url("/images/title-bg.webp");
       background-repeat: no-repeat;
       background-size: contain;
       background-position: 100% 100%;
