@@ -518,3 +518,5 @@ export const TitleLg = styled.h2`
     line-height: 100%;
   }
 `;
+
+export const DodoLogo = styled(Image)``;

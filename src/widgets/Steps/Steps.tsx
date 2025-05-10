@@ -10,7 +10,7 @@ import { Plus } from "@/components/Shared/Plus/Plus";
 
 import { appLink } from "@/constants/appLink";
 
-import DodoLogo from "@/assets/svg/steps-logo.svg";
+import DodoLogoImg from "@/assets/images/3d_logo.png";
 import Snack_RU from "@/assets/images/Snack_RU.png";
 import Snack_KZ from "@/assets/images/Snack_KZ.png";
 import QrCode_RU from "@/assets/images/qr_ru.png";
@@ -47,6 +47,7 @@ import {
   QrCodeImage,
   Button,
   TitleLg,
+  DodoLogo,
 } from "./styled";
 
 type CountryCode = 'ru' | 'kz' | 'by';
@@ -159,7 +160,7 @@ export const Steps: FC = () => {
                   <StepsText>{t('choice.stage.stage1.download')}</StepsText>
                   <StepsButton>
                     <ButtonImage>
-                      <DodoLogo />
+                      <DodoLogo width={45} height={45} alt="dodo" src={DodoLogoImg} />
                     </ButtonImage>
                     <ButtonContent>
                       <ButtonTitle>{t('choice.stage.stage1.dodo')}</ButtonTitle>
