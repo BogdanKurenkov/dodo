@@ -21,6 +21,7 @@ import { Header } from "@/components/Header/Header";
 import { Footer } from "@/components/Footer/Footer";
 import { BgWrapper } from "@/components/BgWrapper/BgWrapper";
 import { PageWrapper } from "@/components/Shared/PageWrapper/PageWrapper";
+import { useFingerprint } from "@/hooks/useFingerprint";
 
 
 interface HomeProps {
@@ -36,6 +37,8 @@ export default function Home({ cookies }: HomeProps) {
   const isLanguageSelected = locale && country;
 
   const theme = useTheme();
+
+  useFingerprint();
 
   const pageTitle = "Додо Лаб";
   const pageDescription = "Участвуйте в исследованиях Додо Лаб, пробуйте новые соусы и влияйте на меню Додо Пиццы";

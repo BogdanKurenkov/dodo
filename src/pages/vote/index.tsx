@@ -5,9 +5,10 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import Head from "next/head";
-// import Cookies from "js-cookie";
+import Cookies from "js-cookie";
+// import { parseCookies } from "nookies";
 
-// import { sendVote } from "@/api";
+import { sendVote } from "@/api";
 
 import { useDeviceDetect } from "@/hooks/useDeviceDetect";
 
@@ -16,11 +17,6 @@ import { Header } from "@/components/Header/Header";
 import { SectionTitle } from "@/components/Shared/SectionTitle/SectionTitle";
 import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
 
-const LottieBase = dynamic(
-  () =>
-    import("@/components/LottieBase/LottieBase").then((mod) => mod.LottieBase),
-  { ssr: false },
-);
 const LottieRotate = dynamic(
   () =>
     import("@/components/LottieRotate/LottieRotate").then(
@@ -28,6 +24,12 @@ const LottieRotate = dynamic(
     ),
   { ssr: false },
 );
+const LottieBase = dynamic(
+  () =>
+    import("@/components/LottieBase/LottieBase").then((mod) => mod.LottieBase),
+  { ssr: false },
+);
+
 
 import {
   VoteBackground,
@@ -124,17 +126,16 @@ export default function Vote() {
         setStep(2);
       }, 1200);
     } else {
-      // const data = {
-      //   token: Cookies.get("token") || "",
-      //   completed: true,
-      //   sauce: activeCard as 1 | 2 | 3
-      // }
-      // sendVote(data).then(() => {
-      //   router.push("/voteResult");
-      // }).catch(() => {
+      const data = {
+        token: Cookies.get("token") || "",
+        completed: true,
+        sauce: (activeCard! + 1) as 1 | 2 | 3
+      }
+      sendVote(data).then(() => {
+        router.push("/voteResult?source=qr");
+      }).catch(() => {
 
-      // })
-      router.push("/voteResult?source=qr");
+      })
     }
   };
 
@@ -219,28 +220,36 @@ export default function Vote() {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { req, query } = context;
-  const { source } = query;
+  // const { query, req } = context;
+  // const { source } = query;
 
-  const cookies =
-    req.headers.cookie?.split(";").reduce((acc, cookie) => {
-      const [key, value] = cookie.trim().split("=");
-      acc[key] = value;
-      return acc;
-    }, {} as Record<string, string>) || {};
+  // const cookies =
+  //   req.headers.cookie?.split(";").reduce((acc, cookie) => {
+  //     const [key, value] = cookie.trim().split("=");
+  //     acc[key] = value;
+  //     return acc;
+  //   }, {} as Record<string, string>) || {};
 
-  // TODO потом убрать заглушку и привязатсья к реальной куке
+  // const token = cookies.token;
 
-  const accessToken = cookies.accessToken || true;
+  // if (!token) {
+  //   return {
+  //     redirect: {
+  //       destination: "/auth?source=qr",
+  //       permanent: false,
+  //     },
+  //   };
+  // }
 
-  if (!accessToken && source === "qr") {
-    return {
-      redirect: {
-        destination: "/auth?source=qr",
-        permanent: false,
-      },
-    };
-  }
+
+  // if (source !== "qr") {
+  //   return {
+  //     redirect: {
+  //       destination: "/",
+  //       permanent: false,
+  //     },
+  //   };
+  // }
 
   return {
     props: {

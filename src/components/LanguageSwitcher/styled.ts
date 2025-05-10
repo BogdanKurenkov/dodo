@@ -11,9 +11,7 @@ export const StyledLanguageSwitcher = styled.button<IStyledLanguageSwitcher>`
   cursor: pointer;
   color: ${({ theme }) => theme.colors.white};
   opacity: ${({ $active }) => ($active ? "100%" : "40%")};
-
-  @media (max-width: 500px) {
-  }
+  font-weight: 500;
 `;
 
 export const SwitcherWrapper = styled.div<{ $isActive: boolean }>`

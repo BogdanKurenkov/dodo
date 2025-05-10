@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { useTranslation } from "next-i18next";
 import { useTheme } from "styled-components";
-// import Cookies from "js-cookie";
 
 import { useLanguageSwitcher } from "@/hooks/useLanguageSwitcher";
 import { useDeviceDetect } from "@/hooks/useDeviceDetect";
@@ -14,7 +13,6 @@ import { SectionDescription } from "@/components/Shared/SectionDescription/Secti
 import { Button } from "@/components/Shared/Button/Button";
 
 import { AuthWrapper } from "./styled";
-// import { authUser } from "@/api";
 
 const botLinks = {
     ru: "https://t.me/dodo_ru_bot?start=landing_sauces",
@@ -31,13 +29,10 @@ export const TgAuth: FC = () => {
     const theme = useTheme();
 
     const handleButtonClick = () => {
-        const link = botLinks[userCountry as keyof typeof botLinks];
+        const link = botLinks[userCountry as keyof typeof botLinks] || "https://t.me/dodo_ru_bot?start=landing_sauces;"
         if (typeof window !== 'undefined') {
             window.open(link, '_blank', 'noopener,noreferrer');
         }
-        // authUser('dgad').then((res) => {
-        //     Cookies.set("token", res.user, { expires: 365 });
-        // })
     };
 
     return <AuthWrapper>
