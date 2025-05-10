@@ -142,6 +142,8 @@ export default function Vote() {
     <>
       <Head>
         <title>Додо лаб</title>
+        <meta name="description" content="Участвуйте в исследованиях Додо Лаб, пробуйте новые соусы и влияйте на меню Додо Пиццы" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Header />
       <main role="main" className="main">
