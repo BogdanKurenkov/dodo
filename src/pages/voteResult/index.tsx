@@ -4,14 +4,16 @@ import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { useEffect, useState } from "react";
-// import Cookies from "js-cookie";
+import Head from "next/head";
+import { parseCookies } from "nookies";
 
 import {
-  // authUser,
+  authUser,
   getRating
 } from "@/api";
 import {
-  // AuthResponse,
+  AuthRequest,
+  AuthResponse,
   RatingItem
 } from "@/api/types";
 
@@ -20,7 +22,9 @@ import { Header } from "@/components/Header/Header";
 import { Container } from "@/components/Shared/Container/Container";
 import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
 
-import Sauce2 from '@/assets/images/zoom_on_sauce_hot0009.png';
+// import Sauce1 from "@/assets/images/zoom_on_sauce_demiglace0009.png";
+import Sauce2 from "@/assets/images/zoom_on_sauce_hot0009.png";
+// import Sauce3 from "@/assets/images/zoom_on_sauce_smoked0009.png";
 import ResultBackgroundImage from "../../../public/images/voteResult-background.webp";
 
 import {
@@ -36,7 +40,6 @@ import {
   Button,
   Sauce,
 } from "./styled";
-import Head from "next/head";
 
 export default function VoteResult() {
   const { t } = useTranslation("common");
@@ -48,15 +51,22 @@ export default function VoteResult() {
   const rounded = useTransform(count, Math.round);
 
   const [/*rate*/, setRate] = useState<RatingItem[]>([]);
-  // const [user, setUser] = useState<AuthResponse>();
+  const [/*user*/, setUser] = useState<AuthResponse>();
 
   useEffect(() => {
     getRating().then((res) => {
       setRate(res.data)
     })
-    // authUser(Cookies.get('token') || "").then((res) => {
-    //   setUser(res)
-    // })
+    const cookies = parseCookies();
+
+    const authData: AuthRequest = {
+      token: cookies.token,
+      lang: cookies.NEXT_LOCALE,
+      country: cookies.USER_COUNTRY
+    };
+    authUser(authData).then((res) => {
+      setUser(res);
+    })
   }, [])
 
   useEffect(() => {
@@ -97,7 +107,7 @@ export default function VoteResult() {
                   {locale === "kz" ? "" : "№2"}
                 </ResultDescription>
                 <Button
-                  onClick={() => router.push("/results")}
+                  onClick={() => router.push("/results?source=qr")}
                   $variant="glass"
                 >
                   {t("buttons.look")}
@@ -113,10 +123,21 @@ export default function VoteResult() {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({ locale, query }) => {
+  const { source } = query;
+
+  if (source !== 'qr') {
+    return {
+      redirect: {
+        destination: '/results',
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: {
       ...(await serverSideTranslations(locale ?? "ru", ["common"])),
     },
   };
-};
+}

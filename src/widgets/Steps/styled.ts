@@ -484,8 +484,8 @@ export const QrTitle = styled.span`
 `;
 
 export const QrCodeImage = styled(Image)`
-  width: 68px;
-  height: 68px;
+  width: 240px;
+  height: 90px;
   object-fit: cover;
 `;
 

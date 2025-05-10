@@ -2,10 +2,10 @@ import { FC, useEffect, useRef } from "react";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 
 import { usePublicJson } from "@/hooks/usePublicJson";
-
-import { LottieWrapper } from "../LottieBase/styled";
 import { useDeviceDetect } from "@/hooks/useDeviceDetect";
 import { useClient } from "@/hooks/useClient";
+
+import { LottieWrapper } from "../LottieBase/styled";
 
 interface ILottieRotate {
     path: string;
