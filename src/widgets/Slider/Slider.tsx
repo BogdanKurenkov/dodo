@@ -235,7 +235,7 @@ export const Slider: FC = () => {
                 onClick={
                   isMobile
                     ? () => handleAccordionClick(`sauce-${index}`)
-                    : () => { }
+                    : () => {}
                 }
                 skipInitialAnimation={!isMobile}
               />

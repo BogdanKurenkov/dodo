@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 
@@ -103,6 +102,10 @@ export const FooterLink = styled(Link)<{ $bg: string }>`
   }
 `;
 
-export const BgLogo = styled(Image)`
+export const BgLogoWrapper = styled.div`
   height: 17px;
 `;
+
+// export const BgLogo = styled(Image)`
+//   height: 17px;
+// `;

@@ -237,8 +237,8 @@ export const Accordion = styled(AccordionStyled)`
       rgba(244, 244, 241, 0) 73.43%,
       rgba(244, 244, 241, 0.7) 95.22%
     );
-    -webkit-mask: linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
+    -webkit-mask: linear-gradient(to right, #fff 0%, #fff 100%) content-box,
+      linear-gradient(to right, #fff 0%, #fff 100%);
     -webkit-mask-composite: destination-out;
     mask-composite: exclude;
     pointer-events: none;

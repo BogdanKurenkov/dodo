@@ -1,8 +1,7 @@
-import { FC } from "react";
+import { FC, useEffect, useRef } from "react";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { useTheme } from "styled-components";
-import dynamic from "next/dynamic";
 
 import { useDeviceDetect } from "@/hooks/useDeviceDetect";
 import { SectionDescription } from "@/components/Shared/SectionDescription/SectionDescription";
@@ -10,265 +9,35 @@ import { SectionTitle } from "@/components/Shared/SectionTitle/SectionTitle";
 import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
 import { TimeLine } from "@/components/Shared/TimeLine/TimeLine";
 
+import SauceImage1 from "../../../public/images/sauce-1.webp";
+import SauceImage2 from "../../../public/images/sauce-2.webp";
+import SauceImage3 from "../../../public/images/sauce-3.webp";
+import BoxBackgroundImage1 from "../../../public/images/box-1.webp";
+import BoxBackgroundImage2 from "../../../public/images/box-2.webp";
+import BoxBackgroundImage3 from "../../../public/images/box-3.webp";
+import LineBackgroundImage1 from "../../../public/images/voteResult-background.webp";
+import LineBackgroundImage2 from "../../../public/images/vote-background.webp";
+
 import {
   TextWrapper,
   Container,
+  TimeLineContainer,
   ButtonDesktop,
   ButtonMobile,
   BannerTitle,
   AboutWrapper,
-  LottieTop,
-  LottieBottom,
+  BackgroundImagesTop,
+  BackgroundImagesBottom,
+  ParallaxWrapper,
+  BoxBackground1,
+  BoxBackground2,
+  BoxBackground3,
+  Sauce1,
+  Sauce2,
+  Sauce3,
+  LineBackground1,
+  LineBackground2,
 } from "./styled";
-
-const LottieBanner = dynamic(
-  () =>
-    import("@/components/LottieBanner/LottieBanner").then(
-      (mod) => mod.LottieBanner,
-    ),
-  { ssr: false },
-);
-
-const lottieConfigs = [
-  {
-    key: 1,
-    path: "/lottie/main/box_anima1/data.json",
-    style: (deviceType: string) => ({
-      position: "absolute",
-      top:
-        deviceType === "mobile"
-          ? "-12%"
-          : deviceType === "tablet"
-          ? "-20%"
-          : "-10%",
-      right:
-        deviceType === "mobile"
-          ? "50%"
-          : deviceType === "tablet"
-          ? "50%"
-          : "-5%",
-      transform:
-        deviceType === "mobile"
-          ? "rotate(20deg) translateX(50%)"
-          : deviceType === "tablet"
-          ? "rotate(20deg) translateX(50%)"
-          : "rotate(120deg)",
-      zIndex: -1,
-      pointerEvents: "none",
-      transition: "opacity 0.3s ease",
-    }),
-    group: "box",
-  },
-  {
-    key: 2,
-    path: "/lottie/main/box_anima2/data.json",
-    style: (deviceType: string) => ({
-      position: "absolute",
-      top:
-        deviceType === "mobile"
-          ? "-10%"
-          : deviceType === "tablet"
-          ? "-12%"
-          : "-10%",
-      right:
-        deviceType === "mobile"
-          ? "50%"
-          : deviceType === "tablet"
-          ? "-22%"
-          : "-25%",
-      transform:
-        deviceType === "mobile"
-          ? "rotate(170deg) translateX(-70%)"
-          : deviceType === "tablet"
-          ? "rotate(170deg)"
-          : "rotate(-120deg)",
-      zIndex: -1,
-      pointerEvents: "none",
-      transition: "opacity 0.3s ease",
-    }),
-    group: "box",
-  },
-  {
-    key: 3,
-    path: "/lottie/main/box_anima3/data.json",
-    style: (deviceType: string) => ({
-      position: "absolute",
-      bottom:
-        deviceType === "mobile"
-          ? "2%"
-          : deviceType === "tablet"
-          ? "12%"
-          : "15%",
-      left:
-        deviceType === "mobile"
-          ? "50%"
-          : deviceType === "tablet"
-          ? "-18%"
-          : "-10%",
-      transform:
-        deviceType === "mobile"
-          ? "rotate(200deg) translateX(80%)"
-          : deviceType === "tablet"
-          ? "rotate(20deg)"
-          : "rotate(20deg)",
-      zIndex: -1,
-      pointerEvents: "none",
-      transition: "opacity 0.3s ease",
-    }),
-    group: "box",
-  },
-  {
-    key: 1,
-    path: "/lottie/vote/dip_1_3_rotation_lottie/animation.json",
-    style: (deviceType: string) => ({
-      position: "absolute",
-      top:
-        deviceType === "mobile"
-          ? "initial"
-          : deviceType === "tablet"
-          ? "-2%"
-          : "0%",
-      bottom:
-        deviceType === "mobile"
-          ? "2%"
-          : deviceType === "tablet"
-          ? "initial"
-          : "initial",
-      left:
-        deviceType === "mobile"
-          ? "40%"
-          : deviceType === "tablet"
-          ? "48%"
-          : "50%",
-      transform: "translateX(-50%)",
-      zIndex: 0,
-      pointerEvents: "none",
-      transition: "opacity 0.3s ease",
-    }),
-    group: "sauce",
-  },
-  {
-    key: 2,
-    path: "/lottie/vote/dip_3_3_rotation_lottie/animation.json",
-    style: (deviceType: string) => ({
-      position: "absolute",
-      bottom:
-        deviceType === "mobile"
-          ? "30%"
-          : deviceType === "tablet"
-          ? "30%"
-          : "0%",
-      right:
-        deviceType === "mobile"
-          ? "-15%"
-          : deviceType === "tablet"
-          ? "8%"
-          : "15%",
-      zIndex: -1,
-      pointerEvents: "none",
-      transition: "opacity 0.3s ease",
-    }),
-    group: "sauce",
-  },
-  {
-    key: 3,
-    path: "/lottie/vote/dip_3_2_rotation_lottie/animation.json",
-    style: (deviceType: string) => ({
-      position: "absolute",
-      bottom:
-        deviceType === "mobile"
-          ? "initial"
-          : deviceType === "tablet"
-          ? "12%"
-          : "15%",
-      top:
-        deviceType === "mobile"
-          ? "25%"
-          : deviceType === "tablet"
-          ? "initial"
-          : "initial",
-      right:
-        deviceType === "mobile"
-          ? "35%"
-          : deviceType === "tablet"
-          ? "12%"
-          : "15%",
-      transform:
-        deviceType === "mobile"
-          ? "translateX(50%)"
-          : deviceType === "tablet"
-          ? "none"
-          : "none",
-      zIndex: -1,
-      pointerEvents: "none",
-      transition: "opacity 0.3s ease",
-    }),
-    group: "sauce",
-  },
-];
-
-const getDimensions = (group: string, deviceType: string) => {
-  if (group === "box") {
-    return {
-      width:
-        deviceType === "mobile"
-          ? "480px"
-          : deviceType === "tablet"
-          ? "600px"
-          : "990px",
-      height:
-        deviceType === "mobile"
-          ? "380px"
-          : deviceType === "tablet"
-          ? "480px"
-          : "785px",
-    };
-  }
-  return {
-    width:
-      deviceType === "mobile"
-        ? "190px"
-        : deviceType === "tablet"
-        ? "220px"
-        : "320px",
-    height:
-      deviceType === "mobile"
-        ? "185px"
-        : deviceType === "tablet"
-        ? "200px"
-        : "300px",
-  };
-};
-
-const createAnimations = (deviceType: string) => {
-  return {
-    animations_box: lottieConfigs
-      .filter((config) => config.group === "box")
-      .map((config, index) => ({
-        element: (
-          <LottieBanner
-            key={config.key}
-            path={config.path}
-            {...getDimensions("box", deviceType)}
-            customAnimation={index === 0}
-          />
-        ),
-        style: config.style(deviceType),
-      })),
-    animations_sauce: lottieConfigs
-      .filter((config) => config.group === "sauce")
-      .map((config) => ({
-        element: (
-          <LottieBanner
-            key={config.key}
-            path={config.path}
-            {...getDimensions("sauce", deviceType)}
-          />
-        ),
-        style: config.style(deviceType),
-      })),
-  };
-};
 
 export const Banner: FC = () => {
   const { t } = useTranslation();
@@ -277,11 +46,60 @@ export const Banner: FC = () => {
   const { source } = router.query;
 
   const deviceType = useDeviceDetect();
+  const isQrLayout = source === "qr";
 
-  const { animations_box, animations_sauce } = createAnimations(deviceType);
+  const boxBackground1Ref = useRef<HTMLDivElement>(null);
+  const boxBackground2Ref = useRef<HTMLDivElement>(null);
+  const boxBackground3Ref = useRef<HTMLDivElement>(null);
+  const sauce1Ref = useRef<HTMLDivElement>(null);
+  const sauce2Ref = useRef<HTMLDivElement>(null);
+  const sauce3Ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+
+      const backgroundParallax = [
+        {
+          ref: boxBackground1Ref,
+          speed: deviceType === "mobile" ? 0.05 : 0.1,
+        },
+        {
+          ref: boxBackground2Ref,
+          speed: deviceType === "mobile" ? 0.05 : 0.1,
+        },
+        {
+          ref: boxBackground3Ref,
+          speed: deviceType === "mobile" ? 0.03 : 0.1,
+        },
+        {
+          ref: sauce1Ref,
+          speed: deviceType === "mobile" ? -0.03 : -0.05,
+        },
+        {
+          ref: sauce2Ref,
+          speed: deviceType === "mobile" ? -0.03 : -0.05,
+        },
+        {
+          ref: sauce3Ref,
+          speed: deviceType === "mobile" ? -0.03 : -0.05,
+        },
+      ];
+
+      backgroundParallax.forEach(({ ref, speed }) => {
+        if (ref.current) {
+          const translateY = scrollPosition * speed;
+          ref.current.style.transform = `translateY(${translateY}px)`;
+        }
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [deviceType]);
 
   const handleScrollToParticipate = () => {
-    if (source === "qr") {
+    if (isQrLayout) {
       router.push("/vote?source=qr");
     } else {
       const element = document?.getElementById("participate");
@@ -296,8 +114,15 @@ export const Banner: FC = () => {
 
   return (
     <section id="about">
-      <AboutWrapper>
+      <AboutWrapper $isQr={isQrLayout}>
         <Container>
+          {source === "qr" && (
+            <TextWrapper>
+              <SectionTitle isWhite>
+                <TextWithLineBreaks text={t("qr_subtitle")} />
+              </SectionTitle>
+            </TextWrapper>
+          )}
           <TextWrapper>
             <BannerTitle>
               <TextWithLineBreaks
@@ -310,11 +135,14 @@ export const Banner: FC = () => {
               />
             </SectionDescription>
           </TextWrapper>
-          <TimeLine isWhite />
+          <TimeLineContainer $isQr={isQrLayout}>
+            <TimeLine isWhite />
+          </TimeLineContainer>
           <ButtonDesktop
             $variant="glass"
             type="button"
             onClick={handleScrollToParticipate}
+            $isQr={isQrLayout}
           >
             {source === "qr" ? t("buttons.vote") : t("buttons.event")}
           </ButtonDesktop>
@@ -334,33 +162,115 @@ export const Banner: FC = () => {
               $variant="glass"
               type="button"
               onClick={handleScrollToParticipate}
+              $isQr={isQrLayout}
             >
               {source === "qr" ? t("buttons.vote") : t("buttons.event")}
             </ButtonMobile>
           </TextWrapper>
         </Container>
-        <LottieTop>
-          <div style={animations_box[0].style as React.CSSProperties}>
-            {animations_box[0].element}
-          </div>
-          <div style={animations_sauce[1].style as React.CSSProperties}>
-            {animations_sauce[1].element}
-          </div>
-        </LottieTop>
-        <LottieBottom>
-          <div style={animations_box[1].style as React.CSSProperties}>
-            {animations_box[1].element}
-          </div>
-          <div style={animations_sauce[0].style as React.CSSProperties}>
-            {animations_sauce[0].element}
-          </div>
-          <div style={animations_box[2].style as React.CSSProperties}>
-            {animations_box[2].element}
-          </div>
-          <div style={animations_sauce[2].style as React.CSSProperties}>
-            {animations_sauce[2].element}
-          </div>
-        </LottieBottom>
+        <BackgroundImagesTop $isQr={isQrLayout}>
+          {!isQrLayout && (
+            <ParallaxWrapper ref={boxBackground1Ref}>
+              <BoxBackground1
+                $isQr={isQrLayout}
+                src={BoxBackgroundImage1}
+                alt="Box background 1"
+              />
+            </ParallaxWrapper>
+          )}
+          {!isQrLayout && (
+            <ParallaxWrapper ref={sauce2Ref}>
+              <Sauce2
+                $isQr={isQrLayout}
+                src={SauceImage2}
+                alt="Sauce background 2"
+              />
+            </ParallaxWrapper>
+          )}
+          {isQrLayout && (
+            <ParallaxWrapper ref={sauce2Ref}>
+              <Sauce2
+                $isQr={isQrLayout}
+                src={deviceType === "mobile" ? SauceImage3 : SauceImage2}
+                alt="Sauce background 2"
+              />
+            </ParallaxWrapper>
+          )}
+          {isQrLayout && (
+            <ParallaxWrapper ref={boxBackground2Ref}>
+              <LineBackground1
+                $isQr={isQrLayout}
+                src={LineBackgroundImage1}
+                alt="Line background 1"
+              />
+            </ParallaxWrapper>
+          )}
+        </BackgroundImagesTop>
+        <BackgroundImagesBottom $isQr={isQrLayout}>
+          <ParallaxWrapper ref={boxBackground2Ref}>
+            <BoxBackground2
+              $isQr={isQrLayout}
+              src={isQrLayout ? BoxBackgroundImage1 : BoxBackgroundImage2}
+              alt="Box background 2"
+            />
+          </ParallaxWrapper>
+          <ParallaxWrapper ref={sauce1Ref}>
+            <Sauce1
+              $isQr={isQrLayout}
+              src={SauceImage1}
+              alt="Sauce background 1"
+            />
+          </ParallaxWrapper>
+          {!isQrLayout && (
+            <ParallaxWrapper ref={sauce3Ref}>
+              <Sauce3
+                $isQr={isQrLayout}
+                src={SauceImage3}
+                alt="Sauce background 3"
+              />
+            </ParallaxWrapper>
+          )}
+          {isQrLayout && (
+            <ParallaxWrapper ref={sauce3Ref}>
+              <Sauce3
+                $isQr={isQrLayout}
+                src={deviceType === "mobile" ? SauceImage2 : SauceImage3}
+                alt="Sauce background 3"
+              />
+            </ParallaxWrapper>
+          )}
+          {!isQrLayout && (
+            <ParallaxWrapper ref={boxBackground3Ref} style={{ zIndex: -1 }}>
+              <BoxBackground3
+                $isQr={isQrLayout}
+                src={
+                  deviceType === "mobile"
+                    ? BoxBackgroundImage1
+                    : BoxBackgroundImage3
+                }
+                alt="Box background 3"
+              />
+            </ParallaxWrapper>
+          )}
+          {isQrLayout && deviceType === "mobile" && (
+            <ParallaxWrapper ref={boxBackground3Ref} style={{ zIndex: -1 }}>
+              <BoxBackground3
+                $isQr={isQrLayout}
+                src={BoxBackgroundImage3}
+                alt="Box background 3"
+              />
+            </ParallaxWrapper>
+          )}
+          {isQrLayout && (
+            <ParallaxWrapper ref={boxBackground1Ref} style={{ zIndex: -2 }}>
+              <LineBackground2
+                $isQr={isQrLayout}
+                src={LineBackgroundImage2}
+                alt="Line background 2"
+              />
+            </ParallaxWrapper>
+          )}
+        </BackgroundImagesBottom>
       </AboutWrapper>
     </section>
   );
