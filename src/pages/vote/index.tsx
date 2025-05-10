@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import Cookies from "js-cookie";
+import { setCookie } from "nookies";
 
 import { authUser, sendVote } from "@/api";
 
@@ -138,6 +139,10 @@ export default function Vote({ cookies }: IVote) {
       }
       sendVote(data).then(() => {
         router.push("/voteResult?source=qr");
+        setCookie(null, 'sauce', (activeCard! + 1).toString(), {
+          maxAge: 365 * 24 * 60 * 60,
+          path: '/',
+        });
       }).catch(() => {
 
       })

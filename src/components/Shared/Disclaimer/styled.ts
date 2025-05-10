@@ -32,7 +32,7 @@ export const DisclaimerWrapper = styled.div`
   display: flex;
   align-items: flex-start;
   gap: 5px;
-  margin-top: 66px;
+  margin-top: 86px;
 
   @media (max-width: 500px) {
     margin-top: 0;
