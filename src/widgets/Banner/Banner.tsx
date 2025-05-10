@@ -119,7 +119,7 @@ export const Banner: FC = () => {
           {source === "qr" && (
             <TextWrapper>
               <SectionTitle isWhite>
-                <TextWithLineBreaks text={t("qr_subtitle")} />
+                <TextWithLineBreaks text={deviceType === "mobile" ? t("qr_subtitle1") : t("")} />
               </SectionTitle>
             </TextWrapper>
           )}
