@@ -149,7 +149,11 @@ export const Banner: FC = () => {
           <TextWrapper>
             {source === "qr" && (
               <SectionTitle isWhite>
-                <TextWithLineBreaks text={t("qr_subtitle")} />
+                <TextWithLineBreaks
+                  text={t(
+                    deviceType === "mobile" ? "qr_subtitle2" : "qr_subtitle1",
+                  )}
+                />
               </SectionTitle>
             )}
             <SectionDescription color={theme.colors.white}>
