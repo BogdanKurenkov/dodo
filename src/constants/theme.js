@@ -12,11 +12,11 @@ export const theme = {
         large: '24px',
     },
     breakpoints: {
-        sm: '480.98px',
+        sm: '480px',
         m: '767.98px',
-        md: '991.98px',
-        lg: '1440.98px',
-        xl: '1920.98px',
+        md: '992px',
+        lg: '1440px',
+        xl: '1920px',
     },
     mixins: {
         flexCenter: `

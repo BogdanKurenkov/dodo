@@ -98,7 +98,7 @@ export const ButtonMobile = styled(Button)<{ $isQr?: boolean }>`
     order: 4;
   }
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    display: ${({ $isQr }) => ($isQr ? "none" : "flex !important")};
+    display: ${({ $isQr }) => ($isQr ? "none !important" : "flex !important")};
     margin-top: 0;
   }
 `;

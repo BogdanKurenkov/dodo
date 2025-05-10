@@ -101,8 +101,8 @@ export const BarBase = styled.div<{ $shouldAnimate?: boolean }>`
       rgba(64, 64, 64, 0) 72.6%,
       rgba(64, 64, 64, 0.25) 95.08%
     );
-    -webkit-mask: linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
+    -webkit-mask: linear-gradient(to right, #fff 0%, #fff 100%) content-box,
+      linear-gradient(to right, #fff 0%, #fff 100%);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
