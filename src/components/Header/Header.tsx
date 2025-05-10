@@ -149,7 +149,7 @@ export const Header: FC<IHeader> = ({ country }) => {
             )}
           </LogoWrapper>
           {device === "mobile" ? (
-            <DodoLabWrapper $isOpen={isMenuOpen} aria-label="Dodo Lab">
+            <DodoLabWrapper $isOpen={isMenuOpen}>
               <DodoLabMobile
                 fill={theme.colors.white}
                 className="dodLab-icon"

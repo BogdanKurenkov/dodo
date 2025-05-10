@@ -126,11 +126,13 @@ export const Banner: FC = () => {
           <TextWrapper>
             <BannerTitle>
               <TextWithLineBreaks
+                style={{ marginTop: deviceType === 'desktop' ? '50px' : '0' }}
                 text={source === "qr" ? t("qr_title") : t("title")}
               />
             </BannerTitle>
             <SectionDescription color={theme.colors.white}>
               <TextWithLineBreaks
+                style={{ margin: deviceType === 'desktop' ? '30px 0' : '0' }}
                 text={source === "qr" ? t("qr_description") : t("description")}
               />
             </SectionDescription>
