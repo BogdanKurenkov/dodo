@@ -5,11 +5,11 @@ import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from "@/components/GlobalStyles/GlobalStyles";
 
 import { theme } from '@/constants/theme';
-// import { neueHaasUnica } from '@/lib/fonts';
+import { neueHaasUnica, segoeUiSemibold } from "@/lib/fonts";
 
 function App({ Component, pageProps }: AppProps) {
   return (
-    <div >
+    <div className={`${neueHaasUnica.variable} ${segoeUiSemibold.variable}`}>
       <ThemeProvider theme={theme}>
         <GlobalStyles />
         <Component {...pageProps} />

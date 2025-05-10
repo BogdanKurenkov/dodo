@@ -4,17 +4,24 @@ import { useRouter } from "next/router";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTheme } from "styled-components";
 import { parseCookies } from "nookies";
+import dynamic from "next/dynamic";
 
 import { Faq } from "@/widgets/Faq/Faq";
 import { Research } from "@/widgets/Research/Research";
 import { Banner } from "@/widgets/Banner/Banner";
 import { Slider } from "@/widgets/Slider/Slider";
-import { Steps } from "@/widgets/Steps/Steps";
+const Steps = dynamic(
+  () =>
+    import("@/widgets/Steps/Steps").then((mod) => mod.Steps),
+  { ssr: false },
+);
+
 import { PopupCitySelect } from "@/components/Shared/PopupCitySelect/PopupCitySelect";
 import { Header } from "@/components/Header/Header";
 import { Footer } from "@/components/Footer/Footer";
 import { BgWrapper } from "@/components/BgWrapper/BgWrapper";
 import { PageWrapper } from "@/components/Shared/PageWrapper/PageWrapper";
+
 
 interface HomeProps {
   cookies: Record<string, string>;
@@ -81,9 +88,9 @@ export default function Home({ cookies }: HomeProps) {
       </Head>
 
       <PageWrapper>
-        <Header country={country} />
+        {isLanguageSelected && <Header country={country} />}
         <PopupCitySelect />
-        <main role="main" className="main" style={{ opacity: isLanguageSelected ? 1 : 0 }}>
+        <main role="main" className="main" style={{ height: isLanguageSelected ? "auto" : 0, opacity: isLanguageSelected ? 1 : 0 }}>
           <div itemScope itemType="https://schema.org/WebPageElement">
             <Banner />
             <Slider />
@@ -94,10 +101,10 @@ export default function Home({ cookies }: HomeProps) {
             </BgWrapper>
           </div>
         </main>
-        <Footer
+        {isLanguageSelected && <Footer
           background={isLanguageSelected ? theme.colors.white : theme.colors.black}
           color={isLanguageSelected ? theme.colors.black : theme.colors.white}
-        />
+        />}
       </PageWrapper>
     </>
   );
