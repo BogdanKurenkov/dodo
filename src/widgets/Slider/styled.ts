@@ -78,8 +78,8 @@ export const AccordionBackground = styled.section`
       rgba(64, 64, 64, 0) 72.6%,
       rgba(64, 64, 64, 0.5) 95.08%
     );
-    -webkit-mask: linear-gradient(to right, #fff 0%, #fff 100%) content-box,
-      linear-gradient(to right, #fff 0%, #fff 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
     -webkit-mask-composite: destination-out;
     mask-composite: exclude;
     pointer-events: none;
@@ -105,12 +105,27 @@ export const Sauce = styled(Image)`
     height: 240px;
     transform: translateY(-50%) translateX(-130%);
   }
+`;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    transform: translateY(-50%) translateX(-50%);
+export const SauceZoomMob = styled.div<{ $isPlaying: boolean }>`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: ${({ $isPlaying }) =>
+    $isPlaying
+      ? "translateY(-50%) translateX(-50%) scale(1)"
+      : "translateY(-50%) translateX(-50%) scale(0.6)"};
+  object-fit: cover;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 720ms ease-in-out;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    transform: translateY(-50%) translateX(-50%) scale(1);
   }
 `;
 

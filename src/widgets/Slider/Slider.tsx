@@ -30,6 +30,7 @@ import {
   SwiperSlide,
   BackgroundImages,
   Sauce,
+  SauceZoomMob,
   Accordion,
   SauceSummary,
   SauceSample,
@@ -41,6 +42,7 @@ import {
   SauceHighlight,
   SauceDetail,
 } from "./styled";
+import dynamic from "next/dynamic";
 
 interface Sauce {
   image: StaticImageData;
@@ -50,6 +52,29 @@ interface Sauce {
   aroma: string;
   texture: string;
 }
+
+const LottieSauceZoom = dynamic(
+  () =>
+    import("@/components/LottieSauceZoom/LottieSauceZoom").then(
+      (mod) => mod.LottieSauceZoom,
+    ),
+  { ssr: false },
+);
+
+const animations_zoom = [
+  {
+    path: "/lottie/main/zoom_on_sauce_demiglace/data.json",
+    key: 1,
+  },
+  {
+    path: "/lottie/main/zoom_on_sauce_hot/data.json",
+    key: 2,
+  },
+  {
+    path: "/lottie/main/zoom_on_sauce_smoked/data.json",
+    key: 3,
+  },
+];
 
 const sauces: Sauce[] = [
   {
@@ -194,7 +219,18 @@ export const Slider: FC = () => {
                     $isMobile={true}
                   />
                 )}
-                <Sauce alt="Sauce" src={sauceImages[index]} />
+                {isMobile ? (
+                  <SauceZoomMob $isPlaying={openAccordionId === `sauce-${index}`}>
+                    <LottieSauceZoom
+                      key={animations_zoom[index].key}
+                      path={animations_zoom[index].path}
+                      isPlaying={openAccordionId === `sauce-${index}`}
+                      speed={4}
+                    />
+                  </SauceZoomMob>
+                ) : (
+                  <Sauce alt="Sauce" src={sauceImages[index]} />
+                )}
               </BackgroundImages>
               <Accordion
                 title={
