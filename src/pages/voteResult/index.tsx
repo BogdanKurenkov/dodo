@@ -52,9 +52,10 @@ const sauceImages: Record<SauceKey, StaticImageData> = {
 
 interface IVoteResult {
   cookies: Record<string, string>;
+  user: AuthResponse;
 }
 
-export default function VoteResult({ cookies }: IVoteResult) {
+export default function VoteResult({ cookies, user }: IVoteResult) {
   const { t } = useTranslation("common");
 
   const router = useRouter();
@@ -64,7 +65,6 @@ export default function VoteResult({ cookies }: IVoteResult) {
   const rounded = useTransform(count, Math.round);
 
   const [rate, setRate] = useState<RatingResponse>();
-  const [/*user*/, setUser] = useState<AuthResponse>();
 
   const { USER_COUNTRY: country } = cookies;
 
@@ -77,21 +77,11 @@ export default function VoteResult({ cookies }: IVoteResult) {
     getRating().then((res) => {
       setRate(res)
     })
-    const cookies = parseCookies();
-
-    const authData: AuthRequest = {
-      token: cookies.token,
-      lang: cookies.NEXT_LOCALE,
-      country: cookies.USER_COUNTRY
-    };
-    authUser(authData).then((res) => {
-      setUser(res);
-    })
   }, [])
 
   useEffect(() => {
     const total = rate?.total_votes || 0;
-    const currentSauce = rate?.data.find(item => item.sauce === parseInt(cookies.sauce || "2"));
+    const currentSauce = rate?.data.find(item => item.sauce === parseInt(user?.sauce?.toString() || "2"));
     const saucePercentage = currentSauce ? (currentSauce.count / total) * 100 : 0;
 
     const animation = animate(count, saucePercentage, {
@@ -100,10 +90,10 @@ export default function VoteResult({ cookies }: IVoteResult) {
     });
 
     return animation.stop;
-  }, [count, rate, cookies.sauce]);
+  }, [count, rate, user?.sauce]);
 
   const text = t("vote_result.vote");
-  const modifiedText = text.replace("№2", cookies.sauce ? `№${cookies.sauce}` : `№2`);
+  const modifiedText = text.replace("№2", user?.sauce ? `№${user?.sauce?.toString()}` : `№2`);
 
   return (
     <>
@@ -130,7 +120,7 @@ export default function VoteResult({ cookies }: IVoteResult) {
                   <motion.span>{rounded}</motion.span>% {t('vote_result.participants')}
                 </ResultSubtitle>
                 <ResultDescription>
-                  <TextWithLineBreaks text={locale === "kz" ? modifiedText : `${t("vote_result.vote")} ${locale === "kz" ? "" : `№${cookies.sauce || 2}`}`} />{" "}
+                  <TextWithLineBreaks text={locale === "kz" ? modifiedText : `${t("vote_result.vote")} ${locale === "kz" ? "" : `№${user?.sauce || 2}`}`} />{" "}
                 </ResultDescription>
                 <Button
                   onClick={() => router.push("/results?source=qr")}
@@ -139,7 +129,7 @@ export default function VoteResult({ cookies }: IVoteResult) {
                   {t("buttons.look")}
                 </Button>
               </ResultContentWrapper>
-              <Sauce alt="sauce" src={getSauceImage(cookies.sauce)} />
+              <Sauce alt="sauce" src={getSauceImage(user?.sauce?.toString() || "2")} />
             </ContainerInner>
           </Container>
         </ResultWrapper>
@@ -151,7 +141,13 @@ export default function VoteResult({ cookies }: IVoteResult) {
 
 export const getServerSideProps: GetServerSideProps = async ({ locale, query, req }) => {
   const { source } = query;
-  const cookies = parseCookies({ req })
+  const cookies = parseCookies({ req });
+
+  const authData: AuthRequest = {
+    token: cookies.token,
+  };
+
+  const user = await authUser(authData);
 
   if (source !== 'qr') {
     return {
@@ -162,9 +158,19 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query, re
     };
   }
 
+  if (!user.voted) {
+    return {
+      redirect: {
+        destination: '/vote?source=qr',
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: {
       cookies,
+      user,
       ...(await serverSideTranslations(locale ?? "ru", ["common"])),
     },
   };
