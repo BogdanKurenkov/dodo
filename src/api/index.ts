@@ -8,7 +8,7 @@ import {
 } from "./types";
 
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL || "https://dodev.testdevweb.ru";
+  process.env.NEXT_PUBLIC_API_BASE_URL || "https://vkus.dodopizza.org";
 
 export const authUser = async (data: AuthRequest): Promise<AuthResponse> => {
   try {

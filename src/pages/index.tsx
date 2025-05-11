@@ -122,9 +122,18 @@ export default function Home({ cookies }: HomeProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { req, locale } = ctx;
-
+  const { req, locale, res, defaultLocale } = ctx;
   const cookies = parseCookies({ req });
+
+  if (cookies.USER_COUNTRY !== 'kz' && locale === 'kz') {
+    const targetLocale = defaultLocale || 'ru';
+
+    const newUrl = ctx.resolvedUrl.replace('/kz', `/${targetLocale}`);
+
+    res.writeHead(302, { Location: newUrl });
+    res.end();
+    return { props: {} };
+  }
 
   return {
     props: {
