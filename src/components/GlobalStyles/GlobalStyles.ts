@@ -18,6 +18,20 @@ export const GlobalStyles = createGlobalStyle`
     line-height: 100%;
     scroll-behavior: smooth;
     font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none; 
+    -moz-user-select: none;
+    -ms-user-select: none; 
+    user-select: none;
+  }
+
+  input,
+  textarea,
+  [contenteditable="true"] {
+    -webkit-user-select: text !important;
+    -moz-user-select: text !important;
+    -ms-user-select: text !important;
+    user-select: text !important;
   }
 
   html[lang="ru"], html[lang="by"] {
@@ -34,7 +48,6 @@ export const GlobalStyles = createGlobalStyle`
     overflow-x: hidden;
   }
 
-  /* Остальные стили остаются без изменений */
   a {
     text-decoration: none;
     color: inherit;
@@ -52,14 +65,13 @@ export const GlobalStyles = createGlobalStyle`
     }
   }
 
-  button, input[type="button"], input[type="submit"] {
+  button, input[type="button"], input[type="submit"], a, img {
     outline: none !important;
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
-    user-select: none;
   }
 
-  button:focus, input[type="button"]:focus, input[type="submit"]:focus {
+  button:focus, input[type="button"]:focus, input[type="submit"]:focus, a:focus, img:focus {
     outline: none;
   }
 `;
