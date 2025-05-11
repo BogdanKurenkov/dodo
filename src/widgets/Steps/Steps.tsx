@@ -139,7 +139,7 @@ export const Steps: FC = () => {
             <TextWithLineBreaks text={t('choice.title')} />
           </TitleLg>
           <SectionDescription>
-            {t('choice.description')}
+            <TextWithLineBreaks noDesktopBr text={t('choice.description')} />
           </SectionDescription>
           <TimeLine isWhite={false} />
         </StepsHeader>

@@ -47,10 +47,12 @@ export const VotesBlock = ({ percentages }: IVotesBlock) => {
   }
 
   const maxValue = Math.max(...percentages);
-  const maxIndices = percentages.reduce((acc, curr, index) => {
-    if (curr === maxValue) acc.push(index);
-    return acc;
-  }, [] as number[]);
+  const maxIndices = maxValue > 0
+    ? percentages.reduce((acc, curr, index) => {
+      if (curr === maxValue) acc.push(index);
+      return acc;
+    }, [] as number[])
+    : [];
 
   const getDeviceParams = () => {
     if (device === 'mobile') {

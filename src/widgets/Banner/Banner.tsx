@@ -132,6 +132,7 @@ export const Banner: FC = () => {
             </BannerTitle>
             <SectionDescription color={theme.colors.white}>
               <TextWithLineBreaks
+                noDesktopBr={source === "qr"}
                 style={{ margin: deviceType === 'desktop' ? '30px 0' : '0' }}
                 text={source === "qr" ? t("qr_description") : t("description")}
               />

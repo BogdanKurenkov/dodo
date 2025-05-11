@@ -3,6 +3,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { useTheme } from "styled-components";
+import { parseCookies } from "nookies";
 
 import { getRating } from "@/api";
 import { RatingResponse } from "@/api/types";
@@ -12,11 +13,18 @@ import { Result } from "@/widgets/Result/Result";
 import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
 import { NotAll } from "@/components/NotAll/NotAll";
-import { parseCookies } from "nookies";
 
+const EMPTY_DATA: RatingResponse = {
+    data: [
+        { sauce: 1, count: 0 },
+        { sauce: 2, count: 0 },
+        { sauce: 3, count: 0 }
+    ],
+    total_votes: 0
+};
 
 interface ResultsPageProps {
-    ratingData: RatingResponse;
+    ratingData: RatingResponse | null;
     cookies: Record<string, string>;
 }
 
@@ -39,7 +47,7 @@ export default function Results({ ratingData, cookies }: ResultsPageProps) {
             </Head>
             <Header country={country} />
             <main role="main">
-                <Result ratingData={ratingData} />
+                <Result ratingData={ratingData === null ? EMPTY_DATA : ratingData} />
                 {source === "qr" && <NotAll />}
             </main>
             <Footer

@@ -83,6 +83,7 @@ export const StyledButton = styled.button<ButtonProps>`
   -webkit-backdrop-filter: blur(24px);
   position: relative;
   height: 120px;
+  text-transform: lowercase;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     font-size: 32px;
