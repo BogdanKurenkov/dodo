@@ -382,15 +382,11 @@ export const CardSubtitle = styled.span`
 
 export const CardTitle = styled.h4`
   font-weight: 600;
-  font-size: 10px;
+  font-size: 9px;
   line-height: 13px;
   letter-spacing: -1%;
   margin-bottom: 3px;
   color: #171717;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-    font-size: 10px;
-  }
 `;
 
 export const CardNote = styled.span`
