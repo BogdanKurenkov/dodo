@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { GetServerSideProps } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -20,16 +20,15 @@ import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextW
 const LottieRotate = dynamic(
   () =>
     import("@/components/LottieRotate/LottieRotate").then(
-      (mod) => mod.LottieRotate,
+      (mod) => mod.LottieRotate
     ),
-  { ssr: false },
+  { ssr: false }
 );
 const LottieBase = dynamic(
   () =>
     import("@/components/LottieBase/LottieBase").then((mod) => mod.LottieBase),
-  { ssr: false },
+  { ssr: false }
 );
-
 
 import {
   VoteBackground,
@@ -54,9 +53,7 @@ interface IVote {
 
 export default function Vote({ cookies }: IVote) {
   const { t } = useTranslation("common");
-
   const router = useRouter();
-
   const { USER_COUNTRY: country } = cookies;
 
   const [activeCard, setActiveCard] = useState<number | null>(null);
@@ -64,10 +61,25 @@ export default function Vote({ cookies }: IVote) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [step, setStep] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [rotateLoaded, setRotateLoaded] = useState(false);
+  const [loadedRotateCount, setLoadedRotateCount] = useState(0);
 
   const device = useDeviceDetect();
 
-  const animations_open = [
+  const handleRotateLoad = useCallback(() => {
+    setLoadedRotateCount(prev => {
+      if (prev >= sauces.length) return prev;
+      return prev + 1;
+    });
+  }, []);
+
+  useEffect(() => {
+    if (loadedRotateCount === sauces.length) {
+      setRotateLoaded(true);
+    }
+  }, [loadedRotateCount]);
+
+  const animations_open = rotateLoaded ? [
     <LottieBase
       key={1}
       path="/lottie/vote/dip_1_3_opening_lottie/animation.json"
@@ -80,7 +92,7 @@ export default function Vote({ cookies }: IVote) {
       key={3}
       path="/lottie/vote/dip_3_2_opening_lottie/animation.json"
     />,
-  ];
+  ] : [];
 
   const animations_rotate = [
     <LottieRotate
@@ -88,6 +100,7 @@ export default function Vote({ cookies }: IVote) {
       isAnimate={!isPlaying}
       isPlaying={isPlaying}
       path="/lottie/vote/dip_1_3_rotation_lottie/animation.json"
+      onLoad={handleRotateLoad}
     />,
     <LottieRotate
       key={5}
@@ -95,12 +108,14 @@ export default function Vote({ cookies }: IVote) {
       isAnimate={!isPlaying}
       isPlaying={isPlaying}
       path="/lottie/vote/dip_2_2_rotation_lottie/animation.json"
+      onLoad={handleRotateLoad}
     />,
     <LottieRotate
       key={6}
       isAnimate={!isPlaying}
       isPlaying={isPlaying}
       path="/lottie/vote/dip_3_2_rotation_lottie/animation.json"
+      onLoad={handleRotateLoad}
     />,
   ];
 
@@ -143,9 +158,7 @@ export default function Vote({ cookies }: IVote) {
           maxAge: 365 * 24 * 60 * 60,
           path: '/',
         });
-      }).catch(() => {
-
-      })
+      }).catch(() => { })
     }
   };
 
@@ -180,7 +193,6 @@ export default function Vote({ cookies }: IVote) {
                         left: 0,
                         opacity: step === 1 ? 1 : 0,
                         pointerEvents: step === 1 ? "auto" : "none",
-                        transition: "",
                       }}
                       onClick={handleNextStep}
                     >
@@ -194,11 +206,10 @@ export default function Vote({ cookies }: IVote) {
                         left: 0,
                         opacity: step === 2 ? 1 : 0,
                         pointerEvents: step === 2 ? "auto" : "none",
-                        transition: "",
                       }}
                       onClick={() => handleCardClick(index)}
                     >
-                      {animations_open[index]}
+                      {animations_open[index] || null}
                     </div>
                   </div>
                   <SauceSample $sPlaying={isPlaying}>
@@ -228,6 +239,7 @@ export default function Vote({ cookies }: IVote) {
     </>
   );
 }
+
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { query, req } = context;

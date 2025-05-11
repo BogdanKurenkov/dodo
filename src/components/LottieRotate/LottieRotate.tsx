@@ -15,6 +15,7 @@ interface ILottieRotate {
     isPlaying?: boolean;
     isAnimate?: boolean;
     direction?: "up" | "down";
+    onLoad?: () => void;
 }
 
 export const LottieRotate: FC<ILottieRotate> = ({
@@ -23,15 +24,19 @@ export const LottieRotate: FC<ILottieRotate> = ({
     width,
     isPlaying = false,
     isAnimate = false,
-    direction
+    direction,
+    onLoad
 }) => {
     const animationData = usePublicJson(path);
-
     const lottieRef = useRef<LottieRefCurrentProps>(null);
-
     const device = useDeviceDetect();
-
     const client = useClient();
+
+    useEffect(() => {
+        if (animationData && onLoad) {
+            onLoad();
+        }
+    }, [animationData, onLoad]);
 
     useEffect(() => {
         if (isPlaying) {
@@ -43,8 +48,8 @@ export const LottieRotate: FC<ILottieRotate> = ({
 
     return (
         <>
-            {
-                client && <LottieWrapper $direction={direction} $isAnimate={isAnimate}>
+            {client && (
+                <LottieWrapper $direction={direction} $isAnimate={isAnimate}>
                     <Lottie
                         lottieRef={lottieRef}
                         animationData={animationData}
@@ -62,7 +67,7 @@ export const LottieRotate: FC<ILottieRotate> = ({
                         }}
                     />
                 </LottieWrapper>
-            }
+            )}
         </>
     );
 };
