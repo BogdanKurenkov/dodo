@@ -3,15 +3,71 @@ import { appWithTranslation } from 'next-i18next';
 import { ThemeProvider } from "styled-components";
 import Script from 'next/script';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 import { GlobalStyles } from "@/components/GlobalStyles/GlobalStyles";
 import { theme } from '@/constants/theme';
 import { neueHaasUnica, segoeUiSemibold } from "@/lib/fonts";
 
 function App({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+  const pathname = router.pathname;
+
+  const defaultTitle = "Додо Лаб";
+  const defaultDescription = "Участвуйте в исследованиях Додо Лаб, пробуйте новые соусы и влияйте на меню Додо Пиццы";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+  const canonicalUrl = `${siteUrl}${pathname}`;
+
+  const previewImage = `${siteUrl}/images/social-preview.jpg`;
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": defaultTitle,
+    "description": defaultDescription,
+    "url": canonicalUrl,
+    "publisher": {
+      "@type": "Organization",
+      "name": "Додо Пицца",
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${siteUrl}/images/logo.svg`
+      }
+    }
+  };
+
   return (
     <div className={`${neueHaasUnica.variable} ${segoeUiSemibold.variable}`}>
       <Head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <title>{defaultTitle}</title>
+        <meta name="description" content={defaultDescription} />
+
+        <link rel="canonical" href={canonicalUrl} />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:title" content={defaultTitle} />
+        <meta property="og:description" content={defaultDescription} />
+        <meta property="og:image" content={previewImage} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:site_name" content="Додо Лаб" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={defaultTitle} />
+        <meta name="twitter:description" content={defaultDescription} />
+        <meta name="twitter:image" content={previewImage} />
+
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+
         <noscript>
           <div>
             <img
@@ -22,6 +78,7 @@ function App({ Component, pageProps }: AppProps) {
           </div>
         </noscript>
       </Head>
+
       <Script
         id="yandex-metrika"
         strategy="afterInteractive"
@@ -42,6 +99,7 @@ function App({ Component, pageProps }: AppProps) {
           `,
         }}
       />
+
       <ThemeProvider theme={theme}>
         <GlobalStyles />
         <Component {...pageProps} />
