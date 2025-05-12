@@ -39,20 +39,10 @@ export const FooterText = styled.p<{ $bg: string; $locale: string }>`
 export const FooterWrapper = styled.div``;
 
 export const FooterTop = styled.div<{ $locale: string }>`
+  width: 100%;
+  height: auto;
   display: flex;
   align-items: center;
-  gap: 2px;
-  font-size: 26px;
-  font-weight: 500;
-
-  & span {
-    margin-left: 10px;
-    font-weight: ${({ $locale }) => ($locale === "kz" ? "600" : "500")};
-  }
-
-  @media (max-width: 500px) {
-    font-size: ${({ $locale }) => ($locale === "kz" ? "17.68px" : "19.78px")};
-  }
 `;
 
 export const FooterBottom = styled.div`
@@ -107,7 +97,3 @@ export const FooterLink = styled(Link)<{ $bg: string }>`
 export const BgLogoWrapper = styled.div`
   height: 17px;
 `;
-
-// export const BgLogo = styled(Image)`
-//   height: 17px;
-// `;

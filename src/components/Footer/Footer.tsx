@@ -10,7 +10,6 @@ import BgLogoDark from "@/assets/svg/bglogo_dark.svg";
 
 import {
   StyledFooter,
-  FooterText,
   FooterWrapper,
   FooterTop,
   FooterBottom,
@@ -28,6 +27,8 @@ export const Footer: FC<IFooterProps> = ({ color = "#F4F4F1", background }) => {
   const { t } = useTranslation("common");
   const { currentLocale } = useLanguageSwitcher();
 
+  const isLightBackground = color === "#F4F4F1";
+
   return (
     <StyledFooter
       id="contacts"
@@ -38,11 +39,11 @@ export const Footer: FC<IFooterProps> = ({ color = "#F4F4F1", background }) => {
       <Container>
         <FooterWrapper>
           <FooterTop $locale={currentLocale!}>
-            <FooterLogo fill={color} />
-            <span>додо лаб</span>
-            <FooterText $bg={color} $locale={currentLocale!}>
-              {t("footer.project")}
-            </FooterText>
+            <FooterLogo
+              isLightBackground={isLightBackground}
+              locale={currentLocale!}
+              alt="Dodo Lab brand logo"
+            />
           </FooterTop>
           <FooterBottom as="nav" aria-label="Legal links and logo">
             <FooterLink $bg={color} href="#" aria-label={t("footer.policy1")}>
@@ -52,7 +53,7 @@ export const Footer: FC<IFooterProps> = ({ color = "#F4F4F1", background }) => {
               <TextWithLineBreaks text={t("footer.policy2")} />
             </FooterLink>
             <BgLogoWrapper>
-              {color === "#F4F4F1" ? (
+              {isLightBackground ? (
                 <BgLogoDark
                   width={210}
                   height={17}
