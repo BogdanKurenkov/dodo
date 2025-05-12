@@ -3,6 +3,7 @@ import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { useTheme } from "styled-components";
 
+import { useLanguageSwitcher } from "@/hooks/useLanguageSwitcher";
 import { useDeviceDetect } from "@/hooks/useDeviceDetect";
 import { SectionDescription } from "@/components/Shared/SectionDescription/SectionDescription";
 import { SectionTitle } from "@/components/Shared/SectionTitle/SectionTitle";
@@ -12,9 +13,11 @@ import { TimeLine } from "@/components/Shared/TimeLine/TimeLine";
 import SauceImage1 from "../../../public/images/sauce-1.webp";
 import SauceImage2 from "../../../public/images/sauce-2.webp";
 import SauceImage3 from "../../../public/images/sauce-3.webp";
-import BoxBackgroundImage1 from "../../../public/images/box-1.webp";
-import BoxBackgroundImage2 from "../../../public/images/box-2.webp";
-import BoxBackgroundImage3 from "../../../public/images/box-3.webp";
+import BoxBackgroundImage1 from "../../../public/images/box_anima1.webp";
+import BoxBackgroundImage2 from "../../../public/images/box_anima2.webp";
+import BoxBackgroundImage3 from "../../../public/images/box_anima3.webp";
+import BoxBackgroundImageMob3 from "../../../public/images/box_anima3-mob.webp";
+import BoxBackgroundImageQrMob3 from "../../../public/images/box_anima3-qr-mob.webp";
 import LineBackgroundImage1 from "../../../public/images/voteResult-background.webp";
 import LineBackgroundImage2 from "../../../public/images/vote-background.webp";
 
@@ -44,6 +47,7 @@ export const Banner: FC = () => {
   const theme = useTheme();
   const router = useRouter();
   const { source } = router.query;
+  const { currentLocale } = useLanguageSwitcher();
 
   const deviceType = useDeviceDetect();
   const isQrLayout = source === "qr";
@@ -117,23 +121,25 @@ export const Banner: FC = () => {
       <AboutWrapper $isQr={isQrLayout}>
         <Container>
           {source === "qr" && (
-            <TextWrapper>
+            <TextWrapper $isQr={isQrLayout}>
               <SectionTitle isWhite>
-                <TextWithLineBreaks text={deviceType === "mobile" ? t("qr_subtitle1") : t("")} />
+                <TextWithLineBreaks
+                  text={deviceType === "mobile" ? t("qr_subtitle1") : t("qr_subtitle2")}
+                />
               </SectionTitle>
             </TextWrapper>
           )}
           <TextWrapper>
             <BannerTitle>
               <TextWithLineBreaks
-                style={{ marginTop: deviceType === 'desktop' ? '50px' : '0' }}
+                style={{ marginTop: deviceType === "desktop" ? "50px" : "0" }}
                 text={source === "qr" ? t("qr_title") : t("title")}
               />
             </BannerTitle>
             <SectionDescription color={theme.colors.white}>
               <TextWithLineBreaks
                 noDesktopBr={source === "qr"}
-                style={{ margin: deviceType === 'desktop' ? '30px 0' : '0' }}
+                style={{ margin: deviceType === "desktop" ? "30px 0" : "0" }}
                 text={source === "qr" ? t("qr_description") : t("description")}
               />
             </SectionDescription>
@@ -198,6 +204,7 @@ export const Banner: FC = () => {
             <ParallaxWrapper ref={sauce2Ref}>
               <Sauce2
                 $isQr={isQrLayout}
+                $locale={currentLocale}
                 src={deviceType === "mobile" ? SauceImage3 : SauceImage2}
                 alt="Sauce background 2"
               />
@@ -207,6 +214,7 @@ export const Banner: FC = () => {
             <ParallaxWrapper ref={boxBackground2Ref}>
               <LineBackground1
                 $isQr={isQrLayout}
+                $locale={currentLocale}
                 src={LineBackgroundImage1}
                 alt="Line background 1"
               />
@@ -217,7 +225,7 @@ export const Banner: FC = () => {
           <ParallaxWrapper ref={boxBackground2Ref}>
             <BoxBackground2
               $isQr={isQrLayout}
-              src={isQrLayout ? BoxBackgroundImage1 : BoxBackgroundImage2}
+              src={BoxBackgroundImage2}
               alt="Box background 2"
             />
           </ParallaxWrapper>
@@ -252,7 +260,7 @@ export const Banner: FC = () => {
                 $isQr={isQrLayout}
                 src={
                   deviceType === "mobile"
-                    ? BoxBackgroundImage1
+                    ? BoxBackgroundImageMob3
                     : BoxBackgroundImage3
                 }
                 alt="Box background 3"
@@ -263,7 +271,7 @@ export const Banner: FC = () => {
             <ParallaxWrapper ref={boxBackground3Ref} style={{ zIndex: -1 }}>
               <BoxBackground3
                 $isQr={isQrLayout}
-                src={BoxBackgroundImage3}
+                src={BoxBackgroundImageQrMob3}
                 alt="Box background 3"
               />
             </ParallaxWrapper>
