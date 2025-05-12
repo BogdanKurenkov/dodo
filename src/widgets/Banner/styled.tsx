@@ -301,7 +301,7 @@ export const Sauce2 = styled(Image)<{ $isQr?: boolean; $locale?: string }>`
   object-fit: contain;
 
   @media (min-width: 1800px) {
-    bottom: ${({ $isQr }) => ($isQr ? "initial" : "15%")};
+    bottom: ${({ $isQr }) => ($isQr ? "initial" : "-10%")};
   }
 
   @media (max-width: 1200px) {
