@@ -42,11 +42,35 @@ export const Result: FC<IResult> = ({ ratingData }) => {
     }
 
     const adaptRatingCounts = (data: RatingItem[], totalVotes: number): number[] => {
+        if (totalVotes === 0) return [0, 0, 0];
+
+        const rawPercentages = data.map(item => ({
+            sauce: item.sauce,
+            percent: (item.count / totalVotes) * 100,
+            rounded: Math.round((item.count / totalVotes) * 100)
+        })).sort((a, b) => b.percent - a.percent);
+
+        const sum = rawPercentages.reduce((acc, curr) => acc + curr.rounded, 0);
+
+        const adjustedPercentages = [...rawPercentages];
+        let diff = 100 - sum;
+        let i = 0;
+
+        while (diff !== 0) {
+            if (diff > 0) {
+                adjustedPercentages[i % adjustedPercentages.length].rounded += 1;
+                diff--;
+            } else {
+                adjustedPercentages[i % adjustedPercentages.length].rounded -= 1;
+                diff++;
+            }
+            i++;
+        }
+
         return Array.from({ length: 3 }, (_, i) => {
             const sauceId = i + 1;
-            const item = data.find(item => item.sauce === sauceId);
-            const count = item?.count || 0;
-            return totalVotes > 0 ? Math.round((count / totalVotes) * 100) : 0;
+            const item = adjustedPercentages.find(item => item.sauce === sauceId);
+            return item ? item.rounded : 0;
         });
     };
 

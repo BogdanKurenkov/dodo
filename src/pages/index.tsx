@@ -7,7 +7,7 @@ import { parseCookies } from "nookies";
 import dynamic from "next/dynamic";
 import { useEffect } from "react";
 
-import { trackVisit } from "@/api";
+import { authUser, trackVisit } from "@/api";
 
 import { Faq } from "@/widgets/Faq/Faq";
 import { Research } from "@/widgets/Research/Research";
@@ -25,6 +25,8 @@ import { Footer } from "@/components/Footer/Footer";
 import { BgWrapper } from "@/components/BgWrapper/BgWrapper";
 import { PageWrapper } from "@/components/Shared/PageWrapper/PageWrapper";
 import { useFingerprint } from "@/hooks/useFingerprint";
+import { AuthRequest } from "@/api/types";
+import { setCookie } from "nookies";
 
 
 
@@ -42,11 +44,31 @@ export default function Home({ cookies }: HomeProps) {
 
   const theme = useTheme();
 
-  useFingerprint();
+  const fingerprint = useFingerprint();
 
   useEffect(() => {
     trackVisit(source === 'qr' ? "qr" : "link");
   }, [])
+
+  useEffect(() => {
+    if (!fingerprint) return;
+
+    const cookies = parseCookies();
+
+    const authData: AuthRequest = {
+      token: fingerprint,
+      lang: cookies.NEXT_LOCALE,
+      country: cookies.USER_COUNTRY
+    };
+
+    authUser(authData)
+      .then((res) => {
+        setCookie(null, 'token', res.user, {
+          maxAge: 365 * 24 * 60 * 60,
+          path: '/',
+        });
+      })
+  }, [fingerprint, router]);
 
   const pageTitle = "Додо Лаб";
   const pageDescription = "Участвуйте в исследованиях Додо Лаб, пробуйте новые соусы и влияйте на меню Додо Пиццы";
@@ -122,13 +144,51 @@ export default function Home({ cookies }: HomeProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { req, locale, res, defaultLocale } = ctx;
+  const { req, res, locale, defaultLocale, query } = ctx;
+
+  if (query.fingerprint) {
+    const authData: AuthRequest = {
+      token: query.fingerprint as string,
+      lang: locale || 'ru',
+      country: parseCookies({ req }).USER_COUNTRY || 'ru'
+    };
+
+    try {
+      const authResponse = await authUser(authData);
+
+      res.setHeader('Set-Cookie', [
+        `token=${authResponse.user}; Max-Age=${365 * 24 * 60 * 60}; Path=/; HttpOnly`
+      ]);
+
+      res.writeHead(302, {
+        Location: `/${locale || 'ru'}/vote?source=qr`,
+      });
+      res.end();
+      return { props: {} };
+    } catch (error) {
+      console.error('Auth error:', error);
+      res.writeHead(302, {
+        Location: `/${locale || 'ru'}/vote?source=qr`,
+      });
+      res.end();
+      return { props: {} };
+    }
+  }
+
+  const rawUrl = req.url || "";
+  const correctedUrl = rawUrl.replace(/&amp;/g, "&");
+
+  if (rawUrl !== correctedUrl) {
+    res.writeHead(302, { Location: correctedUrl });
+    res.end();
+    return { props: {} };
+  }
+
   const cookies = parseCookies({ req });
 
   if (cookies.USER_COUNTRY !== 'kz' && locale === 'kz') {
     const targetLocale = defaultLocale || 'ru';
-
-    const newUrl = ctx.resolvedUrl.replace('/kz', `/${targetLocale}`);
+    const newUrl = correctedUrl.replace('/kz', `/${targetLocale}`);
 
     res.writeHead(302, { Location: newUrl });
     res.end();
@@ -141,4 +201,4 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       ...(await serverSideTranslations(locale ?? "ru", ["common"])),
     },
   };
-}
+};

@@ -516,3 +516,16 @@ export const TitleLg = styled.h2`
 `;
 
 export const DodoLogo = styled(Image)``;
+
+export const ActionImage = styled(Image)`
+  width: 260px;
+  height: 136px;
+  object-fit: contain;
+
+  margin-top: -30px;
+  margin-left: -15px;
+
+  @media (max-width: 500px) {
+    margin-top: 0;
+  }
+`;

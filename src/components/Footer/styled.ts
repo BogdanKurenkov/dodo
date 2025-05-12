@@ -49,7 +49,7 @@ export const FooterTop = styled.div<{ $locale: string }>`
   }
 
   @media (max-width: 500px) {
-    font-size: ${({ $locale }) => ($locale === "kz" ? "17px" : "19.5px")};
+    font-size: ${({ $locale }) => ($locale === "kz" ? "17.68px" : "19.78px")};
   }
 `;
 
