@@ -160,15 +160,17 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         `token=${authResponse.user}; Max-Age=${365 * 24 * 60 * 60}; Path=/; HttpOnly`
       ]);
 
+      const targetLocale = locale || 'ru';
       res.writeHead(302, {
-        Location: `/${locale || 'ru'}/vote?source=qr`,
+        Location: `/${targetLocale}/vote?source=qr`,
       });
       res.end();
       return { props: {} };
     } catch (error) {
       console.error('Auth error:', error);
+      const targetLocale = locale || 'ru';
       res.writeHead(302, {
-        Location: `/${locale || 'ru'}/vote?source=qr`,
+        Location: `/${targetLocale}/vote?source=qr`,
       });
       res.end();
       return { props: {} };
@@ -179,7 +181,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const correctedUrl = rawUrl.replace(/&amp;/g, "&");
 
   if (rawUrl !== correctedUrl) {
-    res.writeHead(302, { Location: correctedUrl });
+    const targetLocale = locale || 'ru';
+    const newUrl = correctedUrl.startsWith(`/${targetLocale}`)
+      ? correctedUrl
+      : `/${targetLocale}${correctedUrl}`;
+
+    res.writeHead(302, { Location: newUrl });
     res.end();
     return { props: {} };
   }

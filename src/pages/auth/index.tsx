@@ -70,6 +70,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const { locale, query, req } = context;
     const { source } = query;
 
+    const getLocalizedUrl = (path: string) => {
+        return locale && locale !== 'ru' ? `/${locale}${path}` : path;
+    };
+
     const cookies =
         req.headers.cookie?.split(";").reduce((acc, cookie) => {
             const [key, value] = cookie.trim().split("=");
@@ -80,7 +84,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     if (source !== "qr") {
         return {
             redirect: {
-                destination: "/",
+                destination: getLocalizedUrl("/"),
                 permanent: false,
             },
         };
@@ -91,7 +95,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     if (token && source === "qr") {
         return {
             redirect: {
-                destination: "/vote?source=qr",
+                destination: getLocalizedUrl("/vote?source=qr"),
                 permanent: false,
             },
         };

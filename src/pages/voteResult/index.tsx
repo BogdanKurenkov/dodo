@@ -143,35 +143,50 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query, re
   const { source } = query;
   const cookies = parseCookies({ req });
 
-  const authData: AuthRequest = {
-    token: cookies.token,
+  const getLocalizedUrl = (path: string) => {
+    return locale && locale !== 'ru' ? `/${locale}${path}` : path;
   };
 
-  const user = await authUser(authData);
+  try {
+    const authData: AuthRequest = {
+      token: cookies.token,
+    };
 
-  if (source !== 'qr') {
+    const user = await authUser(authData);
+
+    if (source !== 'qr') {
+      return {
+        redirect: {
+          destination: getLocalizedUrl('/results'),
+          permanent: false,
+        },
+      };
+    }
+
+    if (!user.voted) {
+      return {
+        redirect: {
+          destination: getLocalizedUrl('/vote?source=qr'),
+          permanent: false,
+        },
+      };
+    }
+
+    return {
+      props: {
+        cookies,
+        user,
+        ...(await serverSideTranslations(locale ?? "ru", ["common"])),
+      },
+    };
+
+  } catch (error) {
+    console.error('Auth error:', error);
     return {
       redirect: {
-        destination: '/results',
+        destination: getLocalizedUrl('/'),
         permanent: false,
       },
     };
   }
-
-  if (!user.voted) {
-    return {
-      redirect: {
-        destination: '/vote?source=qr',
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {
-      cookies,
-      user,
-      ...(await serverSideTranslations(locale ?? "ru", ["common"])),
-    },
-  };
-}
+};

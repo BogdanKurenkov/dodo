@@ -242,8 +242,12 @@ export default function Vote({ cookies }: IVote) {
 
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { query, req } = context;
+  const { query, req, locale } = context;
   const { source } = query;
+
+  const getLocalizedUrl = (path: string) => {
+    return locale && locale !== 'ru' ? `/${locale}${path}` : path;
+  };
 
   const cookies =
     req.headers.cookie?.split(";").reduce((acc, cookie) => {
@@ -257,7 +261,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (!token) {
     return {
       redirect: {
-        destination: "/auth?source=qr",
+        destination: getLocalizedUrl('/auth?source=qr'),
         permanent: false,
       },
     };
@@ -266,7 +270,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (source !== "qr") {
     return {
       redirect: {
-        destination: "/",
+        destination: getLocalizedUrl('/'),
         permanent: false,
       },
     };
@@ -278,13 +282,19 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     if (res.voted) {
       return {
         redirect: {
-          destination: "/voteResult?source=qr",
+          destination: getLocalizedUrl('/voteResult?source=qr'),
           permanent: false,
         },
       };
     }
   } catch (error) {
     console.error("Auth check failed:", error);
+    return {
+      redirect: {
+        destination: getLocalizedUrl('/auth?source=qr'),
+        permanent: false,
+      },
+    };
   }
 
   return {
