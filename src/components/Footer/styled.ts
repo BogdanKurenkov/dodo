@@ -18,6 +18,7 @@ export const FooterText = styled.p<{ $bg: string; $locale: string }>`
   display: flex;
   gap: 8px;
   align-items: flex-end;
+  font-weight: ${({ $locale }) => ($locale === "kz" ? "600" : "500")};
 
   &::before {
     content: "";
@@ -25,12 +26,12 @@ export const FooterText = styled.p<{ $bg: string; $locale: string }>`
     width: 3px;
     height: 3px;
     background: ${({ $bg }) => $bg};
-    margin-bottom: ${({ $locale }) => ($locale === "kz" ? "4px" : "2px")};
+    margin-bottom: ${({ $locale }) => ($locale === "kz" ? "2px" : "6px")};
   }
 
   @media (max-width: 500px) {
     &::before {
-      margin-bottom: ${({ $locale }) => ($locale === "kz" ? "2px" : "1px")};
+      margin-bottom: ${({ $locale }) => ($locale === "kz" ? "2px" : "4px")};
     }
   }
 `;
@@ -46,6 +47,7 @@ export const FooterTop = styled.div<{ $locale: string }>`
 
   & span {
     margin-left: 10px;
+    font-weight: ${({ $locale }) => ($locale === "kz" ? "600" : "500")};
   }
 
   @media (max-width: 500px) {
