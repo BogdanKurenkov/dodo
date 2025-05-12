@@ -19,9 +19,9 @@ export const GlobalStyles = createGlobalStyle`
     scroll-behavior: smooth;
     font-family: inherit;
     -webkit-tap-highlight-color: transparent;
-    -webkit-user-select: none; 
+    -webkit-user-select: none;
     -moz-user-select: none;
-    -ms-user-select: none; 
+    -ms-user-select: none;
     user-select: none;
   }
 

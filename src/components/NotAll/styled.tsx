@@ -180,6 +180,7 @@ export const PaginationItem = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 16px;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
   color: ${({ theme }) => theme.colors.black};

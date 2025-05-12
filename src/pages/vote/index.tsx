@@ -228,7 +228,7 @@ export default function Vote({ cookies }: IVote) {
             >
               {step === 2 ? t("buttons.vote_select") : t("buttons.start")}
             </Button>
-            <VotePrompt style={{ opacity: step === 1 ? "0" : "0.4" }}>
+            <VotePrompt $step={isPlaying ? 2 : 1} style={{ opacity: step === 1 ? "0" : "0.4" }}>
               {t("vote.click")}
             </VotePrompt>
           </Container>

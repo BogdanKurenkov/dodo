@@ -21,7 +21,7 @@ export const AuthWrapper = styled.section`
   & button {
     margin-top: 120px;
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-      margin-bottom: 30px;
+      margin-bottom: 80px;
     }
   }
 

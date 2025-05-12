@@ -317,7 +317,7 @@ export const Button = styled(StyledButton)<{ $step?: number }>`
   }
 `;
 
-export const VotePrompt = styled.span`
+export const VotePrompt = styled.span<{ $step?: number }>`
   display: block;
   width: 100%;
   font-size: 22px;
@@ -326,9 +326,13 @@ export const VotePrompt = styled.span`
   text-transform: lowercase;
   color: ${({ theme }) => theme.colors.white};
   margin: 28px auto 0;
+  transform: ${({ $step }) =>
+    $step === 1 ? "translateY(-200px)" : "translateY(0)"};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     margin: 22px auto 0;
     font-size: 18px;
+    transform: ${({ $step }) =>
+      $step === 1 ? "translateY(-150px)" : "translateY(0)"};
   }
 `;
