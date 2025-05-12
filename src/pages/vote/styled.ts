@@ -29,8 +29,10 @@ export const VoteBackground = styled.section<{
     pointer-events: none;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-      background-image: url("/images/vote-background-mob.webp");
+      /* background-image: url("/images/vote-background-mob.webp"); */
+      background-size: cover;
       background-position: 40% 15%;
+      top: -10%;
       opacity: ${({ $isTransitioning }) => ($isTransitioning ? 1 : 0)};
       transition: all 1.2s ease;
     }
@@ -59,6 +61,32 @@ export const VoteBackground = styled.section<{
 
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     padding: 40px 0;
+  }
+`;
+
+export const VoteBackgroundMob = styled.div<{
+  $step: number;
+  $sPlaying: boolean;
+  $isTransitioning: boolean;
+}>`
+  position: absolute;
+  bottom: 5%;
+  right: -60%;
+  z-index: -1;
+  width: 350px;
+  height: 300px;
+  opacity: ${({ $sPlaying }) => ($sPlaying ? 1 : 0)};
+  pointer-events: none;
+  transition: all 1s ease-in-out;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url("/images/vote-background-mob.webp");
+    background-size: cover;
+    background-repeat: no-repeat;
   }
 `;
 
