@@ -10,7 +10,7 @@ export const AboutWrapper = styled.div<{ $isQr?: boolean }>`
   height: 100%;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    padding-top: ${({ $isQr }) => ($isQr ? "0px" : "200px")};
+    padding-top: ${({ $isQr }) => ($isQr ? "0px" : "300px")};
   }
 `;
 
@@ -36,33 +36,35 @@ export const TextWrapper = styled.div<{ $isQr?: boolean }>`
   padding: 100px 0;
 
   &:nth-of-type(1) {
-    display: ${({ $isQr }) => ($isQr ? "none" : "initial")};
+    display: ${({ $isQr }) => ($isQr ? "none" : "flex")};
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     gap: 28px;
 
     &:nth-of-type(1) {
-      display: ${({ $isQr }) => ($isQr ? "block" : "flex")};
-      padding: ${({ $isQr }) => ($isQr ? "50px 0 100px" : "0 0 60px")};
+      padding: ${({ $isQr }) => ($isQr ? "50px 0 100px" : "0 0 100px")};
       order: ${({ $isQr }) => ($isQr ? "initial" : "1")};
     }
     &:nth-of-type(2) {
-      padding-top: ${({ $isQr }) => ($isQr ? "0" : "60px")};
+      padding-top: ${({ $isQr }) => ($isQr ? "0" : "100px")};
       padding-bottom: ${({ $isQr }) => ($isQr ? "0" : "37px")};
       order: ${({ $isQr }) => ($isQr ? "1" : "3")};
     }
     &:nth-of-type(3) {
-      padding-top: ${({ $isQr }) => ($isQr ? "0" : "60px")};
+      padding-top: ${({ $isQr }) => ($isQr ? "0" : "100px")};
       order: ${({ $isQr }) => ($isQr ? "3" : "3")};
     }
     &:nth-of-type(4) {
-      padding-top: ${({ $isQr }) => ($isQr ? "0" : "100px")};
+      padding-top: ${({ $isQr }) => ($isQr ? "0" : "115px")};
       order: ${({ $isQr }) => ($isQr ? "4" : "5")};
     }
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+    &:nth-of-type(1) {
+      display: ${({ $isQr }) => ($isQr ? "flex" : "flex")};
+    }
     padding: 50px 0;
     gap: 28px;
   }
@@ -146,7 +148,7 @@ export const BackgroundImagesTop = styled.div<{ $isQr?: boolean }>`
     &::after {
       content: "";
       position: absolute;
-      top: 35%;
+      top: 45%;
       left: 50%;
       width: calc(100% + 300px);
       height: 400px;
@@ -187,43 +189,46 @@ export const ParallaxWrapper = styled.div`
 
 export const BoxBackground1 = styled(Image)<{ $isQr?: boolean }>`
   position: absolute;
-  top: -25%;
+  top: -30%;
   right: -15%;
   width: 68%;
   height: 71%;
   object-fit: contain;
+  transform: rotate(111deg);
   display: ${({ $isQr }) => ($isQr ? "none" : "block")};
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-    top: -5%;
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    top: -2%;
     right: initial;
     left: 50%;
-    transform: translateX(-50%) rotate(-90deg);
-    width: 455px;
-    height: 360px;
+    transform: translateX(-50%) rotate(15deg);
+    width: 515px;
+    height: 420px;
   }
 `;
 
 export const BoxBackground2 = styled(Image)<{ $isQr?: boolean }>`
   position: absolute;
   object-fit: contain;
-  right: ${({ $isQr }) => ($isQr ? "-20%" : "-35%")};
+  right: ${({ $isQr }) => ($isQr ? "-20%" : "-30%")};
   width: ${({ $isQr }) => ($isQr ? "76%" : "68%")};
   height: ${({ $isQr }) => ($isQr ? "108%" : "61%")};
-  top: ${({ $isQr }) => ($isQr ? "-60%" : "-10%")};
-  @media (min-width: 2000px) {
-    right: -15%;
+  top: ${({ $isQr }) => ($isQr ? "-70%" : "-10%")};
+  transform: ${({ $isQr }) => ($isQr ? "rotate(0deg)" : "rotate(52deg)")};
+
+  @media (min-width: 1800px) {
+    right: ${({ $isQr }) => ($isQr ? "-15%" : "-35%")};
   }
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-    top: -5%;
-    right: -20%;
-    transform: rotate(290deg);
-    width: 480px;
-    height: 380px;
+    top: -20%;
+    right: -25%;
+    transform: rotate(0deg);
+    width: 550px;
+    height: 450px;
     display: ${({ $isQr }) => ($isQr ? "none" : "block")};
   }
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    top: -15%;
+    top: -25%;
     right: -55%;
   }
 `;
@@ -236,20 +241,27 @@ export const BoxBackground3 = styled(Image)<{ $isQr?: boolean }>`
   height: 62%;
   object-fit: contain;
   display: ${({ $isQr }) => ($isQr ? "none" : "block")};
+  transform: rotate(30deg);
+
+  @media (min-width: 1800px) {
+    left: -20%;
+  }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-    bottom: ${({ $isQr }) => ($isQr ? "initial" : "25%")};
-    top: ${({ $isQr }) => ($isQr ? "-20%" : "initial")};
-    left: ${({ $isQr }) => ($isQr ? "50%" : "-15%")};
-    width: ${({ $isQr }) => ($isQr ? "623px" : "480px")};
-    height: ${({ $isQr }) => ($isQr ? "600px" : "380px")};
+    bottom: ${({ $isQr }) => ($isQr ? "initial" : "30%")};
+    top: ${({ $isQr }) => ($isQr ? "20%" : "initial")};
+    left: ${({ $isQr }) => ($isQr ? "40%" : "-25%")};
+    width: ${({ $isQr }) => ($isQr ? "583px" : "550px")};
+    height: ${({ $isQr }) => ($isQr ? "580px" : "450px")};
     transform: ${({ $isQr }) =>
-      $isQr ? "rotate(-20deg) translateX(-50%)" : "rotate(-100deg)"};
+      $isQr ? "rotate(40deg) translateX(-50%)" : "rotate(20deg)"};
     display: ${({ $isQr }) => ($isQr ? "block" : "block")};
   }
+
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    left: ${({ $isQr }) => ($isQr ? "50%" : "-35%")};
-    top: ${({ $isQr }) => ($isQr ? "-15%" : "initial")};
+    bottom: ${({ $isQr }) => ($isQr ? "initial" : "32%")};
+    left: ${({ $isQr }) => ($isQr ? "30%" : "-65%")};
+    top: ${({ $isQr }) => ($isQr ? "25%" : "initial")};
     height: ${({ $isQr }) => ($isQr ? "500px" : "380px")};
   }
 `;
@@ -266,7 +278,7 @@ export const Sauce1 = styled(Image)<{ $isQr?: boolean }>`
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     display: ${({ $isQr }) => ($isQr ? "none" : "initial")};
     top: initial;
-    bottom: 5%;
+    bottom: 1%;
     transform: rotate(110deg);
     left: 20%;
     width: 190px;
@@ -278,7 +290,7 @@ export const Sauce1 = styled(Image)<{ $isQr?: boolean }>`
   }
 `;
 
-export const Sauce2 = styled(Image)<{ $isQr?: boolean }>`
+export const Sauce2 = styled(Image)<{ $isQr?: boolean; $locale?: string }>`
   position: absolute;
   right: ${({ $isQr }) => ($isQr ? "15%" : "15%")};
   bottom: ${({ $isQr }) => ($isQr ? "initial" : "25%")};
@@ -287,6 +299,10 @@ export const Sauce2 = styled(Image)<{ $isQr?: boolean }>`
   width: ${({ $isQr }) => ($isQr ? "20%" : "21%")};
   height: ${({ $isQr }) => ($isQr ? "50%" : "24%")};
   object-fit: contain;
+
+  @media (min-width: 1800px) {
+    bottom: ${({ $isQr }) => ($isQr ? "initial" : "15%")};
+  }
 
   @media (max-width: 1200px) {
     right: ${({ $isQr }) => ($isQr ? "5%" : "15%")};
@@ -297,16 +313,23 @@ export const Sauce2 = styled(Image)<{ $isQr?: boolean }>`
   }
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     transform: ${({ $isQr }) => ($isQr ? "rotate(-20deg)" : "rotate(15deg)")};
-    top: ${({ $isQr }) => ($isQr ? "initial" : "48%")};
-    bottom: ${({ $isQr }) => ($isQr ? "-2%" : "initial")};
+    top: ${({ $isQr }) => ($isQr ? "initial" : "68%")};
+    bottom: ${({ $isQr }) => ($isQr ? "-20%" : "initial")};
     right: ${({ $isQr }) => ($isQr ? "-5%" : "-5%")};
     left: ${({ $isQr }) => ($isQr ? "initial" : "initial")};
     width: 190px;
     height: 185px;
     z-index: 1;
+
+    ${({ $locale }) =>
+      $locale === "kz" &&
+      `
+        bottom: -29% !important;
+    `}
   }
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    right: ${({ $isQr }) => ($isQr ? "-12%" : "-15%")};
+    bottom: ${({ $isQr }) => ($isQr ? "-20%" : "initial")};
+    right: ${({ $isQr }) => ($isQr ? "-11%" : "-15%")};
   }
 `;
 
@@ -322,10 +345,10 @@ export const Sauce3 = styled(Image)<{ $isQr?: boolean }>`
   transform: ${({ $isQr }) => ($isQr ? "rotate(185deg)" : "rotate(-35deg)")};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-    bottom: ${({ $isQr }) => ($isQr ? "25%" : "initial")};
+    bottom: ${({ $isQr }) => ($isQr ? "10%" : "initial")};
     right: ${({ $isQr }) => ($isQr ? "initial" : "10%")};
     left: ${({ $isQr }) => ($isQr ? "15%" : "initial")};
-    top: ${({ $isQr }) => ($isQr ? "initial" : "35%")};
+    top: ${({ $isQr }) => ($isQr ? "initial" : "30%")};
     transform: ${({ $isQr }) => ($isQr ? "rotate(15deg)" : "rotate(10deg)")};
     width: 190px;
     height: 185px;
@@ -333,12 +356,12 @@ export const Sauce3 = styled(Image)<{ $isQr?: boolean }>`
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
     left: ${({ $isQr }) => ($isQr ? "15%" : "initial")};
     right: ${({ $isQr }) => ($isQr ? "initial" : "5%")};
-    top: ${({ $isQr }) => ($isQr ? "initial" : "30%")};
-    bottom: ${({ $isQr }) => ($isQr ? "14%" : "initial")};
+    top: ${({ $isQr }) => ($isQr ? "initial" : "26%")};
+    bottom: ${({ $isQr }) => ($isQr ? "5%" : "initial")};
   }
 `;
 
-export const LineBackground1 = styled(Image)<{ $isQr?: boolean }>`
+export const LineBackground1 = styled(Image)<{ $isQr?: boolean; $locale?: string }>`
   position: absolute;
   object-fit: contain;
   right: -12%;
@@ -348,14 +371,20 @@ export const LineBackground1 = styled(Image)<{ $isQr?: boolean }>`
   height: 179.17%;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-    bottom: 18%;
+    bottom: 5%;
     transform: rotate(230deg) scale(1.5);
     width: 100%;
     height: 100%;
     right: -90%;
+
+    ${({ $locale }) =>
+      $locale === "kz" &&
+      `
+      bottom: -3%;
+    `}
   }
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    transform: rotate(230deg) scale(1.8);
+    transform: rotate(233deg) scale(1.9);
     right: -95%;
   }
 `;
