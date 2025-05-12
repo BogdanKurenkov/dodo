@@ -189,10 +189,10 @@ export const ParallaxWrapper = styled.div`
 
 export const BoxBackground1 = styled(Image)<{ $isQr?: boolean }>`
   position: absolute;
-  top: -30%;
-  right: -15%;
-  width: 68%;
-  height: 71%;
+  top: -15%;
+  right: -18%;
+  width: 70%;
+  height: 73%;
   object-fit: contain;
   transform: rotate(111deg);
   display: ${({ $isQr }) => ($isQr ? "none" : "block")};
@@ -211,8 +211,8 @@ export const BoxBackground2 = styled(Image)<{ $isQr?: boolean }>`
   position: absolute;
   object-fit: contain;
   right: ${({ $isQr }) => ($isQr ? "-20%" : "-30%")};
-  width: ${({ $isQr }) => ($isQr ? "76%" : "68%")};
-  height: ${({ $isQr }) => ($isQr ? "108%" : "61%")};
+  width: ${({ $isQr }) => ($isQr ? "76%" : "70%")};
+  height: ${({ $isQr }) => ($isQr ? "108%" : "63%")};
   top: ${({ $isQr }) => ($isQr ? "-70%" : "-10%")};
   transform: ${({ $isQr }) => ($isQr ? "rotate(0deg)" : "rotate(52deg)")};
 
@@ -293,7 +293,7 @@ export const Sauce1 = styled(Image)<{ $isQr?: boolean }>`
 export const Sauce2 = styled(Image)<{ $isQr?: boolean; $locale?: string }>`
   position: absolute;
   right: ${({ $isQr }) => ($isQr ? "15%" : "15%")};
-  bottom: ${({ $isQr }) => ($isQr ? "initial" : "25%")};
+  bottom: ${({ $isQr }) => ($isQr ? "initial" : "-10%")};
   top: ${({ $isQr }) => ($isQr ? "40%" : "initial")};
   transform: ${({ $isQr }) => ($isQr ? "translateY(-50%)" : "rotate(15deg)")};
   width: ${({ $isQr }) => ($isQr ? "20%" : "21%")};
@@ -301,7 +301,7 @@ export const Sauce2 = styled(Image)<{ $isQr?: boolean; $locale?: string }>`
   object-fit: contain;
 
   @media (min-width: 1800px) {
-    bottom: ${({ $isQr }) => ($isQr ? "initial" : "15%")};
+    bottom: ${({ $isQr }) => ($isQr ? "initial" : "-10%")};
   }
 
   @media (max-width: 1200px) {

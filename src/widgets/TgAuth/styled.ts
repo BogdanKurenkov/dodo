@@ -4,15 +4,11 @@ export const AuthWrapper = styled.section`
   background-image: url("/images/auth_bg.webp");
   background-repeat: no-repeat;
   background-position: right bottom;
-  background-size: 35%;
+  background-size: 43%;
   background-position: 110% 0%;
   flex-grow: 1;
   margin-top: 100px;
 
-  @media (min-width: ${({ theme }) => theme.breakpoints.xl}) {
-    background-size: 30%;
-    background-position: 90% 0%;
-  }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     background-image: none;
@@ -24,6 +20,9 @@ export const AuthWrapper = styled.section`
 
   & button {
     margin-top: 120px;
+    @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+      margin-bottom: 30px;
+    }
   }
 
   @media (max-width: 500px) {
