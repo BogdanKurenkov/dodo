@@ -11,11 +11,13 @@ import { Plus } from "@/components/Shared/Plus/Plus";
 import { appLink } from "@/constants/appLink";
 
 import DodoLogoImg from "@/assets/images/3d_logo.png";
-import Snack_RU from "@/assets/images/Snack_RU.png";
-import Snack_KZ from "@/assets/images/Snack_KZ.png";
 import QrCode_RU from "@/assets/images/qr_ru.png";
 import QrCode_KZ from "@/assets/images/qr_kz.png";
-import IconInfo from "@/assets/svg/icon-info.svg";
+
+import action_ru from "@/assets/images/action_RU.png";
+import action_kz from "@/assets/images/action KZ.png";
+import action_kz_ru from "@/assets/images/action_KZ_RU.png";
+import action_by from "@/assets/images/action_BY.png";
 
 import {
   StepsWrapper,
@@ -36,19 +38,21 @@ import {
   ButtonTitle,
   ButtonCopyright,
   StepsCard,
-  CardContent,
-  CardSubtitle,
-  CardTitle,
-  CardNote,
-  CardButton,
-  CardImagesWrapper,
-  CardImage,
-  CardImageInfo,
+  // CardContent,
+  // CardSubtitle,
+  // CardTitle,
+  // CardNote,
+  // CardButton,
+  // CardImagesWrapper,
+  // CardImage,
+  // CardImageInfo,
   QrCodeImage,
   Button,
   TitleLg,
   DodoLogo,
+  ActionImage,
 } from "./styled";
+import { StaticImageData } from "next/image";
 
 type CountryCode = 'ru' | 'kz' | 'by';
 type LocaleCode = 'ru' | 'kz' | 'by';
@@ -81,9 +85,21 @@ const step2_info: Record<CountryCode, Partial<Record<LocaleCode, string>>> = {
   }
 };
 
+type ActionImagesType = Record<CountryCode, StaticImageData | Partial<Record<LocaleCode, StaticImageData>>>;
+
+const actionImages: ActionImagesType = {
+  ru: action_ru, 
+  kz: {
+    ru: action_kz_ru, 
+    kz: action_kz     
+  },
+  by: action_by 
+};
+
+
 export const Steps: FC = () => {
   const [openAccordionId, setOpenAccordionId] = useState<string | null>(null);
-  const [promotionText, setPromotionText] = useState('');
+  const [/*promotionText*/, setPromotionText] = useState('');
 
   const { userCountry, currentLocale } = useLanguageSwitcher();
 
@@ -129,6 +145,16 @@ export const Steps: FC = () => {
     setOpenAccordionId((prevId) =>
       prevId === accordionKey ? null : accordionKey,
     );
+  };
+
+  const getActionImage = (country: CountryCode, locale: LocaleCode): StaticImageData => {
+    const image = actionImages[country];
+
+    if (typeof image === 'object' && !('src' in image)) {
+      return image[locale] || action_kz;
+    }
+
+    return image as StaticImageData;
   };
 
   return (
@@ -178,20 +204,10 @@ export const Steps: FC = () => {
                     {t('choice.stage.stage1.qty')}
                   </StepsNote>
                   <StepsCard>
-                    <CardContent>
-                      <CardSubtitle>{t('choice.stage.stage1.type')}</CardSubtitle>
-                      <CardTitle>
-                        {promotionText}
-                      </CardTitle>
-                      <CardNote>{t('choice.stage.stage1.to')}</CardNote>
-                      <CardButton>{t('buttons.apply')}</CardButton>
-                    </CardContent>
-                    <CardImagesWrapper>
-                      <CardImage src={currentLocale === "ru" ? Snack_RU : Snack_KZ} alt="Snack" />
-                      <CardImageInfo>
-                        <IconInfo />
-                      </CardImageInfo>
-                    </CardImagesWrapper>
+                    <ActionImage
+                      alt="action"
+                      src={getActionImage(userCountry as CountryCode, currentLocale as LocaleCode)}
+                    />
                   </StepsCard>
                 </StepsItem>
               </StepsList>

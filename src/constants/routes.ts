@@ -14,3 +14,8 @@ export const routesQr: Routes = {
   about: "routes.about",
   faq: "routes.faq",
 };
+
+export const routesQr_auth: Routes = {
+  about: "routes.about",
+  faq: "routes.faq",
+};

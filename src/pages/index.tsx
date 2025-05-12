@@ -144,7 +144,36 @@ export default function Home({ cookies }: HomeProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { req, res, locale, defaultLocale } = ctx;
+  const { req, res, locale, defaultLocale, query } = ctx;
+
+  if (query.fingerprint) {
+    const authData: AuthRequest = {
+      token: query.fingerprint as string,
+      lang: locale || 'ru',
+      country: parseCookies({ req }).USER_COUNTRY || 'ru'
+    };
+
+    try {
+      const authResponse = await authUser(authData);
+
+      res.setHeader('Set-Cookie', [
+        `token=${authResponse.user}; Max-Age=${365 * 24 * 60 * 60}; Path=/; HttpOnly`
+      ]);
+
+      res.writeHead(302, {
+        Location: `/${locale || 'ru'}/vote?source=qr`,
+      });
+      res.end();
+      return { props: {} };
+    } catch (error) {
+      console.error('Auth error:', error);
+      res.writeHead(302, {
+        Location: `/${locale || 'ru'}/vote?source=qr`,
+      });
+      res.end();
+      return { props: {} };
+    }
+  }
 
   const rawUrl = req.url || "";
   const correctedUrl = rawUrl.replace(/&amp;/g, "&");
