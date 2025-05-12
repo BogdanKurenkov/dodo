@@ -117,7 +117,7 @@ export const PopupCitySelect: FC = () => {
               </Button>
             </PopupContent>
           </Container>
-          <Footer />
+          <Footer as="div" />
         </PopupWrapper>
       )}
       {showLanguageSwitcher && (

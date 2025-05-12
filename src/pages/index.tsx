@@ -134,10 +134,10 @@ export default function Home({ cookies }: HomeProps) {
             </BgWrapper>
           </div>
         </main>
-        {isLanguageSelected && <Footer
+        <Footer style={{ height: isLanguageSelected ? "auto" : 0, opacity: isLanguageSelected ? 1 : 0 }}
           background={isLanguageSelected ? theme.colors.white : theme.colors.black}
           color={isLanguageSelected ? theme.colors.black : theme.colors.white}
-        />}
+        />
       </PageWrapper>
     </>
   );
