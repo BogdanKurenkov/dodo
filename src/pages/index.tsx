@@ -1,5 +1,4 @@
 import { GetServerSideProps } from "next";
-import Head from "next/head";
 import { useRouter } from "next/router";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTheme } from "styled-components";
@@ -8,14 +7,12 @@ import dynamic from "next/dynamic";
 import { useEffect } from "react";
 
 import { authUser, trackVisit } from "@/api";
-
 import { Faq } from "@/widgets/Faq/Faq";
 import { Research } from "@/widgets/Research/Research";
 import { Banner } from "@/widgets/Banner/Banner";
 import { Slider } from "@/widgets/Slider/Slider";
 const Steps = dynamic(
-  () =>
-    import("@/widgets/Steps/Steps").then((mod) => mod.Steps),
+  () => import("@/widgets/Steps/Steps").then((mod) => mod.Steps),
   { ssr: false },
 );
 
@@ -28,22 +25,18 @@ import { useFingerprint } from "@/hooks/useFingerprint";
 import { AuthRequest } from "@/api/types";
 import { setCookie } from "nookies";
 
-
-
 interface HomeProps {
   cookies: Record<string, string>;
 }
 
 export default function Home({ cookies }: HomeProps) {
   const router = useRouter();
-  const { pathname, query } = router;
+  const { query } = router;
   const { source } = query;
 
   const { NEXT_LOCALE: locale, USER_COUNTRY: country } = cookies;
   const isLanguageSelected = locale && country;
-
   const theme = useTheme();
-
   const fingerprint = useFingerprint();
 
   useEffect(() => {
@@ -54,7 +47,6 @@ export default function Home({ cookies }: HomeProps) {
     if (!fingerprint) return;
 
     const cookies = parseCookies();
-
     const authData: AuthRequest = {
       token: fingerprint,
       lang: cookies.NEXT_LOCALE,
@@ -70,76 +62,37 @@ export default function Home({ cookies }: HomeProps) {
       })
   }, [fingerprint, router]);
 
-  const pageTitle = "Додо Лаб";
-  const pageDescription = "Участвуйте в исследованиях Додо Лаб, пробуйте новые соусы и влияйте на меню Додо Пиццы";
-  const canonicalUrl = `https://lab-preview.vercel.app${pathname}`;
-  const ogImage = "https://dodopizza.ru/images/social-share.jpg";
-
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": pageTitle,
-    "description": pageDescription,
-    "url": canonicalUrl,
-    "publisher": {
-      "@type": "Organization",
-      "name": "Додо Пицца",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://dodopizza.ru/images/logo.png"
-      }
-    }
-  };
-
   return (
-    <>
-      <Head>
-        <title>{pageTitle}</title>
-        <meta name="description" content={pageDescription} />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-        <link rel="canonical" href={canonicalUrl} />
-
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={canonicalUrl} />
-        <meta property="og:title" content={pageTitle} />
-        <meta property="og:description" content={pageDescription} />
-        <meta property="og:image" content={ogImage} />
-
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content={canonicalUrl} />
-        <meta property="twitter:title" content={pageTitle} />
-        <meta property="twitter:description" content={pageDescription} />
-        <meta property="twitter:image" content={ogImage} />
-
-        <link rel="icon" href="/favicon.ico" />
-
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-      </Head>
-
-      <PageWrapper>
-        {isLanguageSelected && <Header country={country} />}
-        <PopupCitySelect />
-        <main role="main" className="main" style={{ height: isLanguageSelected ? "auto" : 0, opacity: isLanguageSelected ? 1 : 0 }}>
-          <div itemScope itemType="https://schema.org/WebPageElement">
-            <Banner />
-            <Slider />
-            {source !== "qr" && <Steps />}
-            <BgWrapper isQr={source === "qr"}>
-              {source !== "qr" && <Research />}
-              <Faq isQr={source === "qr"} />
-            </BgWrapper>
-          </div>
-        </main>
-        {isLanguageSelected && <Footer
-          background={isLanguageSelected ? theme.colors.white : theme.colors.black}
-          color={isLanguageSelected ? theme.colors.black : theme.colors.white}
-        />}
-      </PageWrapper>
-    </>
+    <PageWrapper>
+      {isLanguageSelected && <Header country={country} />}
+      <PopupCitySelect />
+      <main
+        role="main"
+        className="main"
+        style={{
+          height: isLanguageSelected ? "auto" : 0,
+          opacity: isLanguageSelected ? 1 : 0
+        }}
+      >
+        <div itemScope itemType="https://schema.org/WebPageElement">
+          <Banner />
+          <Slider />
+          {source !== "qr" && <Steps />}
+          <BgWrapper isQr={source === "qr"}>
+            {source !== "qr" && <Research />}
+            <Faq isQr={source === "qr"} />
+          </BgWrapper>
+        </div>
+      </main>
+      <Footer
+        style={{
+          height: isLanguageSelected ? "auto" : 0,
+          opacity: isLanguageSelected ? 1 : 0
+        }}
+        background={isLanguageSelected ? theme.colors.white : theme.colors.black}
+        color={isLanguageSelected ? theme.colors.black : theme.colors.white}
+      />
+    </PageWrapper>
   );
 }
 
@@ -155,23 +108,18 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
     try {
       const authResponse = await authUser(authData);
-
       res.setHeader('Set-Cookie', [
         `token=${authResponse.user}; Max-Age=${365 * 24 * 60 * 60}; Path=/; HttpOnly`
       ]);
 
       const targetLocale = locale || 'ru';
-      res.writeHead(302, {
-        Location: `/${targetLocale}/vote?source=qr`,
-      });
+      res.writeHead(302, { Location: `/${targetLocale}/vote?source=qr` });
       res.end();
       return { props: {} };
     } catch (error) {
       console.error('Auth error:', error);
       const targetLocale = locale || 'ru';
-      res.writeHead(302, {
-        Location: `/${targetLocale}/vote?source=qr`,
-      });
+      res.writeHead(302, { Location: `/${targetLocale}/vote?source=qr` });
       res.end();
       return { props: {} };
     }
@@ -196,7 +144,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   if (cookies.USER_COUNTRY !== 'kz' && locale === 'kz') {
     const targetLocale = defaultLocale || 'ru';
     const newUrl = correctedUrl.replace('/kz', `/${targetLocale}`);
-
     res.writeHead(302, { Location: newUrl });
     res.end();
     return { props: {} };

@@ -53,6 +53,7 @@ import {
   ActionImage,
 } from "./styled";
 import { StaticImageData } from "next/image";
+import { useDeviceDetect } from "@/hooks/useDeviceDetect";
 
 type CountryCode = 'ru' | 'kz' | 'by';
 type LocaleCode = 'ru' | 'kz' | 'by';
@@ -88,18 +89,25 @@ const step2_info: Record<CountryCode, Partial<Record<LocaleCode, string>>> = {
 type ActionImagesType = Record<CountryCode, StaticImageData | Partial<Record<LocaleCode, StaticImageData>>>;
 
 const actionImages: ActionImagesType = {
-  ru: action_ru, 
+  ru: action_ru,
   kz: {
-    ru: action_kz_ru, 
-    kz: action_kz     
+    ru: action_kz_ru,
+    kz: action_kz
   },
-  by: action_by 
+  by: action_by
 };
 
+const links = {
+  ru: "https://dodopizza.ru/?utm_source=reffer&utm_medium=site&utm_campaign=buy_action",
+  by: "https://dodopizza.by/?utm_source=reffer&utm_medium=site&utm_campaign=buy_action",
+  kz: "https://dodopizza.kz/?utm_source=reffer&utm_medium=site&utm_campaign=buy_action"
+}
 
 export const Steps: FC = () => {
   const [openAccordionId, setOpenAccordionId] = useState<string | null>(null);
   const [/*promotionText*/, setPromotionText] = useState('');
+
+  const device = useDeviceDetect();
 
   const { userCountry, currentLocale } = useLanguageSwitcher();
 
@@ -107,10 +115,18 @@ export const Steps: FC = () => {
 
 
   const handleAppRedirect = () => {
-    if (typeof window !== 'undefined') {
-      window.open(appLink, '_blank', 'noopener,noreferrer');
+    if (typeof window === 'undefined') return;
+
+    let redirectUrl: string;
+
+    if (device === 'mobile') {
+      redirectUrl = appLink;
+    } else {
+      redirectUrl = links[userCountry as CountryCode] || links.ru;
     }
-  }
+
+    window.open(redirectUrl, '_blank', 'noopener,noreferrer');
+  };
 
   useEffect(() => {
     const savedOpenAccordionId = sessionStorage.getItem("stepsOpenAccordionId");
