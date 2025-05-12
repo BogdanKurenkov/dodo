@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 export const neueHaasUnica = localFont({
   src: [
     {
-      path: "../../public/fonts/Neue_Haas_Unica_W1G_Medium.ttf",
+      path: "../../public/fonts/Neue_Haas_Unica_W1G_Medium.woff2",
       weight: "500",
       style: "normal",
     },
@@ -32,15 +32,4 @@ export const segoeUiSemibold = localFont({
   ],
   display: "swap",
   variable: "--font-segoe-ui",
-});
-
-export const Rooftop = localFont({
-  src: [
-    {
-      path: "../../public/fonts/Rooftop-Medium.woff2",
-      weight: "500",
-      style: "normal",
-    },
-  ],
-  display: "swap",
 });

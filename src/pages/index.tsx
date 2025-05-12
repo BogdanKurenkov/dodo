@@ -7,7 +7,7 @@ import { parseCookies } from "nookies";
 import dynamic from "next/dynamic";
 import { useEffect } from "react";
 
-import { trackVisit } from "@/api";
+import { authUser, trackVisit } from "@/api";
 
 import { Faq } from "@/widgets/Faq/Faq";
 import { Research } from "@/widgets/Research/Research";
@@ -25,6 +25,8 @@ import { Footer } from "@/components/Footer/Footer";
 import { BgWrapper } from "@/components/BgWrapper/BgWrapper";
 import { PageWrapper } from "@/components/Shared/PageWrapper/PageWrapper";
 import { useFingerprint } from "@/hooks/useFingerprint";
+import { AuthRequest } from "@/api/types";
+import { setCookie } from "nookies";
 
 
 
@@ -42,11 +44,31 @@ export default function Home({ cookies }: HomeProps) {
 
   const theme = useTheme();
 
-  useFingerprint();
+  const fingerprint = useFingerprint();
 
   useEffect(() => {
     trackVisit(source === 'qr' ? "qr" : "link");
   }, [])
+
+  useEffect(() => {
+    if (!fingerprint) return;
+
+    const cookies = parseCookies();
+
+    const authData: AuthRequest = {
+      token: fingerprint,
+      lang: cookies.NEXT_LOCALE,
+      country: cookies.USER_COUNTRY
+    };
+
+    authUser(authData)
+      .then((res) => {
+        setCookie(null, 'token', res.user, {
+          maxAge: 365 * 24 * 60 * 60,
+          path: '/',
+        });
+      })
+  }, [fingerprint, router]);
 
   const pageTitle = "Додо Лаб";
   const pageDescription = "Участвуйте в исследованиях Додо Лаб, пробуйте новые соусы и влияйте на меню Додо Пиццы";

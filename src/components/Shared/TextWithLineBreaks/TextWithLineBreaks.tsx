@@ -8,14 +8,14 @@ interface ITextWithLineBreaks {
     noDesktopBr?: boolean;
 }
 
-const StyledBr = styled.br<{ noMobile?: boolean; noDesktop?: boolean }>`
-    ${({ noMobile }) => noMobile && `
+const StyledBr = styled.br<{ $noMobile?: boolean; $noDesktop?: boolean }>`
+    ${({ $noMobile }) => $noMobile && `
         @media (max-width: 500px) {
             display: none;
         }
     `}
     
-    ${({ noDesktop }) => noDesktop && `
+    ${({ $noDesktop }) => $noDesktop && `
         @media (min-width: 501px) {
             display: none;
         }
@@ -35,8 +35,8 @@ export const TextWithLineBreaks: React.FC<ITextWithLineBreaks> = ({
                     {line}
                     {i < arr.length - 1 && (
                         <StyledBr
-                            noMobile={noMobileBr}
-                            noDesktop={noDesktopBr}
+                            $noMobile={noMobileBr}
+                            $noDesktop={noDesktopBr}
                         />
                     )}
                 </React.Fragment>
