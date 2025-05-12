@@ -144,13 +144,22 @@ export default function Home({ cookies }: HomeProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { req, locale, res, defaultLocale } = ctx;
+  const { req, res, locale, defaultLocale } = ctx;
+
+  const rawUrl = req.url || "";
+  const correctedUrl = rawUrl.replace(/&amp;/g, "&");
+
+  if (rawUrl !== correctedUrl) {
+    res.writeHead(302, { Location: correctedUrl });
+    res.end();
+    return { props: {} };
+  }
+
   const cookies = parseCookies({ req });
 
   if (cookies.USER_COUNTRY !== 'kz' && locale === 'kz') {
     const targetLocale = defaultLocale || 'ru';
-
-    const newUrl = ctx.resolvedUrl.replace('/kz', `/${targetLocale}`);
+    const newUrl = correctedUrl.replace('/kz', `/${targetLocale}`);
 
     res.writeHead(302, { Location: newUrl });
     res.end();
@@ -163,4 +172,4 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       ...(await serverSideTranslations(locale ?? "ru", ["common"])),
     },
   };
-}
+};
