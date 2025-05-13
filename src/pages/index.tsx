@@ -2,24 +2,17 @@ import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTheme } from "styled-components";
-import { parseCookies, setCookie } from "nookies";
+import { parseCookies } from "nookies";
 import dynamic from "next/dynamic";
 import { useEffect } from "react";
 
 import { authUser, trackVisit } from "@/api";
-import { AuthRequest } from "@/api/types";
-
-import { useFingerprint } from "@/hooks/useFingerprint";
-
+import { Faq } from "@/widgets/Faq/Faq";
 import { Research } from "@/widgets/Research/Research";
 import { Banner } from "@/widgets/Banner/Banner";
 import { Slider } from "@/widgets/Slider/Slider";
 const Steps = dynamic(
   () => import("@/widgets/Steps/Steps").then((mod) => mod.Steps),
-  { ssr: false },
-);
-const Faq = dynamic(
-  () => import("@/widgets/Faq/Faq").then((mod) => mod.Faq),
   { ssr: false },
 );
 
@@ -28,21 +21,22 @@ import { Header } from "@/components/Header/Header";
 import { Footer } from "@/components/Footer/Footer";
 import { BgWrapper } from "@/components/BgWrapper/BgWrapper";
 import { PageWrapper } from "@/components/Shared/PageWrapper/PageWrapper";
+import { useFingerprint } from "@/hooks/useFingerprint";
+import { AuthRequest } from "@/api/types";
+import { setCookie } from "nookies";
 
-interface IHome {
+interface HomeProps {
   cookies: Record<string, string>;
 }
 
-export default function Home({ cookies }: IHome) {
+export default function Home({ cookies }: HomeProps) {
   const router = useRouter();
   const { query } = router;
   const { source } = query;
 
   const { NEXT_LOCALE: locale, USER_COUNTRY: country } = cookies;
   const isLanguageSelected = locale && country;
-
   const theme = useTheme();
-
   const fingerprint = useFingerprint();
 
   useEffect(() => {
@@ -115,7 +109,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     try {
       const authResponse = await authUser(authData);
       res.setHeader('Set-Cookie', [
-        `token=${authResponse.user}; Max-Age=${365 * 24 * 60 * 60}; Path=/;`
+        `token=${authResponse.user}; Max-Age=${365 * 24 * 60 * 60}; Path=/; HttpOnly`
       ]);
 
       const targetLocale = locale || 'ru';
