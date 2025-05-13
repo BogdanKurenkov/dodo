@@ -1,14 +1,32 @@
-import { neueHaasUnica, segoeUiSemibold } from "@/lib/fonts";
+// import { neueHaasUnica, segoeUiSemibold } from "@/lib/fonts";
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
 
+
+  @font-face {
+    font-family: 'SegoeUIFallback';
+    src: url('/fonts/SegoeUI.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    unicode-range: U+04B1;
+  }
+
+  @font-face {
+    font-family: 'SegoeUIFallback';
+    src: url('/fonts/segoe_ui_semibold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    unicode-range: U+04B1;
+  }
+
+
   html[lang="ru"], html[lang="by"] {
-    font-family: ${neueHaasUnica.style.fontFamily}, sans-serif;
+    font-family: neue-haas-unica, Helvetica, Arial, sans-serif;
   }
 
   html[lang="kk"], html[lang="kz"] {
-    font-family: ${segoeUiSemibold.style.fontFamily},  sans-serif;
+    font-family: 'SegoeUIFallback', neue-haas-unica, Helvetica, Arial, sans-serif;
 
     h1, h2, h3, h4, h5, h6 {
       font-weight: 600;
@@ -21,7 +39,7 @@ export const GlobalStyles = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
-    font-family: ${neueHaasUnica.style.fontFamily}, sans-serif;
+    font-family: neue-haas-unica, Helvetica, Arial, sans-serif;
   }
 
   * {

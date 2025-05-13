@@ -82,7 +82,7 @@ export default function Home({ cookies }: IHome) {
       >
         <div itemScope itemType="https://schema.org/WebPageElement">
           <Banner />
-          {/* <Slider /> */}
+          <Slider />
           {source !== "qr" && <Steps />}
           <BgWrapper isQr={source === "qr"}>
             {source !== "qr" && <Research />}
@@ -109,7 +109,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const authData: AuthRequest = {
       token: query.fingerprint as string,
       lang: locale || 'ru',
-      country: parseCookies({ req }).USER_COUNTRY || locale || 'ru'
+      country: parseCookies({ req }).USER_COUNTRY || 'ru'
     };
 
     try {
