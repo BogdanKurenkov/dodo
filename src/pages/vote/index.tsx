@@ -4,7 +4,6 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
-import Head from "next/head";
 import { setCookie } from "nookies";
 
 import { authUser, sendVote } from "@/api";
@@ -15,7 +14,6 @@ import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
 import { SectionTitle } from "@/components/Shared/SectionTitle/SectionTitle";
 import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
-
 const LottieRotate = dynamic(
   () =>
     import("@/components/LottieRotate/LottieRotate").then(
@@ -28,6 +26,10 @@ const LottieBase = dynamic(
     import("@/components/LottieBase/LottieBase").then((mod) => mod.LottieBase),
   { ssr: false }
 );
+
+import sauce1 from "@/assets/images/1_3_0000.webp";
+import sauce2 from "@/assets/images/2_2_0001.webp";
+import sauce3 from "@/assets/images/3_2_0000.webp";
 
 import {
   VoteBackground,
@@ -99,22 +101,29 @@ export default function Vote({ cookies }: IVote) {
       isAnimate={!isPlaying}
       isPlaying={isPlaying}
       path="/lottie/vote/dip_1_3_rotation_lottie/animation.json"
-      onLoad={handleRotateLoad}
+      onLoad={() => { }}
+      placeholderImage={sauce1}
+      onLoaded={handleRotateLoad}
+
     />,
     <LottieRotate
       key={5}
       direction="down"
       isAnimate={!isPlaying}
-      isPlaying={isPlaying}
+      isPlaying={isPlaying && rotateLoaded}
       path="/lottie/vote/dip_2_2_rotation_lottie/animation.json"
-      onLoad={handleRotateLoad}
+      onLoad={() => { }}
+      placeholderImage={sauce2}
+      onLoaded={handleRotateLoad}
     />,
     <LottieRotate
       key={6}
       isAnimate={!isPlaying}
       isPlaying={isPlaying}
       path="/lottie/vote/dip_3_2_rotation_lottie/animation.json"
-      onLoad={handleRotateLoad}
+      onLoad={() => { }}
+      placeholderImage={sauce3}
+      onLoaded={handleRotateLoad}
     />,
   ];
 
@@ -129,7 +138,7 @@ export default function Vote({ cookies }: IVote) {
   };
 
   const handleNextStep = () => {
-    if (step === 1) {
+    if (step === 1 && rotateLoaded) {
       setIsTransitioning(true);
       setIsPlaying(true);
       setTimeout(() => {
@@ -164,11 +173,6 @@ export default function Vote({ cookies }: IVote) {
 
   return (
     <>
-      <Head>
-        <title>Додо лаб</title>
-        <meta name="description" content="Участвуйте в исследованиях Додо Лаб, пробуйте новые соусы и влияйте на меню Додо Пиццы" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
       <Header country={country} />
       <main role="main" className="main">
         <VoteBackground $step={step} $isTransitioning={isTransitioning} $sPlaying={isPlaying}>
@@ -221,7 +225,7 @@ export default function Vote({ cookies }: IVote) {
             </SaucesList>
             <Button
               $variant="glass"
-              disabled={step === 2 && !isButtonActive}
+              disabled={(step === 2 && !isButtonActive) || !rotateLoaded}
               type="button"
               onClick={handleVoteClick}
               $step={isPlaying ? 2 : 1}
