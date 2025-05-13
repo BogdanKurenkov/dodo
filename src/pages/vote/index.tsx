@@ -65,6 +65,7 @@ export default function Vote({ cookies }: IVote) {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [rotateLoaded, setRotateLoaded] = useState(false);
   const [loadedRotateCount, setLoadedRotateCount] = useState(0);
+  const [startLoading, setStartLoading] = useState(false);
 
   const device = useDeviceDetect();
 
@@ -81,20 +82,14 @@ export default function Vote({ cookies }: IVote) {
     }
   }, [loadedRotateCount]);
 
-  const animations_open = rotateLoaded ? [
-    <LottieBase
-      key={1}
-      path="/lottie/vote/dip_1_3_opening_lottie/animation.json"
-    />,
-    <LottieBase
-      key={2}
-      path="/lottie/vote/dip_2_2_opening_lottie/animation.json"
-    />,
-    <LottieBase
-      key={3}
-      path="/lottie/vote/dip_3_2_opening_lottie/animation.json"
-    />,
-  ] : [];
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      console.log("start")
+      setStartLoading(true);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const animations_rotate = [
     <LottieRotate
@@ -127,6 +122,21 @@ export default function Vote({ cookies }: IVote) {
       onLoaded={handleRotateLoad}
     />,
   ];
+
+  const animations_open = startLoading ? [
+    <LottieBase
+      key={1}
+      path="/lottie/vote/dip_1_3_opening_lottie/animation.json"
+    />,
+    <LottieBase
+      key={2}
+      path="/lottie/vote/dip_2_2_opening_lottie/animation.json"
+    />,
+    <LottieBase
+      key={3}
+      path="/lottie/vote/dip_3_2_opening_lottie/animation.json"
+    />,
+  ] : [];
 
   const handleCardClick = (number: number) => {
     if (activeCard === number) {
@@ -217,7 +227,7 @@ export default function Vote({ cookies }: IVote) {
                       {animations_open[index] || null}
                     </div>
                   </div>
-                  <SauceSample $sPlaying={isPlaying}>
+                  <SauceSample $isPlaying={isPlaying}>
                     {t("results.sample")} № {index + 1}
                   </SauceSample>
                   <SauceTitle $sPlaying={isPlaying}>{t(sauce)}</SauceTitle>

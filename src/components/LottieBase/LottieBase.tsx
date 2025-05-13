@@ -123,7 +123,6 @@ export const LottieBase: FC<ILottieBase> = ({
                 onMouseLeave={hoverPlay ? handleMouseLeave : undefined}
                 rendererSettings={{
                     preserveAspectRatio: "xMidYMid slice",
-                    progressiveLoad: true,
                     hideOnTransparent: true,
                 }}
                 style={{

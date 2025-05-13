@@ -100,10 +100,8 @@ export const LottieRotate: FC<ILottieRotate> = ({
                         }}
                         rendererSettings={{
                             preserveAspectRatio: "xMidYMid slice",
-                            progressiveLoad: true,
                             hideOnTransparent: true,
                         }}
-                        initialSegment={isPlaying ? undefined : [0, 0]}
                         style={{
                             width: containerWidth,
                             height: containerHeight,

@@ -291,14 +291,14 @@ export const SauceType = styled.span`
   }
 `;
 
-export const SauceSample = styled.span<{ $sPlaying: boolean }>`
+export const SauceSample = styled.span<{ $isPlaying: boolean }>`
   margin-top: -32px;
   font-weight: 500;
   font-size: 22.75px;
   line-height: 100%;
   color: ${({ theme }) => theme.colors.orange};
   text-align: center;
-  opacity: ${({ $sPlaying }) => ($sPlaying ? 1 : 0)};
+  opacity: ${({ $isPlaying }) => ($isPlaying ? 1 : 0)};
   transition: opacity 2s ease;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
