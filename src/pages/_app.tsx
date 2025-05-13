@@ -1,20 +1,21 @@
 import type { AppProps } from "next/app";
-import { appWithTranslation } from 'next-i18next';
+import { appWithTranslation } from "next-i18next";
 import { ThemeProvider } from "styled-components";
-import Script from 'next/script';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
+import Script from "next/script";
+import Head from "next/head";
+import { useRouter } from "next/router";
 
 import { GlobalStyles } from "@/components/GlobalStyles/GlobalStyles";
-import { theme } from '@/constants/theme';
-import { neueHaasUnica, segoeUiSemibold } from "@/lib/fonts";
+import { theme } from "@/constants/theme";
+// import { neueHaasUnica, segoeUiSemibold } from "@/lib/fonts";
 
 function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const pathname = router.pathname;
 
   const defaultTitle = "Додо Лаб";
-  const defaultDescription = "Участвуйте в исследованиях Додо Лаб, пробуйте новые соусы и влияйте на меню Додо Пиццы";
+  const defaultDescription =
+    "Участвуйте в исследованиях Додо Лаб, пробуйте новые соусы и влияйте на меню Додо Пиццы";
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
   const canonicalUrl = `${siteUrl}${pathname}`;
 
@@ -23,21 +24,21 @@ function App({ Component, pageProps }: AppProps) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": defaultTitle,
-    "description": defaultDescription,
-    "url": canonicalUrl,
-    "publisher": {
+    name: defaultTitle,
+    description: defaultDescription,
+    url: canonicalUrl,
+    publisher: {
       "@type": "Organization",
-      "name": "Додо Пицца",
-      "logo": {
+      name: "Додо Пицца",
+      logo: {
         "@type": "ImageObject",
-        "url": `${siteUrl}/images/logo.svg`
-      }
-    }
+        url: `${siteUrl}/images/logo.svg`,
+      },
+    },
   };
 
   return (
-    <div className={`${neueHaasUnica.variable} ${segoeUiSemibold.variable}`}>
+    <div >
       <Head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -62,6 +63,7 @@ function App({ Component, pageProps }: AppProps) {
         <meta name="twitter:image" content={previewImage} />
 
         <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="stylesheet" href="https://use.typekit.net/bnl3bdl.css" />
 
         <script
           type="application/ld+json"
@@ -72,7 +74,7 @@ function App({ Component, pageProps }: AppProps) {
           <div>
             <img
               src="https://mc.yandex.ru/watch/101709988"
-              style={{ position: 'absolute', left: '-9999px' }}
+              style={{ position: "absolute", left: "-9999px" }}
               alt=""
             />
           </div>
@@ -105,7 +107,7 @@ function App({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
       </ThemeProvider>
     </div>
-  )
+  );
 }
 
 export default appWithTranslation(App);

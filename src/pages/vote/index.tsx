@@ -33,6 +33,7 @@ import sauce3 from "@/assets/images/3_2_0000.webp";
 
 import {
   VoteBackground,
+  VoteBackgroundMob,
   Container,
   SaucesList,
   SauceContainer,
@@ -236,6 +237,7 @@ export default function Vote({ cookies }: IVote) {
               {t("vote.click")}
             </VotePrompt>
           </Container>
+          <VoteBackgroundMob $step={step} $isTransitioning={isTransitioning} $sPlaying={isPlaying}></VoteBackgroundMob>
         </VoteBackground>
       </main>
 
