@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { useTheme } from "styled-components";
+import { parseCookies } from "nookies";
 
 import { useDeviceDetect } from "@/hooks/useDeviceDetect";
 import { useClient } from "@/hooks/useClient";
@@ -57,6 +58,7 @@ export const Header: FC<IHeader> = ({ country }) => {
     transform: "translateY(0)",
     transition: "transform 0.3s ease",
   });
+  const [hasToken, setHasToken] = useState(false);
 
   const router = useRouter();
   const theme = useTheme();
@@ -64,6 +66,11 @@ export const Header: FC<IHeader> = ({ country }) => {
   const client = useClient();
 
   const { source } = router.query;
+
+  useEffect(() => {
+    const cookies = parseCookies();
+    setHasToken(!!cookies.token);
+  }, []);
 
   const handleBurgerToggle = (isOpen: boolean) => {
     setIsMenuOpen(isOpen);
@@ -73,13 +80,8 @@ export const Header: FC<IHeader> = ({ country }) => {
   };
 
   const handleAnchorClick = (anchorId: string, index: number) => {
-    if (source === 'qr' && router.pathname === '/' && index === 0) {
+    if (source === 'qr' && index === 0 && !hasToken) {
       router.push("/auth?source=qr");
-      setIsMenuOpen(false);
-      return;
-    }
-
-    if (router.pathname === '/auth' && index === 0) {
       setIsMenuOpen(false);
       return;
     }
@@ -126,6 +128,21 @@ export const Header: FC<IHeader> = ({ country }) => {
       window.removeEventListener("scroll", controlHeader);
     };
   }, [lastScrollY, isMenuOpen]);
+
+  const getRoutes = () => {
+    if (source !== "qr") return routesLink;
+
+    if (hasToken) {
+      const restRoutes = Object.fromEntries(
+        Object.entries(routesQr).filter(([key]) => key !== 'auth')
+      );
+      return restRoutes;
+    }
+
+    return routesQr;
+  };
+
+  const routes = getRoutes();
 
   return (
     <StyledHeader
@@ -180,11 +197,11 @@ export const Header: FC<IHeader> = ({ country }) => {
         >
           <StyledNav $isOpen={isMenuOpen} role="menu">
             {client &&
-              Object.entries(source === "qr" ? routesQr : routesLink).map(
+              Object.entries(routes).map(
                 ([key, translationKey], index) => (
                   <MenuLink
                     key={key}
-                    href={`#${key}`}
+                    href={source === 'qr' && index === 0 && !hasToken ? "/auth?source=qr" : `#${key}`}
                     onClick={(e) => {
                       e.preventDefault();
                       handleAnchorClick(key, index);

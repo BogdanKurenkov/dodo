@@ -242,12 +242,8 @@ export default function Vote({ cookies }: IVote) {
 
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { query, req, locale } = context;
+  const { query, req, locale, res } = context;
   const { source } = query;
-
-  const getLocalizedUrl = (path: string) => {
-    return locale && locale !== 'ru' ? `/${locale}${path}` : path;
-  };
 
   const cookies =
     req.headers.cookie?.split(";").reduce((acc, cookie) => {
@@ -257,6 +253,25 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }, {} as Record<string, string>) || {};
 
   const token = cookies.token;
+  const country = cookies.USER_COUNTRY;
+
+  if (!country && locale && token && query.source === "qr") {
+    if (locale === "ru" || locale === "kz" || locale === "by") {
+      setCookie({ res }, "NEXT_LOCALE", locale, {
+        maxAge: 365 * 24 * 60 * 60,
+        path: '/',
+      });
+
+      setCookie({ res }, "USER_COUNTRY", locale, {
+        maxAge: 365 * 24 * 60 * 60,
+        path: '/',
+      });
+    }
+  }
+
+  const getLocalizedUrl = (path: string) => {
+    return locale && locale !== 'ru' ? `/${locale}${path}` : path;
+  };
 
   if (!token) {
     return {

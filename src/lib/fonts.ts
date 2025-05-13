@@ -20,7 +20,7 @@ export const neueHaasUnica = localFont({
 export const segoeUiSemibold = localFont({
   src: [
     {
-      path: "../../public/fonts/Segoe_UI.ttf",
+      path: "../../public/fonts/SegoeUI.woff2",
       weight: "400",
       style: "normal",
     },
