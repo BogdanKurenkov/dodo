@@ -2,6 +2,19 @@ import { neueHaasUnica, segoeUiSemibold } from "@/lib/fonts";
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
+
+  html[lang="ru"], html[lang="by"] {
+    font-family: ${neueHaasUnica.style.fontFamily}, sans-serif;
+  }
+
+  html[lang="kk"], html[lang="kz"] {
+    font-family: ${segoeUiSemibold.style.fontFamily},  sans-serif;
+
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 600;
+    }
+  }
+
   html {
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -32,14 +45,6 @@ export const GlobalStyles = createGlobalStyle`
     -moz-user-select: text !important;
     -ms-user-select: text !important;
     user-select: text !important;
-  }
-
-  html[lang="ru"], html[lang="by"] {
-    font-family: ${neueHaasUnica.style.fontFamily}, sans-serif;
-  }
-
-  html[lang="kk"], html[lang="kz"] {
-    font-family: ${segoeUiSemibold.style.fontFamily}, sans-serif;
   }
 
   body {

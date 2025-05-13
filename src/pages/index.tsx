@@ -82,7 +82,7 @@ export default function Home({ cookies }: IHome) {
       >
         <div itemScope itemType="https://schema.org/WebPageElement">
           <Banner />
-          <Slider />
+          {/* <Slider /> */}
           {source !== "qr" && <Steps />}
           <BgWrapper isQr={source === "qr"}>
             {source !== "qr" && <Research />}
