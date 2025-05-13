@@ -24,28 +24,28 @@ const nextConfig: NextConfig = {
       pure: true,
     },
   },
-  // async headers() {
-  //   return [
-  //     {
-  //       source: "/(.*).(webp|avif|png|jpg|jpeg|gif|svg)",
-  //       headers: [
-  //         {
-  //           key: "Cache-Control",
-  //           value: "public, max-age=604800",
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       source: "/(.*).json",
-  //       headers: [
-  //         {
-  //           key: "Cache-Control",
-  //           value: "public, max-age=604800", 
-  //         },
-  //       ],
-  //     },
-  //   ];
-  // },
+  async headers() {
+    return [
+      {
+        source: "/(.*).(webp|avif|png|jpg|jpeg|gif|svg)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=604800",
+          },
+        ],
+      },
+      {
+        source: "/(.*).json",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=604800",
+          },
+        ],
+      },
+    ];
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
