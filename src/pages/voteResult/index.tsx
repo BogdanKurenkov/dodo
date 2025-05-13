@@ -4,7 +4,6 @@ import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { useEffect, useState } from "react";
-import Head from "next/head";
 import { parseCookies } from "nookies";
 import { StaticImageData } from "next/image";
 
@@ -97,11 +96,6 @@ export default function VoteResult({ cookies, user }: IVoteResult) {
 
   return (
     <>
-      <Head>
-        <title>Додо Лаб</title>
-        <meta name="description" content="Участвуйте в исследованиях Додо Лаб, пробуйте новые соусы и влияйте на меню Додо Пиццы" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
       <Header country={country} />
       <main role="main" className="main">
         <ResultWrapper>

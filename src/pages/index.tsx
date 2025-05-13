@@ -109,7 +109,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const authData: AuthRequest = {
       token: query.fingerprint as string,
       lang: locale || 'ru',
-      country: parseCookies({ req }).USER_COUNTRY || 'ru'
+      country: parseCookies({ req }).USER_COUNTRY || locale || 'ru'
     };
 
     try {

@@ -1,7 +1,6 @@
 import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
-import Head from "next/head";
 import { useTheme } from "styled-components";
 import { parseCookies } from "nookies";
 
@@ -37,14 +36,6 @@ export default function Results({ ratingData, cookies }: ResultsPageProps) {
 
     return (
         <>
-            <Head>
-                <title>Додо Лаб</title>
-                <meta
-                    name="description"
-                    content="Участвуйте в исследованиях Додо Лаб, пробуйте новые соусы и влияйте на меню Додо Пиццы"
-                />
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-            </Head>
             <Header country={country} />
             <main role="main">
                 <Result ratingData={ratingData === null ? EMPTY_DATA : ratingData} />

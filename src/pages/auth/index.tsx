@@ -1,6 +1,5 @@
 import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import Head from "next/head";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { parseCookies, setCookie } from "nookies";
@@ -50,11 +49,6 @@ export default function Auth({ cookies }: IAuth) {
 
     return (
         <>
-            <Head>
-                <title>Додо Лаб</title>
-                <meta name="description" content="Участвуйте в исследованиях Додо Лаб, пробуйте новые соусы и влияйте на меню Додо Пиццы" />
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-            </Head>
             <PageWrapper>
                 <Header country={country} />
                 <main>
