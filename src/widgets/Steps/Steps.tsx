@@ -55,22 +55,25 @@ import {
 import { StaticImageData } from "next/image";
 import { useDeviceDetect } from "@/hooks/useDeviceDetect";
 
-type CountryCode = 'ru' | 'kz' | 'by';
-type LocaleCode = 'ru' | 'kz' | 'by';
+type CountryCode = "ru" | "kz" | "by";
+type LocaleCode = "ru" | "kz" | "by";
 
-const promotion_info: Record<CountryCode, Partial<Record<LocaleCode, string>>> = {
+const promotion_info: Record<
+  CountryCode,
+  Partial<Record<LocaleCode, string>>
+> = {
   ru: {
     ru: "Набор соусов Додо Лаб за 1 ₽ при заказе от 990 ₽",
-    kz: "Додо Лаб соусы жиынтығы 990 ₽-ден бастап тапсырыс бергенде 1₽"
+    kz: "Додо Лаб соусы жиынтығы 990 ₽-ден бастап тапсырыс бергенде 1₽",
   },
   kz: {
     ru: "Набор соусов Додо Лаб за 10 Т при заказе от 5 000 Т",
-    kz: "5 000 ₸-ден бастап — Додо Лаб тұздықтар жиынтығы небәрі 10 ₸"
+    kz: "5 000 ₸-ден бастап — Додо Лаб тұздықтар жиынтығы небәрі 10 ₸",
   },
   by: {
     by: "Набор соусов Додо Лаб за 1 руб. при заказе от 30 руб.",
-    kz: "Додо Лаб соустарының жиынтығы 1 рубльге. 30 рубльден асатын тапсырыстар үшін."
-  }
+    kz: "Додо Лаб соустарының жиынтығы 1 рубльге. 30 рубльден асатын тапсырыстар үшін.",
+  },
 };
 
 const step2_info: Record<CountryCode, Partial<Record<LocaleCode, string>>> = {
@@ -79,53 +82,56 @@ const step2_info: Record<CountryCode, Partial<Record<LocaleCode, string>>> = {
   },
   kz: {
     ru: "Закажите продукты из меню на сумму от 5000 ₸ и примените акцию",
-    kz: "Мәзірден 5000 ₸-ден бастап тапсырыс беріп, акцияны қолданыңыз"
+    kz: "Мәзірден 5000 ₸-ден бастап тапсырыс беріп, акцияны қолданыңыз",
   },
   by: {
-    by: "Закажите продукты из меню на сумму от 30 руб и примените акцию"
-  }
+    by: "Закажите продукты из меню на сумму от 30 руб и примените акцию",
+  },
 };
 
-type ActionImagesType = Record<CountryCode, StaticImageData | Partial<Record<LocaleCode, StaticImageData>>>;
+type ActionImagesType = Record<
+  CountryCode,
+  StaticImageData | Partial<Record<LocaleCode, StaticImageData>>
+>;
 
 const actionImages: ActionImagesType = {
   ru: action_ru,
   kz: {
     ru: action_kz_ru,
-    kz: action_kz
+    kz: action_kz,
   },
-  by: action_by
+  by: action_by,
 };
 
 const links = {
   ru: "https://dodopizza.ru/?utm_source=reffer&utm_medium=site&utm_campaign=buy_action",
   by: "https://dodopizza.by/?utm_source=reffer&utm_medium=site&utm_campaign=buy_action",
-  kz: "https://dodopizza.kz/?utm_source=reffer&utm_medium=site&utm_campaign=buy_action"
-}
+  kz: "https://dodopizza.kz/?utm_source=reffer&utm_medium=site&utm_campaign=buy_action",
+};
 
 export const Steps: FC = () => {
   const [openAccordionId, setOpenAccordionId] = useState<string | null>(null);
-  const [/*promotionText*/, setPromotionText] = useState('');
+  const [, /*promotionText*/ setPromotionText] = useState("");
 
   const device = useDeviceDetect();
 
   const { userCountry, currentLocale } = useLanguageSwitcher();
 
-  const step2Text = step2_info[userCountry as CountryCode]?.[currentLocale as LocaleCode] || '';
-
+  const step2Text =
+    step2_info[userCountry as CountryCode]?.[currentLocale as LocaleCode] || "";
 
   const handleAppRedirect = () => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === "undefined") return;
 
     let redirectUrl: string;
 
-    if (device === 'mobile') {
+    if (device === "mobile") {
       redirectUrl = appLink;
     } else {
       redirectUrl = links[userCountry as CountryCode] || links.ru;
     }
 
-    window.open(redirectUrl, '_blank', 'noopener,noreferrer');
+    window.open(redirectUrl, "_blank", "noopener,noreferrer");
   };
 
   useEffect(() => {
@@ -134,13 +140,16 @@ export const Steps: FC = () => {
       setOpenAccordionId(savedOpenAccordionId);
     }
 
-    if (typeof window !== 'undefined') {
-      const text = promotion_info[userCountry as CountryCode]?.[currentLocale as LocaleCode] || '';
+    if (typeof window !== "undefined") {
+      const text =
+        promotion_info[userCountry as CountryCode]?.[
+          currentLocale as LocaleCode
+        ] || "";
       setPromotionText(text);
     }
   }, [userCountry, currentLocale]);
 
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
 
   useEffect(() => {
     const savedOpenAccordionId = sessionStorage.getItem("stepsOpenAccordionId");
@@ -163,10 +172,13 @@ export const Steps: FC = () => {
     );
   };
 
-  const getActionImage = (country: CountryCode, locale: LocaleCode): StaticImageData => {
+  const getActionImage = (
+    country: CountryCode,
+    locale: LocaleCode,
+  ): StaticImageData => {
     const image = actionImages[country];
 
-    if (typeof image === 'object' && !('src' in image)) {
+    if (typeof image === "object" && !("src" in image)) {
       return image[locale] || action_kz;
     }
 
@@ -178,10 +190,10 @@ export const Steps: FC = () => {
       <Container>
         <StepsHeader>
           <TitleLg>
-            <TextWithLineBreaks text={t('choice.title')} />
+            <TextWithLineBreaks text={t("choice.title")} />
           </TitleLg>
           <SectionDescription>
-            <TextWithLineBreaks noDesktopBr text={t('choice.description')} />
+            <TextWithLineBreaks noDesktopBr text={t("choice.description")} />
           </SectionDescription>
           <TimeLine isWhite={false} />
         </StepsHeader>
@@ -190,8 +202,8 @@ export const Steps: FC = () => {
             title={
               <>
                 <StepsSummary>
-                  <StepsStage>{t('choice.stage.title')} 1</StepsStage>
-                  <StepsTitle>{t('choice.stage.stage1.title')}</StepsTitle>
+                  <StepsStage>{t("choice.stage.stage1.subtitle")}</StepsStage>
+                  <StepsTitle>{t("choice.stage.stage1.title")}</StepsTitle>
                 </StepsSummary>
                 <Plus isCross={openAccordionId === "0"} />
               </>
@@ -199,13 +211,18 @@ export const Steps: FC = () => {
             content={
               <StepsList>
                 <StepsItem>
-                  <StepsText>{t('choice.stage.stage1.download')}</StepsText>
+                  <StepsText>{t("choice.stage.stage1.download")}</StepsText>
                   <StepsButton>
                     <ButtonImage>
-                      <DodoLogo width={45} height={45} alt="dodo" src={DodoLogoImg} />
+                      <DodoLogo
+                        width={45}
+                        height={45}
+                        alt="dodo"
+                        src={DodoLogoImg}
+                      />
                     </ButtonImage>
                     <ButtonContent>
-                      <ButtonTitle>{t('choice.stage.stage1.dodo')}</ButtonTitle>
+                      <ButtonTitle>{t("choice.stage.stage1.dodo")}</ButtonTitle>
                       <ButtonCopyright>
                         DODO Brands International DMCC
                       </ButtonCopyright>
@@ -213,16 +230,15 @@ export const Steps: FC = () => {
                   </StepsButton>
                 </StepsItem>
                 <StepsItem>
-                  <StepsText>
-                    {t('choice.stage.stage1.profile')}
-                  </StepsText>
-                  <StepsNote>
-                    {t('choice.stage.stage1.qty')}
-                  </StepsNote>
+                  <StepsText>{t("choice.stage.stage1.profile")}</StepsText>
+                  <StepsNote>{t("choice.stage.stage1.qty")}</StepsNote>
                   <StepsCard>
                     <ActionImage
                       alt="action"
-                      src={getActionImage(userCountry as CountryCode, currentLocale as LocaleCode)}
+                      src={getActionImage(
+                        userCountry as CountryCode,
+                        currentLocale as LocaleCode,
+                      )}
                     />
                   </StepsCard>
                 </StepsItem>
@@ -235,8 +251,8 @@ export const Steps: FC = () => {
             title={
               <>
                 <StepsSummary>
-                  <StepsStage>{t('choice.stage.title')} 2</StepsStage>
-                  <StepsTitle>{t('choice.stage.stage2.title')}</StepsTitle>
+                  <StepsStage>{t("choice.stage.stage2.subtitle")}</StepsStage>
+                  <StepsTitle>{t("choice.stage.stage2.title")}</StepsTitle>
                 </StepsSummary>
                 <Plus isCross={openAccordionId === "1"} />
               </>
@@ -244,12 +260,10 @@ export const Steps: FC = () => {
             content={
               <StepsList>
                 <StepsItem>
-                  <StepsText>
-                    {step2Text}
-                  </StepsText>
+                  <StepsText>{step2Text}</StepsText>
                 </StepsItem>
                 <StepsItem>
-                  <StepsText>{t('choice.stage.stage2.try')}</StepsText>
+                  <StepsText>{t("choice.stage.stage2.try")}</StepsText>
                 </StepsItem>
               </StepsList>
             }
@@ -260,8 +274,8 @@ export const Steps: FC = () => {
             title={
               <>
                 <StepsSummary>
-                  <StepsStage>{t('choice.stage.title')} 3</StepsStage>
-                  <StepsTitle>{t('choice.stage.stage3.title')}</StepsTitle>
+                  <StepsStage>{t("choice.stage.stage3.subtitle")}</StepsStage>
+                  <StepsTitle>{t("choice.stage.stage3.title")}</StepsTitle>
                 </StepsSummary>
                 <Plus isCross={openAccordionId === "2"} />
               </>
@@ -269,18 +283,17 @@ export const Steps: FC = () => {
             content={
               <StepsList>
                 <StepsItem>
-                  <StepsText>{t('choice.stage.stage3.qr')}</StepsText>
-                  <QrCodeImage src={currentLocale !== "kz" ? QrCode_RU : QrCode_KZ} alt="QR Code" />
+                  <StepsText>{t("choice.stage.stage3.qr")}</StepsText>
+                  <QrCodeImage
+                    src={currentLocale !== "kz" ? QrCode_RU : QrCode_KZ}
+                    alt="QR Code"
+                  />
                 </StepsItem>
                 <StepsItem>
-                  <StepsText>
-                    {t('choice.stage.stage3.auth')}
-                  </StepsText>
+                  <StepsText>{t("choice.stage.stage3.auth")}</StepsText>
                 </StepsItem>
                 <StepsItem>
-                  <StepsText>
-                    {t('choice.stage.stage3.select')}
-                  </StepsText>
+                  <StepsText>{t("choice.stage.stage3.select")}</StepsText>
                 </StepsItem>
               </StepsList>
             }
@@ -288,7 +301,9 @@ export const Steps: FC = () => {
             onClick={() => handleAccordionClick("2")}
           />
         </AccordionList>
-        <Button onClick={handleAppRedirect} $variant="primary">{t('buttons.buy')}</Button>
+        <Button onClick={handleAppRedirect} $variant="primary">
+          {t("buttons.buy")}
+        </Button>
       </Container>
     </StepsWrapper>
   );
