@@ -30,8 +30,10 @@ const LottieBase = dynamic(
 import sauce1 from "@/assets/images/1_3_0000.webp";
 import sauce2 from "@/assets/images/2_2_0001.webp";
 import sauce3 from "@/assets/images/3_2_0000.webp";
+import VoteBackgroundImage from "../../../public/images/vote-background.webp";
 
 import {
+  VoteWrapper,
   VoteBackground,
   VoteBackgroundMob,
   Container,
@@ -186,7 +188,7 @@ export default function Vote({ cookies }: IVote) {
     <>
       <Header country={country} />
       <main role="main" className="main">
-        <VoteBackground $step={step} $isTransitioning={isTransitioning} $sPlaying={isPlaying}>
+        <VoteWrapper $step={step} $isTransitioning={isTransitioning} $sPlaying={isPlaying}>
           <Container>
             <SectionTitle isWhite={true}>
               <TextWithLineBreaks text={t("vote.title")} />
@@ -247,8 +249,9 @@ export default function Vote({ cookies }: IVote) {
               {t("vote.click")}
             </VotePrompt>
           </Container>
+          <VoteBackground src={VoteBackgroundImage} $step={step} $isTransitioning={isTransitioning} $sPlaying={isPlaying} alt="Vote background"/>
           <VoteBackgroundMob $step={step} $isTransitioning={isTransitioning} $sPlaying={isPlaying}></VoteBackgroundMob>
-        </VoteBackground>
+        </VoteWrapper>
       </main>
 
       <Footer />

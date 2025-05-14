@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import Image from "next/image";
 
 import { StyledContainer } from "@/components/Shared/Container/styled";
 import { StyledButton } from "@/components/Shared/Button/styled";
 
-export const VoteBackground = styled.section<{
+export const VoteWrapper = styled.section<{
   $step: number;
   $sPlaying: boolean;
   $isTransitioning: boolean;
@@ -12,54 +13,43 @@ export const VoteBackground = styled.section<{
   z-index: 1;
   padding: 90px 0;
   height: ${({ $sPlaying }) => ($sPlaying ? "auto" : "785px")};
-
-  &::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background-image: url("/images/vote-background.webp");
-    background-size: auto;
-    background-repeat: no-repeat;
-    background-position: ${({ $sPlaying }) =>
-      $sPlaying ? "40% 60%" : "40% 32.8%"};
-    z-index: -1;
-    pointer-events: none;
-
-    @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-      background-size: cover;
-      background-position: 40% 15%;
-      top: -10%;
-      opacity: ${({ $isTransitioning }) => ($isTransitioning ? 1 : 0)};
-      transition: all 1.2s ease;
-    }
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 5%;
-    left: 0;
-    display: none;
-    background-image: url("/images/vote-background.webp");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 85% 100%;
-    z-index: -1;
-    pointer-events: none;
-    transition: all 1s ease;
-    opacity: ${({ $isTransitioning }) => ($isTransitioning ? 0 : 1)};
-    @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-      display: block;
-    }
+  transition: height 1s ease;
+  @media (max-width: 1024px) {
+    height: ${({ $sPlaying }) => ($sPlaying ? "auto" : "624px")};
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     padding: 40px 0;
+    height: ${({ $sPlaying }) => ($sPlaying ? "990px" : "785px")};
+  }
+`;
+
+export const VoteBackground = styled(Image)<{
+  $step: number;
+  $sPlaying: boolean;
+  $isTransitioning: boolean;
+}>`
+  position: absolute;
+  width: 2700px;
+  height: 1130px;
+  top: 50%;
+  left: 60%;
+  transform: ${({ $sPlaying }) =>
+    $sPlaying ? "translate(-50%, -55%)" : "translate(-50%, -43.9%)"};
+  z-index: -1;
+  pointer-events: none;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.xl}) {
+    transform: ${({ $sPlaying }) =>
+      $sPlaying ? "translate(-50%, -60%)" : "translate(-50%, -48.9%)"};
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+    width: 1610px;
+    height: 675px;
+    transform: ${({ $sPlaying }) =>
+      $sPlaying ? "translate(-44%, -70%)" : "translate(-80%, -43%)"};
+    transition: all 1.5s ease;
   }
 `;
 
@@ -75,8 +65,10 @@ export const VoteBackgroundMob = styled.div<{
   width: 350px;
   height: 300px;
   opacity: ${({ $sPlaying }) => ($sPlaying ? 1 : 0)};
+  transform: ${({ $sPlaying }) =>
+    $sPlaying ? "translate(0%, 0%)" : "translate(100%, 0%)"};
   pointer-events: none;
-  transition: all 1s ease-in-out;
+  transition: all 1.2s ease-in-out;
 
   &::before {
     content: "";
