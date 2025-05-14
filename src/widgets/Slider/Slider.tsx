@@ -24,12 +24,11 @@ import SauceImageBackground3 from "../../../public/images/slide-background-3.web
 import {
   SliderWrapper,
   SauceBackground,
-  AccordionBackground,
   SwiperWrapper,
   Swiper,
   SwiperSlide,
-  BackgroundImages,
   Sauce,
+  BackgroundImages,
   Accordion,
   SauceSummary,
   SauceSample,
@@ -40,6 +39,7 @@ import {
   SauceItem,
   SauceHighlight,
   SauceDetail,
+  PaginationWrapper,
 } from "./styled";
 
 interface Sauce {
@@ -88,18 +88,19 @@ const renderBullet = (index: number, className: string): string => {
   `;
 };
 
-const getMobileImage = (index: number, deviceType: string): string => {
-  if (deviceType !== "mobile") return sauces[index].image.src;
+const getMobileImage = (index: number, deviceType: string): StaticImageData => {
+  if (deviceType !== "mobile") return sauces[index].image;
 
-  if (index === 0) return sauces[2].image.src;
-  if (index === 2) return sauces[0].image.src;
+  if (index === 0) return sauces[2].image;
+  if (index === 2) return sauces[0].image;
 
-  return sauces[index].image.src;
+  return sauces[index].image;
 };
 
 export const Slider: FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [openAccordionId, setOpenAccordionId] = useState<string | null>(null);
+  const [direction, setDirection] = useState<"bottom" | "top" | null>(null);
 
   const deviceType = useDeviceDetect();
   const isMobile = deviceType === "mobile";
@@ -133,7 +134,16 @@ export const Slider: FC = () => {
   };
 
   const handleSlideChange = (swiper: SwiperCore) => {
-    setActiveIndex(swiper.activeIndex);
+    const previousIndex = activeIndex;
+    const newIndex = swiper.activeIndex;
+
+    if (newIndex > previousIndex) {
+      setDirection("top");
+    } else if (newIndex < previousIndex) {
+      setDirection("bottom");
+    }
+
+    setActiveIndex(newIndex);
 
     if (isMobile) {
       setOpenAccordionId(null);
@@ -154,36 +164,34 @@ export const Slider: FC = () => {
           <TextWithLineBreaks text={t("slider_title")} />
         </SectionTitle>
       </Container>
-      {!isMobile &&
-        sauces.map((sauce, index) => (
-          <SauceBackground
-            key={index}
-            alt="Sauce Background"
-            src={sauce.image}
-            $index={index}
-            $isActive={index === activeIndex}
-            $isMobile={false}
-          />
-        ))}
-      <SwiperWrapper>
-        <AccordionBackground></AccordionBackground>
-        <Swiper
-          key={isMobile ? "mobile" : "desktop"}
-          modules={[Pagination, ...(isMobile ? [] : [EffectFade])]}
-          spaceBetween={isMobile ? 18 : 0}
-          slidesPerView={isMobile ? 1.2 : 1}
-          centeredSlides={isMobile}
-          effect={isMobile ? undefined : "fade"}
-          fadeEffect={isMobile ? undefined : { crossFade: true }}
-          pagination={{
-            clickable: true,
-            renderBullet,
-          }}
-          allowTouchMove={isMobile}
-          onSlideChange={handleSlideChange}
-        >
-          {sauces.map((sauce, index) => (
-            <SwiperSlide key={index}>
+      <Swiper
+        key={isMobile ? "mobile" : "desktop"}
+        modules={[Pagination, ...(isMobile ? [] : [EffectFade])]}
+        spaceBetween={isMobile ? 18 : 0}
+        slidesPerView={isMobile ? 1.2 : 1}
+        centeredSlides={isMobile}
+        speed={1000}
+        pagination={{
+          clickable: true,
+          renderBullet,
+          el: ".custom-pagination",
+        }}
+        allowTouchMove={isMobile}
+        onSlideChange={handleSlideChange}
+      >
+        {sauces.map((sauce, index) => (
+          <SwiperSlide key={index}>
+            {!isMobile && (
+              <SauceBackground
+                alt="Sauce Background"
+                src={getMobileImage(index, deviceType)}
+                $index={index}
+                $isActive={index === activeIndex}
+                $isMobile={true}
+                $direction={direction}
+              />
+            )}
+            <SwiperWrapper>
               <BackgroundImages>
                 {isMobile && (
                   <SauceBackground
@@ -192,6 +200,7 @@ export const Slider: FC = () => {
                     $index={index}
                     $isActive={index === activeIndex}
                     $isMobile={true}
+                    $direction={direction}
                   />
                 )}
                 <Sauce alt="Sauce" src={sauceImages[index]} />
@@ -239,10 +248,13 @@ export const Slider: FC = () => {
                 }
                 skipInitialAnimation={!isMobile}
               />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </SwiperWrapper>
+            </SwiperWrapper>
+          </SwiperSlide>
+        ))}
+        <PaginationWrapper>
+          <div className="custom-pagination"></div>
+        </PaginationWrapper>
+      </Swiper>
     </SliderWrapper>
   );
 };

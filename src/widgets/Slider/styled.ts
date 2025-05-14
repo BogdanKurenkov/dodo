@@ -27,8 +27,9 @@ export const SwiperWrapper = styled.div`
   max-width: 1260px;
   width: 100%;
   margin: 0 auto;
-  padding: 0 30px;
   position: relative;
+  height: 100%;
+  padding: 85px 30px 130px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     max-width: 100%;
@@ -37,56 +38,6 @@ export const SwiperWrapper = styled.div`
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     padding: 0;
     margin: 0;
-  }
-`;
-
-export const AccordionBackground = styled.section`
-  max-width: 433px;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    169.11deg,
-    rgba(70, 70, 80, 0.4) 10.47%,
-    rgba(70, 70, 80, 0.2) 80.6%
-  );
-  -webkit-backdrop-filter: blur(24px);
-  backdrop-filter: blur(24px);
-  box-shadow: 0px 5px 25px 0px #00000026;
-  border-radius: 30px;
-  position: absolute;
-  top: 0;
-  right: 30px;
-  z-index: 1;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-    display: none;
-  }
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 30px;
-    padding: 1px;
-    background: linear-gradient(
-      166.29deg,
-      rgba(144, 144, 144, 0.5) 6.91%,
-      rgba(144, 144, 144, 0) 51%,
-      rgba(64, 64, 64, 0) 72.6%,
-      rgba(64, 64, 64, 0.5) 95.08%
-    );
-    -webkit-mask: linear-gradient(to right, #fff 0%, #fff 100%) content-box,
-      linear-gradient(to right, #fff 0%, #fff 100%);
-    -webkit-mask-composite: destination-out;
-    mask-composite: exclude;
-    pointer-events: none;
-
-    @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-      display: none;
-    }
   }
 `;
 
@@ -118,17 +69,17 @@ export const SauceBackground = styled(Image)<{
   $index: number;
   $isActive: boolean;
   $isMobile: boolean;
+  $direction: "bottom" | "top" | null;
 }>`
   position: absolute;
   bottom: 90px;
   left: 0;
   width: 100%;
-  height: 85%;
+  height: 100%;
   z-index: -1;
   object-fit: contain;
   object-position: -10%;
-  opacity: ${({ $isActive }) => ($isActive ? 1 : 0)};
-  transition: opacity 0.3s ease-in-out;
+  transition: transform 0.8s ease;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.xl}) {
     object-position: 20%;
@@ -186,24 +137,91 @@ export const SauceBackground = styled(Image)<{
 export const Swiper = styled(SwiperComponent)`
   width: 100%;
   height: 100%;
-  margin: 85px 0 130px;
+  overflow: visible;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     margin: 68px auto 0;
     padding-bottom: 68px;
   }
+`;
 
-  .swiper-pagination {
+export const SwiperSlide = styled(SwiperSlideComponent)`
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  isolation: isolate;
+  z-index: 1;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+    background: linear-gradient(
+      169.11deg,
+      rgba(70, 70, 80, 0.4) 10.47%,
+      rgba(70, 70, 80, 0.2) 80.6%
+    );
+    position: relative;
+    box-shadow: 0px 5px 25px 0px #00000026;
+    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100%;
+    min-height: 100%;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 30px;
+      padding: 1px;
+      background: linear-gradient(
+        166.29deg,
+        rgba(144, 144, 144, 0.5) 6.91%,
+        rgba(144, 144, 144, 0) 51%,
+        rgba(64, 64, 64, 0) 72.6%,
+        rgba(64, 64, 64, 0.5) 95.08%
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: destination-out;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+  }
+`;
+
+export const PaginationWrapper = styled.div`
+  max-width: 1260px;
+  padding: 0 30px;
+  width: 100%;
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+
+  .custom-pagination {
+    position: absolute;
+    top: 50%;
+    left: 30px;
+    transform: translateY(-50%);
+    height: calc(100% - 280px);
+    width: 50px;
+    z-index: 3;
     display: flex;
     flex-direction: column;
     justify-content: stretch;
     align-items: center;
     gap: 40px;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    height: calc(100% - 60px);
-    width: 50px;
+    pointer-events: all;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
       flex-direction: row;
@@ -227,7 +245,7 @@ export const Swiper = styled(SwiperComponent)`
     background: transparent;
     opacity: 0.4;
     position: relative;
-    display: flex;
+    display: flex !important;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -298,57 +316,6 @@ export const Swiper = styled(SwiperComponent)`
   }
 `;
 
-export const SwiperSlide = styled(SwiperSlideComponent)`
-  will-change: transform;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-  isolation: isolate;
-  z-index: 1;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-    background: linear-gradient(
-      169.11deg,
-      rgba(70, 70, 80, 0.4) 10.47%,
-      rgba(70, 70, 80, 0.2) 80.6%
-    );
-    position: relative;
-    box-shadow: 0px 5px 25px 0px #00000026;
-    -webkit-backdrop-filter: blur(24px);
-    backdrop-filter: blur(24px);
-    border-radius: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    overflow: hidden;
-    height: 100%;
-    min-height: 100%;
-
-    &::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      border-radius: 30px;
-      padding: 1px;
-      background: linear-gradient(
-        166.29deg,
-        rgba(144, 144, 144, 0.5) 6.91%,
-        rgba(144, 144, 144, 0) 51%,
-        rgba(64, 64, 64, 0) 72.6%,
-        rgba(64, 64, 64, 0.5) 95.08%
-      );
-      -webkit-mask: linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-      -webkit-mask-composite: destination-out;
-      mask-composite: exclude;
-      pointer-events: none;
-    }
-  }
-`;
-
 export const BackgroundImages = styled.div`
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     height: 420px;
@@ -369,6 +336,15 @@ export const Accordion = styled(AccordionStyled)`
   z-index: 2;
   border-radius: 30px;
   cursor: auto;
+  background: linear-gradient(
+    169.11deg,
+    rgba(70, 70, 80, 0.4) 10.47%,
+    rgba(70, 70, 80, 0.2) 80.6%
+  );
+  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px);
+  box-shadow: 0px 5px 25px 0px #00000026;
+  border-radius: 30px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
     margin-left: 0;
@@ -378,6 +354,33 @@ export const Accordion = styled(AccordionStyled)`
     border-top: 1px solid #555555;
     padding: 18px 22px 32px;
     cursor: pointer;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 30px;
+    padding: 1px;
+    background: linear-gradient(
+      166.29deg,
+      rgba(144, 144, 144, 0.5) 6.91%,
+      rgba(144, 144, 144, 0) 51%,
+      rgba(64, 64, 64, 0) 72.6%,
+      rgba(64, 64, 64, 0.5) 95.08%
+    );
+    -webkit-mask: linear-gradient(to right, #fff 0%, #fff 100%) content-box,
+      linear-gradient(to right, #fff 0%, #fff 100%);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    pointer-events: none;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+      display: none;
+    }
   }
 `;
 
