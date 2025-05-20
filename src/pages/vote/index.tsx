@@ -5,6 +5,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/navigation";
 import { setCookie } from "nookies";
 import { isIOS } from 'react-device-detect';
+import dynamic from "next/dynamic";
 
 import { authUser, sendVote } from "@/api";
 
@@ -15,8 +16,14 @@ import { Header } from "@/components/Header/Header";
 import { SectionTitle } from "@/components/Shared/SectionTitle/SectionTitle";
 import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
 
-import { VideoRotate } from '@/components/VideoRotate/VideoRotate';
-import { VideoOpen } from '@/components/VideoOpen/VideoOpen';
+const VideoRotate = dynamic(
+  () => import("@/components/VideoRotate/VideoRotate").then((mod) => mod.VideoRotate),
+  { ssr: false },
+);
+const VideoOpen = dynamic(
+  () => import("@/components/VideoOpen/VideoOpen").then((mod) => mod.VideoOpen),
+  { ssr: false },
+);
 
 import sauce1 from "@/assets/images/1_3_0000.webp";
 import sauce2 from "@/assets/images/2_2_0001.webp";
@@ -34,7 +41,6 @@ import opening3_ios from "@/assets/webm/dip_3_2_opening_lottie.hevc.mp4";
 import rotation1_ios from "@/assets/webm/dip_1_3_rotation_lottie.hevc.mp4";
 import rotation2_ios from "@/assets/webm/dip_2_2_rotation_lottie.hevc.mp4";
 import rotation3_ios from "@/assets/webm/dip_3_2_rotation_lottie.hevc.mp4";
-
 
 import {
   VoteWrapper,
@@ -207,7 +213,7 @@ export default function Vote({ cookies }: IVote) {
                         position: "absolute",
                         top: 0,
                         left: 0,
-                        opacity: step === 1 ? 1 : 0,
+
                         pointerEvents: step === 1 ? "auto" : "none",
                       }}
                       onClick={handleNextStep}

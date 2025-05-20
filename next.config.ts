@@ -45,11 +45,19 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        source: "/(.*).(mp4|webm|mov|ogg)",
+        source: "/(.*).(mp4|webm|mov|ogg|hevc)",
         headers: [
           {
             key: "Cache-Control",
             value: "public, max-age=31536000, immutable",
+          },
+          {
+            key: "Accept-Ranges",
+            value: "bytes",
+          },
+          {
+            key: "Content-Type",
+            value: "video/mp4",
           },
         ],
       },
@@ -67,7 +75,7 @@ const nextConfig: NextConfig = {
     });
 
     config.module.rules.push({
-      test: /\.(mp4|webm|mov|ogg)$/,
+      test: /\.(mp4|webm|mov|ogg|hevc)$/,
       type: "asset/resource",
       generator: {
         filename: "static/media/[name].[hash][ext]",

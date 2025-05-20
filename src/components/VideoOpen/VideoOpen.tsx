@@ -1,4 +1,5 @@
 import { FC, useEffect, useRef } from 'react';
+
 import { useDeviceDetect } from '@/hooks/useDeviceDetect';
 import { useClient } from '@/hooks/useClient';
 
@@ -86,7 +87,8 @@ export const VideoOpen: FC<IVideoOpen> = ({
                     ref={videoRef}
                     width={defaultSize}
                     height={defaultSize}
-                    preload="auto"
+                    webkit-playsinline="true"
+                    x-webkit-airplay="allow"
                     muted
                     playsInline
                     style={{
@@ -95,7 +97,7 @@ export const VideoOpen: FC<IVideoOpen> = ({
                         objectFit: 'contain',
                     }}
                 >
-                    <source src={src} type="video/webm" />
+                    <source src={src} type='video/mp4' />
                 </video>
             )}
         </div>
