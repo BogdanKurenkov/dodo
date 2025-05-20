@@ -27,11 +27,11 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        source: "/(.*).(webp|avif|png|jpg|jpeg|gif|svg)",
+        source: "/(.*).(webp|avif|png|jpg|jpeg|gif|svg|webm|mp4)",
         headers: [
           {
             key: "Cache-Control",
-            value: "public, max-age=604800",
+            value: "public, max-age=604800, immutable",
           },
         ],
       },
@@ -41,6 +41,15 @@ const nextConfig: NextConfig = {
           {
             key: "Cache-Control",
             value: "public, max-age=604800",
+          },
+        ],
+      },
+      {
+        source: "/(.*).(mp4|webm|mov|ogg)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
           },
         ],
       },
@@ -55,6 +64,14 @@ const nextConfig: NextConfig = {
     config.module.rules.push({
       test: /\.(woff|woff2)$/,
       type: "asset/resource",
+    });
+
+    config.module.rules.push({
+      test: /\.(mp4|webm|mov|ogg)$/,
+      type: "asset/resource",
+      generator: {
+        filename: "static/media/[name].[hash][ext]",
+      },
     });
 
     return config;

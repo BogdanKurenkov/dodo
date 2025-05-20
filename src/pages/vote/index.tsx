@@ -3,7 +3,6 @@ import { GetServerSideProps } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/navigation";
-import dynamic from "next/dynamic";
 import { setCookie } from "nookies";
 
 import { authUser, sendVote } from "@/api";
@@ -14,23 +13,20 @@ import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
 import { SectionTitle } from "@/components/Shared/SectionTitle/SectionTitle";
 import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
-const LottieRotate = dynamic(
-  () =>
-    import("@/components/LottieRotate/LottieRotate").then(
-      (mod) => mod.LottieRotate
-    ),
-  { ssr: false }
-);
-const LottieBase = dynamic(
-  () =>
-    import("@/components/LottieBase/LottieBase").then((mod) => mod.LottieBase),
-  { ssr: false }
-);
+
+import { VideoRotate } from '@/components/VideoRotate/VideoRotate';
+import { VideoOpen } from '@/components/VideoOpen/VideoOpen';
 
 import sauce1 from "@/assets/images/1_3_0000.webp";
 import sauce2 from "@/assets/images/2_2_0001.webp";
 import sauce3 from "@/assets/images/3_2_0000.webp";
 import VoteBackgroundImage from "../../../public/images/vote-background.webp";
+import opening1 from "@/assets/webm/dip_1_3_opening_lottie.webm";
+import opening2 from "@/assets/webm/dip_2_2_opening_lottie.webm";
+import opening3 from "@/assets/webm/dip_3_2_opening_lottie.webm";
+import rotation1 from "@/assets/webm/dip_1_3_rotation_lottie.webm";
+import rotation2 from "@/assets/webm/dip_2_2_rotation_lottie.webm";
+import rotation3 from "@/assets/webm/dip_3_2_rotation_lottie.webm";
 
 import {
   VoteWrapper,
@@ -67,7 +63,6 @@ export default function Vote({ cookies }: IVote) {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [rotateLoaded, setRotateLoaded] = useState(false);
   const [loadedRotateCount, setLoadedRotateCount] = useState(0);
-  const [startLoading, setStartLoading] = useState(false);
 
   const device = useDeviceDetect();
 
@@ -84,61 +79,57 @@ export default function Vote({ cookies }: IVote) {
     }
   }, [loadedRotateCount]);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      console.log("start")
-      setStartLoading(true);
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   const animations_rotate = [
-    <LottieRotate
+    <VideoRotate
       key={4}
-      isAnimate={!isPlaying}
       isPlaying={isPlaying}
-      path="/lottie/vote/dip_1_3_rotation_lottie/animation.json"
-      onLoad={() => { }}
+      src={rotation1}
       placeholderImage={sauce1}
       onLoaded={handleRotateLoad}
-
+      isAnimate={!isPlaying}
+      playbackRate={2}
     />,
-    <LottieRotate
+    <VideoRotate
       key={5}
       direction="down"
-      isAnimate={!isPlaying}
       isPlaying={isPlaying && rotateLoaded}
-      path="/lottie/vote/dip_2_2_rotation_lottie/animation.json"
-      onLoad={() => { }}
+      src={rotation2}
       placeholderImage={sauce2}
       onLoaded={handleRotateLoad}
-    />,
-    <LottieRotate
-      key={6}
       isAnimate={!isPlaying}
+      playbackRate={2}
+    />,
+    <VideoRotate
+      key={6}
       isPlaying={isPlaying}
-      path="/lottie/vote/dip_3_2_rotation_lottie/animation.json"
-      onLoad={() => { }}
+      src={rotation3}
       placeholderImage={sauce3}
       onLoaded={handleRotateLoad}
+      isAnimate={!isPlaying}
+      playbackRate={2}
     />,
   ];
 
-  const animations_open = startLoading ? [
-    <LottieBase
+  const animations_open = [
+    <VideoOpen
       key={1}
-      path="/lottie/vote/dip_1_3_opening_lottie/animation.json"
+      isPlaying={activeCard === 0}
+      src={opening1}
+      onClick={() => handleCardClick(0)}
     />,
-    <LottieBase
+    <VideoOpen
       key={2}
-      path="/lottie/vote/dip_2_2_opening_lottie/animation.json"
+      isPlaying={activeCard === 1}
+      src={opening2}
+      onClick={() => handleCardClick(1)}
     />,
-    <LottieBase
+    <VideoOpen
       key={3}
-      path="/lottie/vote/dip_3_2_opening_lottie/animation.json"
+      isPlaying={activeCard === 2}
+      src={opening3}
+      onClick={() => handleCardClick(2)}
     />,
-  ] : [];
+  ];
 
   const handleCardClick = (number: number) => {
     if (activeCard === number) {
@@ -156,7 +147,7 @@ export default function Vote({ cookies }: IVote) {
       setIsPlaying(true);
       setTimeout(() => {
         setStep(2);
-      }, 1200);
+      }, 2000);
     }
   };
 
@@ -166,7 +157,7 @@ export default function Vote({ cookies }: IVote) {
       setIsPlaying(true);
       setTimeout(() => {
         setStep(2);
-      }, 1200);
+      }, 2000);
     } else {
       const data = {
         token: cookies.token || "",
@@ -249,7 +240,7 @@ export default function Vote({ cookies }: IVote) {
               {t("vote.click")}
             </VotePrompt>
           </Container>
-          <VoteBackground src={VoteBackgroundImage} $step={step} $isTransitioning={isTransitioning} $sPlaying={isPlaying} alt="Vote background"/>
+          <VoteBackground src={VoteBackgroundImage} $step={step} $isTransitioning={isTransitioning} $sPlaying={isPlaying} alt="Vote background" />
           <VoteBackgroundMob $step={step} $isTransitioning={isTransitioning} $sPlaying={isPlaying}></VoteBackgroundMob>
         </VoteWrapper>
       </main>
