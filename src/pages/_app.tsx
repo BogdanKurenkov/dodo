@@ -7,7 +7,6 @@ import { useRouter } from "next/router";
 
 import { GlobalStyles } from "@/components/GlobalStyles/GlobalStyles";
 import { theme } from "@/constants/theme";
-// import { neueHaasUnica, segoeUiSemibold } from "@/lib/fonts";
 
 function App({ Component, pageProps }: AppProps) {
   const router = useRouter();

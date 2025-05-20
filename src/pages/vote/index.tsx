@@ -4,6 +4,7 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/navigation";
 import { setCookie } from "nookies";
+import { isIOS } from 'react-device-detect';
 
 import { authUser, sendVote } from "@/api";
 
@@ -27,6 +28,13 @@ import opening3 from "@/assets/webm/dip_3_2_opening_lottie.webm";
 import rotation1 from "@/assets/webm/dip_1_3_rotation_lottie.webm";
 import rotation2 from "@/assets/webm/dip_2_2_rotation_lottie.webm";
 import rotation3 from "@/assets/webm/dip_3_2_rotation_lottie.webm";
+import opening1_ios from "@/assets/webm/dip_1_3_opening_lottie.hevc.mp4";
+import opening2_ios from "@/assets/webm/dip_2_2_opening_lottie.hevc.mp4";
+import opening3_ios from "@/assets/webm/dip_3_2_opening_lottie.hevc.mp4";
+import rotation1_ios from "@/assets/webm/dip_1_3_rotation_lottie.hevc.mp4";
+import rotation2_ios from "@/assets/webm/dip_2_2_rotation_lottie.hevc.mp4";
+import rotation3_ios from "@/assets/webm/dip_3_2_rotation_lottie.hevc.mp4";
+
 
 import {
   VoteWrapper,
@@ -83,7 +91,7 @@ export default function Vote({ cookies }: IVote) {
     <VideoRotate
       key={4}
       isPlaying={isPlaying}
-      src={rotation1}
+      src={isIOS ? rotation1_ios : rotation1}
       placeholderImage={sauce1}
       onLoaded={handleRotateLoad}
       isAnimate={!isPlaying}
@@ -93,7 +101,7 @@ export default function Vote({ cookies }: IVote) {
       key={5}
       direction="down"
       isPlaying={isPlaying && rotateLoaded}
-      src={rotation2}
+      src={isIOS ? rotation2_ios : rotation2}
       placeholderImage={sauce2}
       onLoaded={handleRotateLoad}
       isAnimate={!isPlaying}
@@ -102,7 +110,7 @@ export default function Vote({ cookies }: IVote) {
     <VideoRotate
       key={6}
       isPlaying={isPlaying}
-      src={rotation3}
+      src={isIOS ? rotation3_ios : rotation3}
       placeholderImage={sauce3}
       onLoaded={handleRotateLoad}
       isAnimate={!isPlaying}
@@ -114,19 +122,19 @@ export default function Vote({ cookies }: IVote) {
     <VideoOpen
       key={1}
       isPlaying={activeCard === 0}
-      src={opening1}
+      src={isIOS ? opening1_ios : opening1}
       onClick={() => handleCardClick(0)}
     />,
     <VideoOpen
       key={2}
       isPlaying={activeCard === 1}
-      src={opening2}
+      src={isIOS ? opening2_ios : opening2}
       onClick={() => handleCardClick(1)}
     />,
     <VideoOpen
       key={3}
       isPlaying={activeCard === 2}
-      src={opening3}
+      src={isIOS ? opening3_ios : opening3}
       onClick={() => handleCardClick(2)}
     />,
   ];
