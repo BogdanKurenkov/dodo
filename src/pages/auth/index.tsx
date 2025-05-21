@@ -9,6 +9,8 @@ import { authUser } from "@/api";
 
 import { useFingerprint } from "@/hooks/useFingerprint";
 
+import { isPromotionActive } from "@/utils/isPromotionActive";
+
 import { TgAuth } from "@/widgets/TgAuth/TgAuth";
 
 import { Footer } from "@/components/Footer/Footer";
@@ -85,6 +87,17 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
 
     const token = cookies.token;
+
+    const isActive = isPromotionActive();
+
+    if (!isActive) {
+        return {
+            redirect: {
+                destination: getLocalizedUrl('/results?source=qr'),
+                permanent: false,
+            },
+        };
+    }
 
     if (token && source === "qr") {
         return {

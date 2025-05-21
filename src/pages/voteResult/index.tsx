@@ -17,6 +17,8 @@ import {
   RatingResponse
 } from "@/api/types";
 
+import { isPromotionActive } from "@/utils/isPromotionActive";
+
 import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
 import { Container } from "@/components/Shared/Container/Container";
@@ -152,6 +154,17 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query, re
       return {
         redirect: {
           destination: getLocalizedUrl('/results'),
+          permanent: false,
+        },
+      };
+    }
+
+    const isActive = isPromotionActive();
+
+    if (!isActive) {
+      return {
+        redirect: {
+          destination: getLocalizedUrl('/results?source=qr'),
           permanent: false,
         },
       };

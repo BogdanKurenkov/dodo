@@ -1,58 +1,73 @@
-import { FC, useEffect, useRef } from 'react';
-
-import { useDeviceDetect } from '@/hooks/useDeviceDetect';
-import { useClient } from '@/hooks/useClient';
+import { FC, useEffect, useRef, useCallback, useState } from 'react';
 
 interface IVideoOpen {
     src: string;
     isPlaying?: boolean;
     onClick?: () => void;
+    onReverseComplete?: () => void;
 }
 
 export const VideoOpen: FC<IVideoOpen> = ({
     src,
     isPlaying = false,
     onClick,
+    onReverseComplete
 }) => {
     const videoRef = useRef<HTMLVideoElement>(null);
-    const device = useDeviceDetect();
-    const client = useClient();
-    const rewindInterval = useRef<NodeJS.Timeout | null>(null);
+    const rewindInterval = useRef<number | null>(null);
+    const [isReady, setIsReady] = useState(false);
 
-    const defaultSize = device === 'desktop' ? 350 : 230;
+    const isAndroid = useCallback(() => {
+        return /Android/i.test(navigator.userAgent);
+    }, []);
 
-    const playBackwards = () => {
-        if (!videoRef.current) return;
-
-        const video = videoRef.current;
-        video.pause();
-
+    const cancelRewind = useCallback(() => {
         if (rewindInterval.current) {
-            clearInterval(rewindInterval.current);
+            cancelAnimationFrame(rewindInterval.current);
+            rewindInterval.current = null;
         }
+    }, []);
 
-        const fps = 30;
-        rewindInterval.current = setInterval(() => {
-            if (video.currentTime <= 0) {
-                if (rewindInterval.current) {
-                    clearInterval(rewindInterval.current);
-                }
-                video.currentTime = 0;
+    const playBackwards = useCallback(() => {
+        const video = videoRef.current;
+        if (!video || !isReady) return;
+
+        video.pause();
+        cancelRewind();
+
+        const startTime = video.currentTime;
+        const targetDuration = 1000;
+        const startTimestamp = performance.now();
+
+        const rewindFrame = (timestamp: number) => {
+            const progress = Math.min(1, (timestamp - startTimestamp) / targetDuration);
+            let newTime = startTime * (1 - progress);
+
+            if (isAndroid()) {
+                newTime = Math.round(newTime * 100) / 100;
+                video.currentTime = Math.max(0, newTime);
+                video.pause();
             } else {
-                video.currentTime -= 0.033;
+                video.currentTime = Math.max(0, newTime);
             }
-        }, 1000 / fps);
-    };
+
+            if (progress < 1) {
+                rewindInterval.current = requestAnimationFrame(rewindFrame);
+            } else {
+                video.currentTime = 0;
+                onReverseComplete?.();
+            }
+        };
+
+        rewindInterval.current = requestAnimationFrame(rewindFrame);
+    }, [isReady, cancelRewind, isAndroid, onReverseComplete]);
 
     useEffect(() => {
-        if (!videoRef.current) return;
-
         const video = videoRef.current;
+        if (!video) return;
 
         if (isPlaying) {
-            if (rewindInterval.current) {
-                clearInterval(rewindInterval.current);
-            }
+            cancelRewind();
             video.currentTime = 0;
             video.play().catch(e => console.error("Play error:", e));
         } else {
@@ -60,11 +75,27 @@ export const VideoOpen: FC<IVideoOpen> = ({
         }
 
         return () => {
-            if (rewindInterval.current) {
-                clearInterval(rewindInterval.current);
-            }
+            cancelRewind();
         };
-    }, [isPlaying]);
+    }, [isPlaying, playBackwards, cancelRewind]);
+
+    useEffect(() => {
+        const video = videoRef.current;
+        if (!video) return;
+
+        const handleLoadedData = () => {
+            if (isAndroid()) {
+                video.currentTime = video.duration;
+                video.pause();
+            }
+            setIsReady(true);
+        };
+
+        video.addEventListener('loadeddata', handleLoadedData);
+        return () => {
+            video.removeEventListener('loadeddata', handleLoadedData);
+        };
+    }, [isAndroid]);
 
     const handleClick = () => {
         if (!isPlaying) {
@@ -75,31 +106,28 @@ export const VideoOpen: FC<IVideoOpen> = ({
     return (
         <div
             style={{
-                width: defaultSize,
-                height: defaultSize,
+                width: '100%',
+                height: '100%',
                 position: 'relative',
                 cursor: 'pointer',
             }}
             onClick={handleClick}
         >
-            {client && (
-                <video
-                    ref={videoRef}
-                    width={defaultSize}
-                    height={defaultSize}
-                    webkit-playsinline="true"
-                    x-webkit-airplay="allow"
-                    muted
-                    playsInline
-                    style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'contain',
-                    }}
-                >
-                    <source src={src} type='video/mp4' />
-                </video>
-            )}
+            <video
+                ref={videoRef}
+                webkit-playsinline="true"
+                x-webkit-airplay="allow"
+                muted
+                playsInline
+                preload="auto"
+                style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain',
+                }}
+            >
+                <source src={src} type='video/mp4' />
+            </video>
         </div>
     );
 };

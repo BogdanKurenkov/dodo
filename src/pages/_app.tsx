@@ -6,6 +6,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 
 import { GlobalStyles } from "@/components/GlobalStyles/GlobalStyles";
+
 import { theme } from "@/constants/theme";
 
 function App({ Component, pageProps }: AppProps) {

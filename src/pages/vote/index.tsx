@@ -1,15 +1,17 @@
 import { useState, useEffect, useCallback } from "react";
 import { GetServerSideProps } from "next";
+import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useRouter } from "next/navigation";
 import { setCookie } from "nookies";
 import { isIOS } from 'react-device-detect';
-import dynamic from "next/dynamic";
 
 import { authUser, sendVote } from "@/api";
 
 import { useDeviceDetect } from "@/hooks/useDeviceDetect";
+
+import { isPromotionActive } from "@/utils/isPromotionActive";
 
 import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
@@ -269,6 +271,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { query, req, locale, res } = context;
   const { source } = query;
 
+
+  const getLocalizedUrl = (path: string) => {
+    return locale && locale !== 'ru' ? `/${locale}${path}` : path;
+  };
+
+  const isActive = isPromotionActive();
+
   const cookies =
     req.headers.cookie?.split(";").reduce((acc, cookie) => {
       const [key, value] = cookie.trim().split("=");
@@ -293,9 +302,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
 
-  const getLocalizedUrl = (path: string) => {
-    return locale && locale !== 'ru' ? `/${locale}${path}` : path;
-  };
+  if (!isActive) {
+    return {
+      redirect: {
+        destination: getLocalizedUrl('/results?source=qr'),
+        permanent: false,
+      },
+    };
+  }
 
   if (!token) {
     return {
