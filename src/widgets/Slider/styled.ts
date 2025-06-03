@@ -41,6 +41,56 @@ export const SwiperWrapper = styled.div`
   }
 `;
 
+export const AccordionBackground = styled.section`
+  max-width: 433px;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    169.11deg,
+    rgba(70, 70, 80, 0.4) 10.47%,
+    rgba(70, 70, 80, 0.2) 80.6%
+  );
+  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px);
+  box-shadow: 0px 5px 25px 0px #00000026;
+  border-radius: 30px;
+  position: absolute;
+  top: 0;
+  right: 30px;
+  z-index: 1;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+    display: none;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 30px;
+    padding: 1px;
+    background: linear-gradient(
+      166.29deg,
+      rgba(144, 144, 144, 0.5) 6.91%,
+      rgba(144, 144, 144, 0) 51%,
+      rgba(64, 64, 64, 0) 72.6%,
+      rgba(64, 64, 64, 0.5) 95.08%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    pointer-events: none;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
+      display: none;
+    }
+  }
+`;
+
 export const Sauce = styled(Image)`
   position: absolute;
   top: 50%;
@@ -56,12 +106,27 @@ export const Sauce = styled(Image)`
     height: 240px;
     transform: translateY(-50%) translateX(-130%);
   }
+`;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.m}) {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    transform: translateY(-50%) translateX(-50%);
+export const SauceZoomMob = styled.div<{ $isPlaying: boolean }>`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: ${({ $isPlaying }) =>
+    $isPlaying
+      ? "translateY(-50%) translateX(-50%) scale(1)"
+      : "translateY(-50%) translateX(-50%) scale(0.6)"};
+  object-fit: cover;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 720ms ease-in-out;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    transform: translateY(-50%) translateX(-50%) scale(1);
   }
 `;
 
