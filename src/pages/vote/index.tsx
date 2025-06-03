@@ -1,11 +1,10 @@
 import { useState, useEffect, useCallback } from "react";
 import { GetServerSideProps } from "next";
-import dynamic from "next/dynamic";
-import { useRouter } from "next/navigation";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
 import { setCookie } from "nookies";
-import { isIOS } from 'react-device-detect';
 
 import { authUser, sendVote } from "@/api";
 
@@ -17,32 +16,23 @@ import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
 import { SectionTitle } from "@/components/Shared/SectionTitle/SectionTitle";
 import { TextWithLineBreaks } from "@/components/Shared/TextWithLineBreaks/TextWithLineBreaks";
-
-const VideoRotate = dynamic(
-  () => import("@/components/VideoRotate/VideoRotate").then((mod) => mod.VideoRotate),
-  { ssr: false },
+const LottieRotate = dynamic(
+  () =>
+    import("@/components/LottieRotate/LottieRotate").then(
+      (mod) => mod.LottieRotate
+    ),
+  { ssr: false }
 );
-const VideoOpen = dynamic(
-  () => import("@/components/VideoOpen/VideoOpen").then((mod) => mod.VideoOpen),
-  { ssr: false },
+const LottieBase = dynamic(
+  () =>
+    import("@/components/LottieBase/LottieBase").then((mod) => mod.LottieBase),
+  { ssr: false }
 );
 
 import sauce1 from "@/assets/images/1_3_0000.webp";
 import sauce2 from "@/assets/images/2_2_0001.webp";
 import sauce3 from "@/assets/images/3_2_0000.webp";
 import VoteBackgroundImage from "../../../public/images/vote-background.webp";
-import opening1 from "@/assets/webm/dip_1_3_opening_lottie.webm";
-import opening2 from "@/assets/webm/dip_2_2_opening_lottie.webm";
-import opening3 from "@/assets/webm/dip_3_2_opening_lottie.webm";
-import rotation1 from "@/assets/webm/dip_1_3_rotation_lottie.webm";
-import rotation2 from "@/assets/webm/dip_2_2_rotation_lottie.webm";
-import rotation3 from "@/assets/webm/dip_3_2_rotation_lottie.webm";
-import opening1_ios from "@/assets/webm/dip_1_3_opening_lottie.hevc.mp4";
-import opening2_ios from "@/assets/webm/dip_2_2_opening_lottie.hevc.mp4";
-import opening3_ios from "@/assets/webm/dip_3_2_opening_lottie.hevc.mp4";
-import rotation1_ios from "@/assets/webm/dip_1_3_rotation_lottie.hevc.mp4";
-import rotation2_ios from "@/assets/webm/dip_2_2_rotation_lottie.hevc.mp4";
-import rotation3_ios from "@/assets/webm/dip_3_2_rotation_lottie.hevc.mp4";
 
 import {
   VoteWrapper,
@@ -79,6 +69,7 @@ export default function Vote({ cookies }: IVote) {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [rotateLoaded, setRotateLoaded] = useState(false);
   const [loadedRotateCount, setLoadedRotateCount] = useState(0);
+  const [startLoading, setStartLoading] = useState(false);
 
   const device = useDeviceDetect();
 
@@ -95,57 +86,61 @@ export default function Vote({ cookies }: IVote) {
     }
   }, [loadedRotateCount]);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      console.log("start")
+      setStartLoading(true);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const animations_rotate = [
-    <VideoRotate
+    <LottieRotate
       key={4}
+      isAnimate={!isPlaying}
       isPlaying={isPlaying}
-      src={isIOS ? rotation1_ios : rotation1}
+      path="/lottie/vote/dip_1_3_rotation_lottie/animation.json"
+      onLoad={() => { }}
       placeholderImage={sauce1}
       onLoaded={handleRotateLoad}
-      isAnimate={!isPlaying}
-      playbackRate={2}
+
     />,
-    <VideoRotate
+    <LottieRotate
       key={5}
       direction="down"
+      isAnimate={!isPlaying}
       isPlaying={isPlaying && rotateLoaded}
-      src={isIOS ? rotation2_ios : rotation2}
+      path="/lottie/vote/dip_2_2_rotation_lottie/animation.json"
+      onLoad={() => { }}
       placeholderImage={sauce2}
       onLoaded={handleRotateLoad}
-      isAnimate={!isPlaying}
-      playbackRate={2}
     />,
-    <VideoRotate
+    <LottieRotate
       key={6}
+      isAnimate={!isPlaying}
       isPlaying={isPlaying}
-      src={isIOS ? rotation3_ios : rotation3}
+      path="/lottie/vote/dip_3_2_rotation_lottie/animation.json"
+      onLoad={() => { }}
       placeholderImage={sauce3}
       onLoaded={handleRotateLoad}
-      isAnimate={!isPlaying}
-      playbackRate={2}
     />,
   ];
 
-  const animations_open = [
-    <VideoOpen
+  const animations_open = startLoading ? [
+    <LottieBase
       key={1}
-      isPlaying={activeCard === 0}
-      src={isIOS ? opening1_ios : opening1}
-      onClick={() => handleCardClick(0)}
+      path="/lottie/vote/dip_1_3_opening_lottie/animation.json"
     />,
-    <VideoOpen
+    <LottieBase
       key={2}
-      isPlaying={activeCard === 1}
-      src={isIOS ? opening2_ios : opening2}
-      onClick={() => handleCardClick(1)}
+      path="/lottie/vote/dip_2_2_opening_lottie/animation.json"
     />,
-    <VideoOpen
+    <LottieBase
       key={3}
-      isPlaying={activeCard === 2}
-      src={isIOS ? opening3_ios : opening3}
-      onClick={() => handleCardClick(2)}
+      path="/lottie/vote/dip_3_2_opening_lottie/animation.json"
     />,
-  ];
+  ] : [];
 
   const handleCardClick = (number: number) => {
     if (activeCard === number) {
@@ -163,7 +158,7 @@ export default function Vote({ cookies }: IVote) {
       setIsPlaying(true);
       setTimeout(() => {
         setStep(2);
-      }, 2000);
+      }, 1200);
     }
   };
 
@@ -173,7 +168,7 @@ export default function Vote({ cookies }: IVote) {
       setIsPlaying(true);
       setTimeout(() => {
         setStep(2);
-      }, 2000);
+      }, 1200);
     } else {
       const data = {
         token: cookies.token || "",
@@ -215,7 +210,7 @@ export default function Vote({ cookies }: IVote) {
                         position: "absolute",
                         top: 0,
                         left: 0,
-
+                        opacity: step === 1 ? 1 : 0,
                         pointerEvents: step === 1 ? "auto" : "none",
                       }}
                       onClick={handleNextStep}
